@@ -1,0 +1,37 @@
+/*
+ File:lav_app.scss part-of-project:lav_app encoding:UTF-8
+ Last Modified at 7 Ιαν 2018 12:12:28 πμ.
+ NOTE: COMMERCIAL LICENSE.. !
+ Copyright 2018 KSNET.
+ YOU ARE NOT ALLOWED TO USE ANYWHERE .. THIS CODE OR PORTIONS OF IT..!
+ VARIATIONS, ADAPTATIONS, ADDITIONS, OR INCLUSIONS ARE ALSO FORBIDDEN !
+ This software uses Lavarel PHPframework!
+*/
+/*
+    Created on : 7 Ιαν 2018, 12:12:28 πμ
+    Author     : KSNET
+*/
+
+.clear {clear:both;}
+
+div.has-error .cke_chrome {
+    border: 1px solid $state-danger-text;
+}
+
+.gray-out {opacity:0.5;}
+
+.previous-link-title {
+line-height: 18px;
+font-size: 14px;
+display: block;
+padding: 8px 0;
+font-weight: 300;
+}
+
+.next-link-title {
+line-height: 18px;
+font-size: 14px;
+display: block;
+padding: 8px 0;
+font-weight: 300;
+}
