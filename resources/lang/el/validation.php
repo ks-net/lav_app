@@ -36,7 +36,7 @@ return [
     'different'            => 'The :attribute and :other must be different.',
     'digits'               => 'The :attribute must be :digits digits.',
     'digits_between'       => 'The :attribute must be between :min and :max digits.',
-    'dimensions'           => 'The :attribute has invalid image dimensions.',
+    'dimensions'           => 'Οι διαστάσεις για :attribute πρέπει να είναι ελάχιστο(:min_width πλάτος x :min_height ύψος) - μέγιστο(:max_widthx:max_height)',
     'distinct'             => 'The :attribute field has a duplicate value.',
     'email'                => 'The :attribute must be a valid email address.',
     'exists'               => 'The selected :attribute is invalid.',

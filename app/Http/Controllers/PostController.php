@@ -102,9 +102,13 @@ class PostController extends Controller {
 
         if ($request->hasfile('main_img')) {
             $file = $request->file('main_img');
-            Storage::makeDirectory('media/postimages/' . $post->id);
+           // Storage::makeDirectory('storage/media/postimages/' . $post->id);
+
+
             $filename = 'post_' . $post->id . '_ORIGINAL.' . $file->getClientOriginalExtension();
-            $file->move('storage/media/postimages/' . $post->id . '/', $filename);
+
+            Storage::disk('public')->put('media/postimages/' . $post->id . '/' . $filename, file_get_contents($file));
+           // $file->move('storage/media/postimages/' . $post->id . '/', $filename);
             $img = 'storage/media/postimages/' . $post->id . '/' . $filename;
             $costumname = 'post_' . $post->id;
 
