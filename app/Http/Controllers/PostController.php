@@ -13,6 +13,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 //use Illuminate\Support\Facades\Session;

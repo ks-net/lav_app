@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
 use App\Post;
-
+use App\Media;
 
 Auth::routes();
 
@@ -26,20 +26,29 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/post', 'PostController@index')->name('posts index');
+Route::get('/post', 'PostController@index')->name('posthome');
 
-Route::get('/post/list', 'PostController@listing')->name('posts list')->middleware('auth');
+Route::get('/post/list', 'PostController@listing')->name('postlist')->middleware('auth');
 
 Route::get('/post/create', function () {
-    $tags = Post::allTagModels();
+    $tags = Post::allTags();
     return view('post-create', compact('tags'));
 })->middleware('auth');
 
-Route::post('/post/create', 'PostController@create')->name('Posting New Post')->middleware('auth');
+Route::post('/post/create', 'PostController@create')->name('postcreate')->middleware('auth');
 
-Route::get('post/{seotitle}', 'PostController@view')->name('Single Post View');
+Route::get('post/{seotitle}', 'PostController@view')->name('postsingle');
 
-Route::get('post/tag/{tag}', 'PostController@index')->name('Posts with tags page');
+
+Route::get('media/', 'MediaController@index')->name('medialist')->middleware('auth');
+
+Route::post('media/add', 'MediaController@add')->name('mediaadd')->middleware('auth');
+
+Route::get('media/add', function () {
+    $tags = Media::allTags();
+    return view('media-add', compact('tags'));
+})->middleware('auth');
+
 
 /******************************
  * Admin Rooutes

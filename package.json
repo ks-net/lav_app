@@ -19,6 +19,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "@fancyapps/fancybox": "^3.2.5",
         "selectize": "^0.12.4"
     }
 }

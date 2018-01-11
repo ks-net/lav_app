@@ -11,9 +11,18 @@ let mix = require('laravel-mix');
  |
  */
 
+mix.webpackConfig({
+    resolve: {
+        alias: {
+            'fancybox': '@fancyapps/fancybox'  // relative to node_modules
+        }
+    }
+});
+
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+        .js('resources/assets/js/ajax-postcreate.js', 'public/js')
+        .sass('resources/assets/sass/app.scss', 'public/css');
 /*   .styles([
-        'resources/assets/css/lav_app.css'
-        ], 'public/css/lav_app.css');
-*/
+ 'resources/assets/css/lav_app.css'
+ ], 'public/css/lav_app.css');
+ */

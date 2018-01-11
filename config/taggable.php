@@ -52,5 +52,8 @@ return [
      * to get a collection of all the Posts that are tagged "Apple".
      */
 
-    'taggedModels' => [],
+    'taggedModels' => [
+        'posts' => \App\Post::class,
+        'media' => \App\Media::class
+    ],
 ];

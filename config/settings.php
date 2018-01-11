@@ -19,6 +19,10 @@ return [
     'post_main_img_height' => '576',
     'post_medium_img_width' => '800',
     'post_medium_img_height' => '300',
-    'post_thumb_img_width' => '250',
-    'post_thumb_img_height' => '250', 
+    'post_thumb_img_width' => '150',
+    'post_thumb_img_height' => '150',
+    'media_full_img_width' => '1024',//height:auto
+    'media_medium_img_width' => '800',//height:auto
+    'media_thumb_img_width' => '150',
+    'media_thumb_img_height' => '150',
 ];

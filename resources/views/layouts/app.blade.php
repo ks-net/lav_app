@@ -77,7 +77,6 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/lav_app.js') }}"></script>
 @stack('bottom-scripts')
 <!-- Scripts End -->
 

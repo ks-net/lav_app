@@ -33,6 +33,12 @@
                     <h3><i class="fas fa-edit"></i> CREATE-ADD NEW POST BLADE VIEW</h3>
                     <a href="{{url('post/')}}" class="btn btn-danger"> Posts Index Page <i class="fas fa-share"></i></a>
                     <a href="{{url('post/list')}}" class="btn btn-info"> LISTING PAGE <i class="fas fa-list"></i></a>
+                    <a href="{{url('media/')}}" class="btn btn-default"> Media Index Page <i class="fas fa-image"></i></a>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        Launch demo modal
+                    </button>
                     <!-- START ADD FORM  -->
                     <h1>Add New Post</h1>
                     <form action="/post/create" method="post" enctype="multipart/form-data">
@@ -101,8 +107,30 @@
 </div>
 @endsection
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                @include('inmodal')
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @push('bottom-scripts')
 <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+<script src="{{asset('js/ajax-postcreate.js')}}"></script>
 <script>
 CKEDITOR.replace('postbody', {
     customConfig: 'config.js'
@@ -136,4 +164,5 @@ CKEDITOR.replace('postbody', {
             @endforeach
     ];
 </script>
+
 @endpush

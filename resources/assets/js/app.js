@@ -6,7 +6,7 @@
  */
 
 require('./bootstrap');
-
+require('./lav_app.js');
 window.Vue = require('vue');
 
 /**

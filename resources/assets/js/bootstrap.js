@@ -11,6 +11,13 @@ try {
     window.$ = window.jQuery = require('jquery');
     require('selectize');
     require('bootstrap-sass');
+    var fancybox = require("fancybox")($);
+
+$(document).ready(function() {
+	$("[data-fancybox]").fancybox({
+		// Options will go here
+	});
+});
 
 
 } catch (e) {}

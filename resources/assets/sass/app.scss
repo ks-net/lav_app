@@ -8,4 +8,9 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~selectize/dist/css/selectize.bootstrap3";
+@import "~@fancyapps/fancybox/src/css/core";
+@import "~@fancyapps/fancybox/src/css/thumbs";
+@import "~@fancyapps/fancybox/src/css/share";
+@import "~@fancyapps/fancybox/src/css/fullscreen";
+@import "~@fancyapps/fancybox/src/css/slideshow";
 @import "lav_app.scss";
