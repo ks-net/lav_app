@@ -36,9 +36,9 @@
                     </div>
                     @endif
                     <h3><i class="fas fa-clipboard"></i>  {{ $post->title }} </h3>
-                    <a href="{{url('post/create')}}" class="btn btn-success"> Add New Post <i class="fas fa-plus-circle"></i></a>
-                    <a href="{{url('post/')}}" class="btn btn-danger"> Posts Index Page <i class="fas fa-share"></i></a>
-                    <a href="{{url('post/list')}}" class="btn btn-info"> LISTING PAGE <i class="fas fa-list"></i></a>
+                 <a href="{{route('adminpostcreate')}}" class="btn btn-success"> Create New Post <i class="fas fa-plus-circle"></i></a>
+                 <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
+                 <a href="{{route('adminpostlist')}}" class="btn btn-danger"> Posts List Page <i class="fas fa-share"></i></a>
                     <hr/>
 
 

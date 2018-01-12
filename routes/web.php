@@ -12,8 +12,6 @@
  */
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Cache;
 use App\Post;
 use App\Media;
 
@@ -28,37 +26,44 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/post', 'PostController@index')->name('posthome');
 
-Route::get('/post/list', 'PostController@listing')->name('postlist')->middleware('auth');
-
-Route::get('/post/create', function () {
-    $tags = Post::allTags();
-    return view('post-create', compact('tags'));
-})->middleware('auth');
-
-Route::post('/post/create', 'PostController@create')->name('postcreate')->middleware('auth');
-
 Route::get('post/{seotitle}', 'PostController@view')->name('postsingle');
 
 
-Route::get('media/', 'MediaController@index')->name('medialist')->middleware('auth');
 
-Route::post('media/add', 'MediaController@add')->name('mediaadd')->middleware('auth');
-
-Route::get('media/add', function () {
-    $tags = Media::allTags();
-    return view('media-add', compact('tags'));
-})->middleware('auth');
-
-
-/******************************
- * Admin Rooutes
+/* * ****************************
+ * Admin Routes
  *
-********************************/
-Route::group(['prefix' => 'admin'], function()
-{
+ * ****************************** */
+Route::group(['prefix' => 'admin'], function() {
+
+    Route::get('/', function () {
+        return view('admin.dashboard');
+    })->middleware('auth');
+
+    Route::get('/post/list', 'PostController@listing')->name('adminpostlist')->middleware('auth');
+
+    Route::get('/post/create', function () {
+        $tags = Post::allTags();
+        return view('post.admin.create', compact('tags'));
+    })->middleware('auth');
+
+    Route::post('/post/create', 'PostController@create')->name('adminpostcreate')->middleware('auth');
 
 
+    Route::get('media/', 'MediaController@index')->name('adminmedialist')->middleware('auth');
+
+    Route::post('media/add', 'MediaController@add')->name('adminmediaadd')->middleware('auth');
+
+    Route::get('media/add', function () {
+        $tags = Media::allTags();
+        return view('media.admin.add', compact('tags'));
+    })->middleware('auth');
 
 
+    Route::get('media/modal', function () {
+        $medias = Media::where('active', 1)->paginate(5);
+
+        return view('media.admin.modal')->with(['medias' => $medias]);
+    })->middleware('auth');
 });
 

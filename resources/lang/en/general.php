@@ -14,6 +14,8 @@
 return [
     'Title' => 'Title',
     'title' => 'title',
+    'Name' => 'Name',
+    'name' => 'name',
     'Sortdesc' => 'Sort-Description',
     'sortdesc' => 'sort-description',
     'Previous' => 'Previous',

@@ -10,7 +10,7 @@
  */
 ?>
 
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -31,14 +31,18 @@
                     </div>
                     @endif
                     <h3><i class="fas fa-edit"></i> CREATE-ADD NEW POST BLADE VIEW</h3>
-                    <a href="{{url('post/')}}" class="btn btn-danger"> Posts Index Page <i class="fas fa-share"></i></a>
-                    <a href="{{url('post/list')}}" class="btn btn-info"> LISTING PAGE <i class="fas fa-list"></i></a>
-                    <a href="{{url('media/')}}" class="btn btn-default"> Media Index Page <i class="fas fa-image"></i></a>
-
+                    <a href="{{route('adminpostlist')}}" class="btn btn-danger"> Posts Index Page <i class="fas fa-share"></i></a>
+                 <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    <a   class="btn btn-primary" href="../media/modal" data-toggle="modal" data-target="#myModal">
                         Launch demo modal
-                    </button>
+                    </a>
+
+                    <br/>  <br/>
+                    <a id="moreBtn" href="#">ajax</a>
+
+                    <div id="div1"><i id="loader" class="fas fa-spinner" style="display:none;"></i></div>
+
                     <!-- START ADD FORM  -->
                     <h1>Add New Post</h1>
                     <form action="/post/create" method="post" enctype="multipart/form-data">
@@ -98,14 +102,13 @@
                     <!-- END ADD FORM  -->
 
                 </div>
-            </div>
+            </div> <!-- panel END -->
 
         </div>
     </div>
-</div>
-</div>
-</div>
-@endsection
+</div> <!-- container END -->
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -116,7 +119,7 @@
                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
             </div>
             <div class="modal-body">
-                @include('inmodal')
+                ....
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -125,8 +128,7 @@
         </div>
     </div>
 </div>
-
-
+@endsection
 
 @push('bottom-scripts')
 <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
@@ -165,4 +167,23 @@ CKEDITOR.replace('postbody', {
     ];
 </script>
 
+<script>
+
+              $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+             });
+
+$('#moreBtn').click(function () {
+$.ajax({
+  url: "../media",
+  cache: false
+})
+
+  .done(function( html ) {
+    $( "#div1" ).append( html );
+  });
+});
+</script>
 @endpush

@@ -13,7 +13,6 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 //use Illuminate\Support\Facades\Session;
@@ -44,7 +43,7 @@ class PostController extends Controller {
                     return DB::table('posts')->where('active', '1')->orderBy('id', 'desc')->paginate(config('settings.artlistpagin'));
                 });
 
-        return view('post-home', ['posts' => $posts]);
+        return view('post.index', ['posts' => $posts]);
     }
 
     /**
@@ -55,13 +54,15 @@ class PostController extends Controller {
         $posts = $post->sortable('id')->paginate(config('settings.panellistpagin'));
         //$posts = DB::table('posts')->orderBy('id', 'desc')->paginate(config('settings.panellistpagin'));
         // return view('post-list', ['posts' => $posts]);
-        return view('post-list')->withPosts($posts);
+        return view('post.admin.list')->withPosts($posts);
     }
+
+
 
     /**
      * Display Single Post Page
      */
-    public function view($seotitle) {
+    public function view($seotitle ) {
         $post = Cache::remember('post' . $seotitle, config('settings.cachetime'), function() use ($seotitle) {
                     return Post::where('seotitle', $seotitle)->where('active', '1')->first() ?? abort(404);
                 });
@@ -79,8 +80,11 @@ class PostController extends Controller {
                     return DB::table('taggable_taggables')->where('taggable_id', $postid)->leftJoin('taggable_tags', 'taggable_taggables.tag_id', '=', 'taggable_tags.tag_id')->select('normalized')->get();
                 });
 
-        return view('post-single')->with('post', $post)->with('previous', $previous)->with('next', $next)->with('tags', $tags);
+        return view('post.single')->with('post', $post)->with('previous', $previous)->with('next', $next)->with('tags', $tags);
     }
+
+
+
 
     /**
      * Add New Post

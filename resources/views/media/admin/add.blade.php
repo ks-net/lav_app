@@ -12,7 +12,7 @@
 
 ?>
 
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -33,14 +33,8 @@
                     </div>
                     @endif
                     <h3><i class="fas fa-edit"></i> CREATE-ADD NEW POST BLADE VIEW</h3>
-                    <a href="{{url('media/')}}" class="btn btn-default"> Media Index Page <i class="fas fa-image"></i></a>
-                    <a href="{{url('post/list')}}" class="btn btn-info"> post listing page <i class="fas fa-list"></i></a>
+                    <a href="{{route('adminmedialist')}}" class="btn btn-default"> Media Index Page <i class="fas fa-image"></i></a>
 
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
-</button>
                     <!-- START ADD FORM  -->
                     <h1>Add New Post</h1>
                     <form action="/media/add" method="post" enctype="multipart/form-data">

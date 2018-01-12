@@ -12,7 +12,7 @@
 
 
 
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -28,9 +28,8 @@
                 <div class="panel-heading"><i class="fas fa-copy"></i> ALL POSTS LIST</div>
                 <div class="panel-body">
                     <div class="well-sm">
-                 <a href="{{url('post/create')}}" class="btn btn-success"> Create New Post <i class="fas fa-plus-circle"></i></a>
+                 <a href="{{route('adminpostcreate')}}" class="btn btn-success"> Create New Post <i class="fas fa-plus-circle"></i></a>
                  <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
-                 <a href="{{url('media/')}}" class="btn btn-default"> Media Index Page <i class="fas fa-image"></i></a>
                     </div>
                     @if (count($posts) === 0)
                     <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> I don't have any records!</div>
