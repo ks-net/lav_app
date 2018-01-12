@@ -32,7 +32,7 @@
                     @endif
                     <h3><i class="fas fa-edit"></i> CREATE-ADD NEW POST BLADE VIEW</h3>
                     <a href="{{route('adminpostlist')}}" class="btn btn-danger"> Posts Index Page <i class="fas fa-share"></i></a>
-                 <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
+                    <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
                     <!-- Button trigger modal -->
                     <a   class="btn btn-primary" href="../media/modal" data-toggle="modal" data-target="#myModal">
                         Launch demo modal
@@ -45,7 +45,7 @@
 
                     <!-- START ADD FORM  -->
                     <h1>Add New Post</h1>
-                    <form action="/post/create" method="post" enctype="multipart/form-data">
+                    <form action="{{route('adminpostcreate')}}" method="post" enctype="multipart/form-data">
 
                         @if ($errors->any())
                         <div class="alert alert-danger">
@@ -169,21 +169,21 @@ CKEDITOR.replace('postbody', {
 
 <script>
 
-              $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-             });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-$('#moreBtn').click(function () {
-$.ajax({
-  url: "../media",
-  cache: false
-})
+    $('#moreBtn').click(function () {
+        $.ajax({
+            url: "../media",
+            cache: false
+        })
 
-  .done(function( html ) {
-    $( "#div1" ).append( html );
-  });
-});
+                .done(function (html) {
+                    $("#div1").append(html);
+                });
+    });
 </script>
 @endpush

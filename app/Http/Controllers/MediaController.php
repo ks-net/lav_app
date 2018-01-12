@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\CreateMediaRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class MediaController extends Controller {
@@ -70,6 +71,7 @@ class MediaController extends Controller {
         Image::make($img)->fit(config('settings.media_thumb_img_width'), config('settings.media_thumb_img_height'))
                 ->save('storage/media/images/thumb/' . $costumname . '_thumb_img.jpg', 90);
 
+        $media->image_original = 'storage/media/images/ORIGINAL/' . $filename;
         $media->image = 'storage/media/images/' . $costumname . '.jpg';
         $media->image_medium = 'storage/media/images/medium/' . $costumname . '_medium_img.jpg';
         $media->image_thumb = 'storage/media/images/thumb/' . $costumname . '_thumb_img.jpg';
@@ -82,7 +84,19 @@ class MediaController extends Controller {
 
         Cache::flush();
 
-        return redirect('/media')->with('flash_message', 'Media Successfuly Saved !');
+        return redirect()->route('adminmedialist')->with('flash_message', __('general.The-Image') .' '. __('general.success-saved-message'));
+    }
+
+    /**
+     * Delete Media
+     */
+    public function delete($id) {
+
+        $media = Media::findOrFail($id);
+        File::delete($media->image, $media->image_medium, $media->image_thumb, $media->image_original);
+        $media->delete();
+        //Cache::flush();
+        return back()->with('flash_message', __('general.media-delete-message'));
     }
 
 }

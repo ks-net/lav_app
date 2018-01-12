@@ -84,9 +84,9 @@
                             <span class="small">{{ $media->updated_at }}</span>
                         </td>
                         <td class="text-center">
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('media/'.$media->id)}}"><i class="fas fa-edit"></i></a> &nbsp;
-                             <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('media/'.$media->id)}}"><i class="fas fa-eye"></i></a> &nbsp;
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('media/'.$media->id)}}"><i class="fas fa-trash-alt"></i></a>
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block"  href="{{route('adminmedialist')}}"><i class="fas fa-edit"></i></a> &nbsp;
+                             <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{route('adminmedialist')}}"><i class="fas fa-eye"></i></a> &nbsp;
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" onclick="return confirm('{{__('general.confirm-delete-record')}}: {{ $media->name }}?')" href="{{route('adminmediadelete' , $media->id)}}"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach

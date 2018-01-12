@@ -36,9 +36,9 @@
                     </div>
                     @endif
                     <h3><i class="fas fa-clipboard"></i>  {{ $post->title }} </h3>
-                 <a href="{{route('adminpostcreate')}}" class="btn btn-success"> Create New Post <i class="fas fa-plus-circle"></i></a>
-                 <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
-                 <a href="{{route('adminpostlist')}}" class="btn btn-danger"> Posts List Page <i class="fas fa-share"></i></a>
+                    <a href="{{route('adminpostcreate')}}" class="btn btn-success"> Create New Post <i class="fas fa-plus-circle"></i></a>
+                    <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
+                    <a href="{{route('adminpostlist')}}" class="btn btn-danger"> Posts List Page <i class="fas fa-share"></i></a>
                     <hr/>
 
 
@@ -50,7 +50,7 @@
                     <img  class="img-responsive center-block" src="{{ asset($post->main_img) }}" />
                     @endif
                     <ul>
-                        <li><b>{{__('general.Sortdesc')}}</b>= {{ $post->sortdesc }}</li>
+                        <li><b>{{__('general.Sortdesc')}}</b>= {{ str_limit($post->sortdesc , config('settings.frontend_desc_trim') , '...') }}</li>
                         <li><b>POSTBODY</b>= {!! $post->postbody !!}</li>
                         <li><b>METATITLE</b>= {{ $post->metatitle }}</li>
                         <li><b>METAKEYWORDS</b>= {{ $post->metakeywords }}</li>
@@ -75,7 +75,7 @@
                         <a class="btn btn-default" href="{{url('post/'.$previous->seotitle)}}"><i class="fas fa-chevron-circle-left"></i> {{__('general.Previous')}}</a>
                         <br/>
                         <span class="text-left small previous-link-title">
-                            {{ str_limit($previous->title, '120', '...') }}
+                            {{ str_limit($previous->title, config('settings.frontend_next-prev_trim'), '...') }}
                         </span>
                     </span>
                     @endif
@@ -84,7 +84,7 @@
                         <a class="btn btn-default" href="{{url('post/'.$next->seotitle)}}">{{__('general.Next')}} <i class="fas fa-chevron-circle-right"></i></a>
                         <br/>
                         <span class="text-right small next-link-title">
-                            {{ str_limit($next->title, '120', '...') }}
+                            {{ str_limit($next->title, config('settings.frontend_next-prev_trim'), '...') }}
                         </span>
                     </span>
                     @endif

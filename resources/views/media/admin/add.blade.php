@@ -37,7 +37,7 @@
 
                     <!-- START ADD FORM  -->
                     <h1>Add New Post</h1>
-                    <form action="/media/add" method="post" enctype="multipart/form-data">
+                    <form action="{{route('adminmediaadd')}}" method="post" enctype="multipart/form-data">
 
                         @if ($errors->any())
                         <div class="alert alert-danger">

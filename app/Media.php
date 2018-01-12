@@ -20,6 +20,7 @@ class Media extends Model {
         'image',
         'image_medium',
         'image_thumb',
+        'image_original',
         'slug',
         'order',
         'active',

@@ -52,17 +52,14 @@ class PostController extends Controller {
      */
     public function listing(Post $post) {
         $posts = $post->sortable('id')->paginate(config('settings.panellistpagin'));
-        //$posts = DB::table('posts')->orderBy('id', 'desc')->paginate(config('settings.panellistpagin'));
-        // return view('post-list', ['posts' => $posts]);
+$post->title = str_limit($post->title , config('settings.admin_title_trim') , '...');
         return view('post.admin.list')->withPosts($posts);
     }
-
-
 
     /**
      * Display Single Post Page
      */
-    public function view($seotitle ) {
+    public function view($seotitle) {
         $post = Cache::remember('post' . $seotitle, config('settings.cachetime'), function() use ($seotitle) {
                     return Post::where('seotitle', $seotitle)->where('active', '1')->first() ?? abort(404);
                 });
@@ -82,9 +79,6 @@ class PostController extends Controller {
 
         return view('post.single')->with('post', $post)->with('previous', $previous)->with('next', $next)->with('tags', $tags);
     }
-
-
-
 
     /**
      * Add New Post
@@ -107,13 +101,13 @@ class PostController extends Controller {
 
         if ($request->hasfile('main_img')) {
             $file = $request->file('main_img');
-           // Storage::makeDirectory('storage/media/postimages/' . $post->id);
+            // Storage::makeDirectory('storage/media/postimages/' . $post->id);
 
 
             $filename = 'post_' . $post->id . '_ORIGINAL.' . $file->getClientOriginalExtension();
 
             Storage::disk('public')->put('media/postimages/' . $post->id . '/' . $filename, file_get_contents($file));
-           // $file->move('storage/media/postimages/' . $post->id . '/', $filename);
+            // $file->move('storage/media/postimages/' . $post->id . '/', $filename);
             $img = 'storage/media/postimages/' . $post->id . '/' . $filename;
             $costumname = 'post_' . $post->id;
 
@@ -145,7 +139,7 @@ class PostController extends Controller {
 
         Cache::flush();
 
-        return redirect('/post/list')->with('flash_message', 'Post Successfuly Saved !');
+        return redirect('admin/post/list')->with('flash_message', __('general.The-Post') .' '. __('general.success-saved-message'));
     }
 
     /**
@@ -158,20 +152,20 @@ class PostController extends Controller {
 
         Cache::flush();
         //Session::flash('flash_message', 'Post Successfuly Saved !');
-        return redirect('/post/list')->with('flash_message', 'Post Successfuly Updated and Saved !');
+        return redirect('/post/list')->with('flash_message', __('general.The-Post') .' '. __('general.success-saved-message'));
     }
 
     /**
      * Delete Post
      */
-    public function delete(Request $request) {
-        $post = new Post;
+    public function delete($id) {
 
-        $post->save();
-
+        $post = Post::findOrFail($id);
+        Storage::disk('public')->deleteDirectory('media/postimages/'.$id);
+        $post->delete();
         Cache::flush();
         //Session::flash('flash_message', 'Post Successfuly Saved !');
-        return redirect('/post/list')->with('flash_message', 'Post deleted !');
+        return back()->with('flash_message', 'Post and All Relative Images Deleted !');
     }
 
 }

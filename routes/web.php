@@ -17,7 +17,6 @@ use App\Media;
 
 Auth::routes();
 
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -29,7 +28,6 @@ Route::get('/post', 'PostController@index')->name('posthome');
 Route::get('post/{seotitle}', 'PostController@view')->name('postsingle');
 
 
-
 /* * ****************************
  * Admin Routes
  *
@@ -38,20 +36,22 @@ Route::group(['prefix' => 'admin'], function() {
 
     Route::get('/', function () {
         return view('admin.dashboard');
-    })->middleware('auth');
+    })->name('admin')->middleware('auth');
 
+    // Admin post routes
     Route::get('/post/list', 'PostController@listing')->name('adminpostlist')->middleware('auth');
+    Route::post('/post/create', 'PostController@create')->name('adminpostcreate')->middleware('auth');
 
     Route::get('/post/create', function () {
         $tags = Post::allTags();
         return view('post.admin.create', compact('tags'));
     })->middleware('auth');
 
-    Route::post('/post/create', 'PostController@create')->name('adminpostcreate')->middleware('auth');
+    Route::get('/post/delete/{id}', ['as' => 'postdelete', 'uses' => 'PostController@delete'])->middleware('auth');
 
 
+// Admin media routes
     Route::get('media/', 'MediaController@index')->name('adminmedialist')->middleware('auth');
-
     Route::post('media/add', 'MediaController@add')->name('adminmediaadd')->middleware('auth');
 
     Route::get('media/add', function () {
@@ -59,6 +59,7 @@ Route::group(['prefix' => 'admin'], function() {
         return view('media.admin.add', compact('tags'));
     })->middleware('auth');
 
+    Route::get('/media/delete/{id}', ['as' => 'adminmediadelete', 'uses' => 'MediaController@delete'])->middleware('auth');
 
     Route::get('media/modal', function () {
         $medias = Media::where('active', 1)->paginate(5);

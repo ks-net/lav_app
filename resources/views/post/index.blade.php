@@ -37,22 +37,25 @@
                     </div>
                     @endif
                     <h3><i class="fas fa-th-list"></i> ΛΙΣΤΑ ΑΡΘΡΩΝ - Αγγλικός Τίτλος:  LIST-ALL-POSTS BLADE VIEW</h3>
-                 <a href="{{route('adminpostcreate')}}" class="btn btn-success"> Create New Post <i class="fas fa-plus-circle"></i></a>
-                 <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
-                 <a href="{{route('adminpostlist')}}" class="btn btn-danger"> Posts List Page <i class="fas fa-share"></i></a>
+                    <a href="{{route('adminpostcreate')}}" class="btn btn-success"> Create New Post <i class="fas fa-plus-circle"></i></a>
+                    <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
+                    <a href="{{route('adminpostlist')}}" class="btn btn-danger"> Posts List Page <i class="fas fa-share"></i></a>
                     <hr/>
 
                     @isset ($posts)
                     @foreach ($posts as $post)
                     <ul>
                         <li><b>ID</b>= {{ $post->id }}</li>
-                        <li><b>{{__('general.Title')}} </b>= <span style="color:#3097D1;text-transform:uppercase;font-weight:700;"><a href="{{url('post/'.$post->seotitle)}}">{{ $post->title }}</a></span></li>
+                        <li><b>{{__('general.Title')}} </b>= <span style="color:#3097D1;text-transform:uppercase;font-weight:700;">
+                                <a href="{{url('post/'.$post->seotitle)}}">{{ str_limit($post->title , config('settings.frontend_title_trim') , '...') }}</a>
+                            </span>
+                        </li>
                     </ul>
                     @if ($post->main_img)
                     <img class="img-responsive center-block" src="{{ asset('storage/media/postimages/'.$post->id.'/post_'.$post->id.'_medium_img.jpg') }}" />
                     @endif
                     <ul>
-                        <li><b>{{__('general.Sortdesc')}}</b>= {{ $post->sortdesc }}</li>
+                        <li><b>{{__('general.Sortdesc')}}</b>= {{ str_limit($post->sortdesc , config('settings.frontend_desc_trim') , '...') }}</li>
 
                         <li><b>METATITLE</b>= {{ $post->metatitle }}</li>
                         <li><b>METAKEYWORDS</b>= {{ $post->metakeywords }}</li>

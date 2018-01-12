@@ -28,8 +28,8 @@
                 <div class="panel-heading"><i class="fas fa-copy"></i> ALL POSTS LIST</div>
                 <div class="panel-body">
                     <div class="well-sm">
-                 <a href="{{route('adminpostcreate')}}" class="btn btn-success"> Create New Post <i class="fas fa-plus-circle"></i></a>
-                 <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
+                        <a href="{{route('adminpostcreate')}}" class="btn btn-success"> Create New Post <i class="fas fa-plus-circle"></i></a>
+                        <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
                     </div>
                     @if (count($posts) === 0)
                     <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> I don't have any records!</div>
@@ -41,10 +41,10 @@
                 <table class="table" style="background:#fff;">
                     <tr class="bg-info">
                         <td class="hidden-xs">
-                           @sortablelink('id', 'Id')
+                            @sortablelink('id', 'Id')
                         </td>
                         <td>
-                           @sortablelink('title', 'Title', ['parameter' => 'down'])
+                            @sortablelink('title', 'Title')
                         </td>
                         <td class="text-center">
                             @sortablelink('active')
@@ -65,7 +65,7 @@
                             <span class="small">{{ $post->id }}</span>
                         </td>
                         <td style="border-left:1px dashed #ddd;max-width:640px;">
-                            <span class="small {{ $post->active === 1 ? '' : 'gray-out' }}">{{ str_limit($post->title , '120', '...') }}</span>
+                            <span class="small {{ $post->active === 1 ? '' : 'gray-out' }}">{{ str_limit($post->title , config('settings.admin_title_trim') , '...') }}</span>
                         </td>
                         <td class="text-center">
                             <span class="small"><i class="fas {{ $post->active === 1 ? 'fa-check' : 'fa-ban gray-out' }}"></i></span>
@@ -77,9 +77,10 @@
                             <span class="small">{{ $post->updated_at }}</span>
                         </td>
                         <td class="text-center">
+
                             <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('post/'.$post->seotitle)}}"><i class="fas fa-edit"></i></a> &nbsp;
-                             <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('post/'.$post->seotitle)}}"><i class="fas fa-eye"></i></a> &nbsp;
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('post/'.$post->seotitle)}}"><i class="fas fa-trash-alt"></i></a>
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('post/'.$post->seotitle)}}"><i class="fas fa-eye"></i></a> &nbsp;
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" onclick="return confirm('{{__('general.confirm-delete-record')}}: {{ $post->id }}?')" href="{{ route('postdelete', $post->id) }}"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach

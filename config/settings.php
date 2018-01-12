@@ -15,14 +15,19 @@ return [
     'artlistpagin' => env('SETTINGS_ARTLISTPAGIN', 5),
     'panellistpagin' => env('SETTINGS_PANNELLISTPAGIN', 13),
     'cachetime' => env('SETTINGS_CACHETIME', 10800),
+    'admin_title_trim' => '120',
+    'admin_desc_trim' => '200',
+    'frontend_title_trim' => '120',
+    'frontend_desc_trim' => '250',
+    'frontend_next-prev_trim' => '120',
     'post_main_img_width' => '1024',
     'post_main_img_height' => '576',
     'post_medium_img_width' => '800',
     'post_medium_img_height' => '300',
     'post_thumb_img_width' => '150',
     'post_thumb_img_height' => '150',
-    'media_full_img_width' => '1024',//height:auto
-    'media_medium_img_width' => '800',//height:auto
+    'media_full_img_width' => '1024', //height:auto
+    'media_medium_img_width' => '800', //height:auto
     'media_thumb_img_width' => '150',
     'media_thumb_img_height' => '150',
 ];

@@ -21,4 +21,9 @@ return [
     'Previous' => 'Previous',
     'Next' => 'Next',
     'Tags' => 'Tags',
+    'The-Image' => 'The Image',
+    'The-Post' => 'The Post',
+    'confirm-delete-record' => 'Are you sure? Delete Record',
+    'media-delete-message' => 'Media and All Relative Image Versions Deleted !',
+    'success-saved-message' => 'Succesfully Saved!',
 ];

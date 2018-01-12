@@ -20,6 +20,7 @@ class CreateMediaTable extends Migration
             $table->string('image', 255)->default('placeholder.png');
             $table->string('image_medium', 255)->default('placeholder.png');
             $table->string('image_thumb', 255)->default('placeholder.png');
+            $table->string('image_original', 255)->nullable();
             $table->mediumtext('desc')->nullable();
             $table->tinyInteger('order')->default(0);
             $table->boolean('active')->default(true);
