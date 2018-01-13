@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -151,14 +152,14 @@ class PostController extends Controller {
     /**
      * updatePost
      */
-    public function update(Request $request, $id) {
-        $post = Post::findOrFail($id);
+    public function update(UpdatePostRequest $request) {
+        $post = Post::findOrFail($request->id);
         $post->retag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
         $post->update($request->all());
 
         Cache::flush();
 
-        return redirect('admin/post/list')->with('flash_message', __('general.The-Post') . ' ' . __('general.success-saved-message'));
+        return redirect('admin/post/list')->with('flash_message', __('general.The-Post') . ' ' . __('general.success-updated-message'));
     }
 
     /**
@@ -171,7 +172,7 @@ class PostController extends Controller {
 
         Cache::flush();
 
-        return back()->with('flash_message', __('general.The-Post') . ' ' . __('general.success-saved-message'));
+        return back()->with('flash_message',  __('general.The-Post') . ' ' .__('general.delete-message'));
     }
 
 }

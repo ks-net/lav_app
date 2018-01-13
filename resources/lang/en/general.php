@@ -24,7 +24,9 @@ return [
     'The-Image' => 'The Image',
     'The-Post' => 'The Post',
     'confirm-delete-record' => 'Are you sure? Delete Record',
+    'delete-message' => 'Removed Permanently !',
     'media-delete-message' => 'Media and All Relative Image Versions Deleted !',
     'success-saved-message' => 'Succesfully Saved!',
+    'success-updated-message' => 'Updated Succesfully!',
     'no-records-found' => 'No Records Found...',
 ];

@@ -24,7 +24,9 @@ return [
     'The-Image' => 'Η Εικόνα',
     'The-Post' => 'Το Άρθρο',
     'confirm-delete-record' => 'Σίγουρα Θέλετε να Διαγράψετε την Καταχώρηση',
+    'delete-message' => 'Διαγράφηκε Οριστικά !',
     'media-delete-message' => 'Η Καταχώρηση και Όλες οι Σχετικές Εκδόσεις Διαστάσεων της Εικόνας Διαγράφηκαν !',
-    'success-saved-message' => 'αποθηκεύτηκε  επιτυχώς!',
+    'success-saved-message' => 'Αποθηκεύτηκε  Επιτυχώς!',
+    'success-updated-message' => 'Ενημερώθηκε  Επιτυχώς!',
     'no-records-found' => 'Δεν Υπάρχει Καμία Καταχώρηση Ακόμα ...',
 ];
