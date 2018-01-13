@@ -32,11 +32,11 @@
                         <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
                     </div>
                     @if (count($posts) === 0)
-                    <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> I don't have any records!</div>
+                    <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> {{__('general.no-records-found')}}</div>
                     @endif
                 </div>
 
-                @isset ($posts)
+                @if (count($posts) > 0)
                 <!-- Table -->
                 <table class="table" style="background:#fff;">
                     <tr class="bg-info">
@@ -78,18 +78,20 @@
                         </td>
                         <td class="text-center">
 
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('post/'.$post->seotitle)}}"><i class="fas fa-edit"></i></a> &nbsp;
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{ route('adminpostedit', $post->id) }}"><i class="fas fa-edit"></i></a> &nbsp;
                             <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('post/'.$post->seotitle)}}"><i class="fas fa-eye"></i></a> &nbsp;
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" onclick="return confirm('{{__('general.confirm-delete-record')}}: {{ $post->id }}?')" href="{{ route('postdelete', $post->id) }}"><i class="fas fa-trash-alt"></i></a>
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" onclick="return confirm('{{__('general.confirm-delete-record')}}: {{ $post->id }}?')" href="{{ route('adminpostdelete', $post->id) }}"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach
                 </table>
-                @endisset
+                @endif
 
+                @if ($posts->total() > $posts->perPage())
                 <div class="panel-footer">
                     {{ $posts->appends(\Request::except('page'))->render() }}
                 </div>
+                @endif
 
             </div> <!-- Panel End -->
 

@@ -1,13 +1,15 @@
 <?php
+
 /*
- *  File:postadd.blade.php part-of-project:lav_app encoding:UTF-8
- *  Last Modified at 29 Δεκ 2017 9:18:26 μμ.
- *  NOTE: COMMERCIAL LICENSE.. !
- *  Copyright 2017 KSNET.
+ *  File:edit.blade.php  encoding:UTF-8
+ *  Created at 01-13-2018 (mm/dd/yyyy) 02:19:10
+ *  Belongs to project:lav_app
+ *  Copyright © 2018  @KSNET.
  *  YOU ARE NOT ALLOWED TO USE ANYWHERE .. THIS CODE OR PORTIONS OF IT..!
  *  VARIATIONS, ADAPTATIONS, ADDITIONS, OR INCLUSIONS ARE ALSO FORBIDDEN !
  *  This software uses Lavarel PHPframework!
  */
+
 ?>
 
 @extends('layouts.admin')
@@ -30,24 +32,14 @@
                         {{ session('status') }}
                     </div>
                     @endif
-                    <h3><i class="fas fa-edit"></i> CREATE-ADD NEW POST BLADE VIEW</h3>
+                    <h3><i class="fas fa-edit"></i> EDIT FORM</h3>
                     <a href="{{route('adminpostlist')}}" class="btn btn-danger"> Posts Index Page <i class="fas fa-share"></i></a>
                     <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
 
-                    <!-- Button trigger modal -->
-                    <a   class="btn btn-primary open-modal" href="#">
-                        Launch demo modal
-                    </a>
-                    <!-- <a data-toggle="modal" data-target="#myModal"></a> -->
-
-                    <br/>  <br/>
-                    <a id="moreBtn" href="#">ajax</a>
-
-                    <div id="div1"><i id="loader" class="fas fa-spinner" style="display:none;"></i></div>
 
                     <!-- START ADD FORM  -->
                     <h1>Add New Post</h1>
-                    <form action="{{route('adminpostcreate')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('adminpostupdate', $post->id) }}" method="post" enctype="multipart/form-data">
 
                         @if ($errors->any())
                         <div class="alert alert-danger">
@@ -60,44 +52,45 @@
                         @endif
 
                         {!! csrf_field() !!}
+                        {{ method_field('PUT') }}
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{ old('title') }}">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{ $post->title }}">
                             @if($errors->has('title'))
                             <span class="help-block">{{ $errors->first('title') }}</span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('seotitle') ? ' has-error' : '' }}">
                             <label for="seotitle">Seotitle</label>
-                            <input type="text" class="form-control" id="seotitle" name="seotitle" placeholder="seotitle" value="{{ old('seotitle') }}">
+                            
                             @if($errors->has('seotitle'))
                             <span class="help-block">{{ $errors->first('seotitle') }}</span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('main_img') ? ' has-error' : '' }}">
                             <label for="main_img">Post Main Image</label>
-                            <input type="file" name="main_img" id="main_img" value="{{ old('main_img') }}">
+                            <input type="file" name="main_img" id="main_img" value="{{ $post->main_img }}">
                             @if($errors->has('main_img'))
                             <span class="help-block">{{ $errors->first('main_img') }}</span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('sortdesc') ? ' has-error' : '' }}">
                             <label for="sortdesc">Sortdesc</label>
-                            <textarea class="form-control" id="sortdesc" name="sortdesc" placeholder="sortdesc">{{ old('sortdesc') }}</textarea>
+                            <textarea class="form-control" id="sortdesc" name="sortdesc" placeholder="sortdesc">{{ $post->sortdesc }}</textarea>
                             @if($errors->has('sortdesc'))
                             <span class="help-block">{{ $errors->first('sortdesc') }}</span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('postbody') ? ' has-error' : '' }}">
                             <label for="postbody">Postbody</label>
-                            <textarea class="form-control" id="postbody" name="postbody" placeholder="postbody">{{ old('postbody') }}</textarea>
+                            <textarea class="form-control" id="postbody" name="postbody" placeholder="postbody">{{ $post->postbody }}</textarea>
                             @if($errors->has('postbody'))
                             <span class="help-block">{{ $errors->first('postbody') }}</span>
                             @endif
                         </div>
                         <div class="form-group">
                             <label for="tags">Tags</label>
-                            <input type="text" name="tags" id="tags" value="{{ old('tags') }}">
+                            <input type="text" name="tags" id="tags" value="{{ $post->tags }}">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
@@ -110,26 +103,6 @@
     </div>
 </div> <!-- container END -->
 
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                <a   class="" href="../media/modal"> </a>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 
 @push('bottom-scripts')
@@ -165,38 +138,5 @@ customConfig: 'config.js'
     ,
             @endforeach
     ];</script>
-
-<script>
-
-    $.ajaxSetup({
-    headers: {
-    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-    });
-    $('#moreBtn').click(function () {
-    $.ajax({
-    url: "../media/modal",
-            cache: false
-    })
-
-            .done(function (html) {
-            $("#div1").append(html);
-            });
-    });</script>
-
-
-<script>
-
-$('.open-modal').on("click", "a", function (e) {
-    var target = $(this).attr('href');
-    $('.modal-body').html('');
-    $('<iframe>').attr('src', target).appendTo($('.modal-body'));
-    //e.preventDefault();
-    $('#myModal').modal();
-});
-</script>
-
-
-
 
 @endpush

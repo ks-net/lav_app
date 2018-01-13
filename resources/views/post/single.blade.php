@@ -50,7 +50,7 @@
                     <img  class="img-responsive center-block" src="{{ asset($post->main_img) }}" />
                     @endif
                     <ul>
-                        <li><b>{{__('general.Sortdesc')}}</b>= {{ str_limit($post->sortdesc , config('settings.frontend_desc_trim') , '...') }}</li>
+                        <li><b>{{__('general.Sortdesc')}}</b>= {{ $post->sortdesc }}</li>
                         <li><b>POSTBODY</b>= {!! $post->postbody !!}</li>
                         <li><b>METATITLE</b>= {{ $post->metatitle }}</li>
                         <li><b>METAKEYWORDS</b>= {{ $post->metakeywords }}</li>

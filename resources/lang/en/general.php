@@ -26,4 +26,5 @@ return [
     'confirm-delete-record' => 'Are you sure? Delete Record',
     'media-delete-message' => 'Media and All Relative Image Versions Deleted !',
     'success-saved-message' => 'Succesfully Saved!',
+    'no-records-found' => 'No Records Found...',
 ];

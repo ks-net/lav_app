@@ -52,7 +52,7 @@ class PostController extends Controller {
      */
     public function listing(Post $post) {
         $posts = $post->sortable('id')->paginate(config('settings.panellistpagin'));
-$post->title = str_limit($post->title , config('settings.admin_title_trim') , '...');
+        $post->title = str_limit($post->title, config('settings.admin_title_trim'), '...');
         return view('post.admin.list')->withPosts($posts);
     }
 
@@ -73,10 +73,10 @@ $post->title = str_limit($post->title , config('settings.admin_title_trim') , '.
                     return Post::where('id', '<', $postid)->where('active', '1')->select('title', 'seotitle')->orderBy('id', 'desc')->first();
                 });
 
-        $tags = Cache::remember('posttags' . $seotitle, config('settings.cachetime'), function() use ($postid) {
-                    return DB::table('taggable_taggables')->where('taggable_id', $postid)->leftJoin('taggable_tags', 'taggable_taggables.tag_id', '=', 'taggable_tags.tag_id')->select('normalized')->get();
-                });
-
+        /* $tags = Cache::remember('posttags' . $seotitle, config('settings.cachetime'), function() use ($postid) {
+          return DB::table('taggable_taggables')->where('taggable_id', $postid)->leftJoin('taggable_tags', 'taggable_taggables.tag_id', '=', 'taggable_tags.tag_id')->select('normalized')->get();
+          }); */
+        $tags = $post->tags;
         return view('post.single')->with('post', $post)->with('previous', $previous)->with('next', $next)->with('tags', $tags);
     }
 
@@ -139,20 +139,33 @@ $post->title = str_limit($post->title , config('settings.admin_title_trim') , '.
 
         Cache::flush();
 
-        return redirect('admin/post/list')->with('flash_message', __('general.The-Post') .' '. __('general.success-saved-message'));
+        return redirect('admin/post/list')->with('flash_message', __('general.The-Post') . ' ' . __('general.success-saved-message'));
     }
 
     /**
-     * Update Post
+     * Edit Post
      */
-    public function edit(Request $request) {
-        $post = new Post;
+    public function edit($id) {
+        $post = Post::findOrFail($id);
+        // $tags = $post->tags;
+        $collection = collect($post->tags)->only('name');
 
-        $post->save();
+        $tags = $collection->toArray();
+
+        return view('post.admin.edit')->with('post', $post)->with('tags', $tags);
+    }
+
+    /**
+     * updatePost
+     */
+    public function update(Request $request, $id) {
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
+        $post->tag(explode(',', $request->tags));
 
         Cache::flush();
-        //Session::flash('flash_message', 'Post Successfuly Saved !');
-        return redirect('/post/list')->with('flash_message', __('general.The-Post') .' '. __('general.success-saved-message'));
+
+        return redirect('admin/post/list')->with('flash_message', __('general.The-Post') . ' ' . __('general.success-saved-message'));
     }
 
     /**
@@ -161,10 +174,10 @@ $post->title = str_limit($post->title , config('settings.admin_title_trim') , '.
     public function delete($id) {
 
         $post = Post::findOrFail($id);
-        Storage::disk('public')->deleteDirectory('media/postimages/'.$id);
+        Storage::disk('public')->deleteDirectory('media/postimages/' . $id);
         $post->delete();
         Cache::flush();
-        //Session::flash('flash_message', 'Post Successfuly Saved !');
+
         return back()->with('flash_message', 'Post and All Relative Images Deleted !');
     }
 

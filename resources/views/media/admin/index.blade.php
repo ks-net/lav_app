@@ -31,11 +31,11 @@
                  <a href="{{route('adminmediaadd')}}" class="btn btn-success"> Add New Media <i class="fas fa-plus-circle"></i></a>
                     </div>
                     @if (count($medias) === 0)
-                    <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> I don't have any records!</div>
+                    <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> {{__('general.no-records-found')}}</div>
                     @endif
                 </div>
 
-                @isset ($medias)
+                 @if (count($medias) > 0)
                 <!-- Table -->
                 <table class="table" style="background:#fff;">
                     <tr class="bg-info">
@@ -86,16 +86,18 @@
                         <td class="text-center">
                             <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block"  href="{{route('adminmedialist')}}"><i class="fas fa-edit"></i></a> &nbsp;
                              <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{route('adminmedialist')}}"><i class="fas fa-eye"></i></a> &nbsp;
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" onclick="return confirm('{{__('general.confirm-delete-record')}}: {{ $media->name }}?')" href="{{route('adminmediadelete' , $media->id)}}"><i class="fas fa-trash-alt"></i></a>
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" onclick="return confirm('{{__('general.confirm-delete-record')}}: {{ $media->image }}?')" href="{{route('adminmediadelete' , $media->id)}}"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach
                 </table>
-                @endisset
+                @endif
 
+                @if ($medias->total() > $medias->perPage())
                 <div class="panel-footer">
                     {{ $medias->appends(\Request::except('page'))->render() }}
                 </div>
+                @endif
 
             </div> <!-- Panel End -->
 
