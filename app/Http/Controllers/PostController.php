@@ -147,11 +147,7 @@ class PostController extends Controller {
      */
     public function edit($id) {
         $post = Post::findOrFail($id);
-        // $tags = $post->tags;
-        $collection = collect($post->tags)->only('name');
-
-        $tags = $collection->toArray();
-
+        $tags = $post->tags;
         return view('post.admin.edit')->with('post', $post)->with('tags', $tags);
     }
 
@@ -160,9 +156,9 @@ class PostController extends Controller {
      */
     public function update(Request $request, $id) {
         $post = Post::findOrFail($id);
-        $post->update($request->all());
+        
         $post->tag(explode(',', $request->tags));
-
+$post->update($request->all());
         Cache::flush();
 
         return redirect('admin/post/list')->with('flash_message', __('general.The-Post') . ' ' . __('general.success-saved-message'));
@@ -176,9 +172,10 @@ class PostController extends Controller {
         $post = Post::findOrFail($id);
         Storage::disk('public')->deleteDirectory('media/postimages/' . $id);
         $post->delete();
+
         Cache::flush();
 
-        return back()->with('flash_message', 'Post and All Relative Images Deleted !');
+        return back()->with('flash_message', __('general.The-Post') . ' ' . __('general.success-saved-message'));
     }
 
 }

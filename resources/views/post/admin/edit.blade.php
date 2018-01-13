@@ -62,7 +62,7 @@
                         </div>
                         <div class="form-group{{ $errors->has('seotitle') ? ' has-error' : '' }}">
                             <label for="seotitle">Seotitle</label>
-                            
+
                             @if($errors->has('seotitle'))
                             <span class="help-block">{{ $errors->first('seotitle') }}</span>
                             @endif
@@ -90,7 +90,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tags">Tags</label>
-                            <input type="text" name="tags" id="tags" value="{{ $post->tags }}">
+                            <input type="text" name="tags" id="tags" value="dd(Input::old('tags'))">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
