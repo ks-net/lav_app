@@ -149,6 +149,7 @@ customConfig: 'config.js'
             labelField: 'tag',
             searchField: 'tag',
             options: tags,
+            plugins: ['remove_button'],
             create: function (input) {
             return {
             tag: input

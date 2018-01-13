@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  File:edit.blade.php  encoding:UTF-8
  *  Created at 01-13-2018 (mm/dd/yyyy) 02:19:10
@@ -9,7 +8,6 @@
  *  VARIATIONS, ADAPTATIONS, ADDITIONS, OR INCLUSIONS ARE ALSO FORBIDDEN !
  *  This software uses Lavarel PHPframework!
  */
-
 ?>
 
 @extends('layouts.admin')
@@ -90,7 +88,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tags">Tags</label>
-                            <input type="text" name="tags" id="tags" value="dd(Input::old('tags'))">
+                            <input type="text" name="tags" id="tags" value="@foreach($tags as $tag){{$tag}},@endforeach">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
@@ -108,35 +106,43 @@
 @push('bottom-scripts')
 <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
 <script src="{{asset('js/ajax-postcreate.js')}}"></script>
+
 <script>
 CKEDITOR.replace('postbody', {
-customConfig: 'config.js'
-        });</script>
+    customConfig: 'config.js'
+});
+</script>
 
 <script>
     $(document).ready(function () {
-    $('#tags').selectize({
-    delimiter: ',',
+        $('#tags').selectize({
+            delimiter: ',',
             persist: false,
             valueField: 'tag',
             labelField: 'tag',
             searchField: 'tag',
             options: tags,
+            plugins: ['remove_button'],
             create: function (input) {
-            return {
-            tag: input
+                return {
+                    tag: input
+                }
             }
-            }
+        });
     });
-    });</script>
+
+
+</script>
+
 <script>
     var tags = [
-            @foreach ($tags as $tag)
+            @foreach ($modeltags as $modeltag)
     {
-    tag: "{{$tag}}"
+    tag: "{{$modeltag}}"
     }
     ,
             @endforeach
-    ];</script>
+    ];
+</script>
 
 @endpush

@@ -31,7 +31,7 @@ class PostController extends Controller {
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth')->only('create', 'edit', 'listing', 'delete');
+        $this->middleware('auth')->only('create', 'edit', 'update', 'listing', 'delete');
     }
 
     /**
@@ -52,8 +52,7 @@ class PostController extends Controller {
      */
     public function listing(Post $post) {
         $posts = $post->sortable('id')->paginate(config('settings.panellistpagin'));
-        $post->title = str_limit($post->title, config('settings.admin_title_trim'), '...');
-        return view('post.admin.list')->withPosts($posts);
+        return view('post.admin.list')->withPosts($posts); // rendering sortable  pagination
     }
 
     /**
@@ -73,9 +72,6 @@ class PostController extends Controller {
                     return Post::where('id', '<', $postid)->where('active', '1')->select('title', 'seotitle')->orderBy('id', 'desc')->first();
                 });
 
-        /* $tags = Cache::remember('posttags' . $seotitle, config('settings.cachetime'), function() use ($postid) {
-          return DB::table('taggable_taggables')->where('taggable_id', $postid)->leftJoin('taggable_tags', 'taggable_taggables.tag_id', '=', 'taggable_tags.tag_id')->select('normalized')->get();
-          }); */
         $tags = $post->tags;
         return view('post.single')->with('post', $post)->with('previous', $previous)->with('next', $next)->with('tags', $tags);
     }
@@ -132,10 +128,10 @@ class PostController extends Controller {
             $post->main_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg';
         }
 
-        // now after post got  an id grab tags from the request for this post->id
-        $post->tag(explode(',', $request->tags));
+        // now after post got an id.. grab tags from the request for this post->id
+        $post->tag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
 
-        $post->save(); // finaly save all other data.. tags images etc..
+        $post->save(); // finally save all other data.. tags images etc..
 
         Cache::flush();
 
@@ -147,8 +143,9 @@ class PostController extends Controller {
      */
     public function edit($id) {
         $post = Post::findOrFail($id);
-        $tags = $post->tags;
-        return view('post.admin.edit')->with('post', $post)->with('tags', $tags);
+        $modeltags = Post::allTags(); // all model tags for use in selectize
+        $tags = $post->tags; // already saved tags for this post id
+        return view('post.admin.edit')->with('post', $post)->with('tags', $tags)->with('modeltags', $modeltags);
     }
 
     /**
@@ -156,9 +153,9 @@ class PostController extends Controller {
      */
     public function update(Request $request, $id) {
         $post = Post::findOrFail($id);
-        
-        $post->tag(explode(',', $request->tags));
-$post->update($request->all());
+        $post->retag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
+        $post->update($request->all());
+
         Cache::flush();
 
         return redirect('admin/post/list')->with('flash_message', __('general.The-Post') . ' ' . __('general.success-saved-message'));
@@ -168,7 +165,6 @@ $post->update($request->all());
      * Delete Post
      */
     public function delete($id) {
-
         $post = Post::findOrFail($id);
         Storage::disk('public')->deleteDirectory('media/postimages/' . $id);
         $post->delete();

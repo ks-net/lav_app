@@ -28,8 +28,7 @@ class MediaController extends Controller {
      */
     public function index(Media $media) {
         $medias = $media->sortable('id')->paginate(config('settings.panellistpagin'));
-
-        return view('media.admin.index')->withMedias($medias);
+        return view('media.admin.index')->withMedias($medias);// rendering sortable  pagination
     }
 
     /**

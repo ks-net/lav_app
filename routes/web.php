@@ -12,6 +12,7 @@
  */
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Post;
 use App\Media;
 
@@ -47,15 +48,14 @@ Route::group(['prefix' => 'admin'], function() {
         return view('post.admin.create', compact('tags'));
     })->middleware('auth');
 
-
     Route::get('/post/edit/{id}', 'PostController@edit')->name('adminpostedit')->middleware('auth');
-    
-Route::put('/post/update/{id}', 'PostController@update')->name('adminpostupdate')->middleware('auth');
+
+    Route::put('/post/update/{id}', 'PostController@update')->name('adminpostupdate')->middleware('auth');
 
     Route::get('/post/delete/{id}', ['as' => 'adminpostdelete', 'uses' => 'PostController@delete'])->middleware('auth');
 
 
-// Admin media routes
+    // Admin media routes
     Route::get('media/', 'MediaController@index')->name('adminmedialist')->middleware('auth');
     Route::post('media/add', 'MediaController@add')->name('adminmediaadd')->middleware('auth');
 
