@@ -56,7 +56,7 @@
                             @sortablelink('updated_at')
                         </td>
                         <td class="text-center">
-                            Actions
+                            Actions.
                         </td>
                     </tr>
                     @foreach ($posts as $post)
