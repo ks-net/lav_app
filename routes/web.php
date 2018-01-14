@@ -46,7 +46,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('/post/create', function () {
         $tags = Post::allTags();
         return view('post.admin.create', compact('tags'));
-    })->middleware('auth');
+    })->name('adminpostform')->middleware('auth');
 
     Route::get('/post/edit/{id}', 'PostController@edit')->name('adminpostedit')->middleware('auth');
 
@@ -62,7 +62,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('media/add', function () {
         $tags = Media::allTags();
         return view('media.admin.add', compact('tags'));
-    })->middleware('auth');
+    })->name('adminmediaform')->middleware('auth');
 
     Route::get('/media/delete/{id}', ['as' => 'adminmediadelete', 'uses' => 'MediaController@delete'])->middleware('auth');
 

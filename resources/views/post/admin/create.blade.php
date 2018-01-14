@@ -22,7 +22,7 @@
             @endif
 
             <div class="panel panel-default">
-                <div class="panel-heading"><i class="fas fa-caret-right"></i> this will be add-new-post layout</div>
+                <div class="panel-heading"><i class="glyphicon glyphicon-file "></i> this will be add-new-post layout</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -30,13 +30,13 @@
                         {{ session('status') }}
                     </div>
                     @endif
-                    <h3><i class="fas fa-edit"></i> CREATE-ADD NEW POST BLADE VIEW</h3>
-                    <a href="{{route('adminpostlist')}}" class="btn btn-danger"> Posts Index Page <i class="fas fa-share"></i></a>
-                    <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
+                    <h3><i class="material-icons">library_add</i> CREATE-ADD NEW POST BLADE VIEW</h3>
+                    <a href="{{route('adminpostlist')}}" class="btn btn-danger"> Posts List Page <i class="material-icons">view_list</i></a>
+                    <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="material-icons">description</i></a>
 
                     <!-- Button trigger modal -->
                     <a   class="btn btn-primary open-modal" href="#">
-                        Launch demo modal
+                        Launch demo modal <i class="material-icons">feedback</i>
                     </a>
                     <!-- <a data-toggle="modal" data-target="#myModal"></a> -->
 

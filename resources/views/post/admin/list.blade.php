@@ -68,7 +68,7 @@
                             <span class="small {{ $post->active === 1 ? '' : 'gray-out' }}">{{ str_limit($post->title , config('settings.admin_title_trim') , '...') }}</span>
                         </td>
                         <td class="text-center">
-                            <span class="small"><i class="fas {{ $post->active === 1 ? 'fa-check' : 'fa-ban gray-out' }}"></i></span>
+                            <span class="small"><i class="material-icons {{ $post->active === 1 ? '' : 'gray-out' }}">{{ $post->active === 1 ? 'check' : 'visibility_off' }}</i></span>
                         </td>
                         <td class="hidden-xs">
                             <span class="small">{{ $post->created_at }}</span>
@@ -78,9 +78,9 @@
                         </td>
                         <td class="text-center">
 
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{ route('adminpostedit', $post->id) }}"><i class="fas fa-edit"></i></a> &nbsp;
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('post/'.$post->seotitle)}}"><i class="fas fa-eye"></i></a> &nbsp;
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" onclick="return confirm('{{__('general.confirm-delete-record')}}: {{ $post->id }}?')" href="{{ route('adminpostdelete', $post->id) }}"><i class="fas fa-trash-alt"></i></a>
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{ route('adminpostedit', $post->id) }}"><i class="material-icons">edit</i></a> &nbsp;
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('post/'.$post->seotitle)}}"><i class="material-icons">visibility</i></a> &nbsp;
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" onclick="return confirm('{{__('general.confirm-delete-record')}}: {{ $post->id }}?')" href="{{ route('adminpostdelete', $post->id) }}"><i class="material-icons">delete_forever</i></a>
                         </td>
                     </tr>
                     @endforeach

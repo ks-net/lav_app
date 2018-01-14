@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/js/ajax-postcreate.js": "/js/ajax-postcreate.js"
+    "/js/ajax-postcreate.js": "/js/ajax-postcreate.js",
+    "/css/admin.css": "/css/admin.css"
 }

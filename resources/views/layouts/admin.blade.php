@@ -23,12 +23,20 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+
         <!-- Styles -->
-        <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     </head>
     <body>
         <div id="app">
+
+   @include('elements.admin.menu')
+
+
             <nav class="navbar navbar-default navbar-static-top navbar-inverse ">
                 <div class="container">
                     <div class="navbar-header">
@@ -101,8 +109,12 @@
                 </div>
             </nav>
 
+
+
             @yield('content')
-        </div>
+
+
+        </div> <!-- APP END -->
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>

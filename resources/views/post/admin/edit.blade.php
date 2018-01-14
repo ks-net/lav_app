@@ -22,7 +22,7 @@
             @endif
 
             <div class="panel panel-default">
-                <div class="panel-heading"><i class="fas fa-caret-right"></i> this will be add-new-post layout</div>
+                <div class="panel-heading"><i class="material-icons">face</i> this will be add-new-post layout</div>
 
                 <div class="panel-body">
                     @if (session('status'))

@@ -21,8 +21,7 @@ mix.webpackConfig({
 
 mix.js('resources/assets/js/app.js', 'public/js')
         .js('resources/assets/js/ajax-postcreate.js', 'public/js')
-        .sass('resources/assets/sass/app.scss', 'public/css');
-/*   .styles([
- 'resources/assets/css/lav_app.css'
- ], 'public/css/lav_app.css');
- */
+        .sass('resources/assets/sass/app.scss', 'public/css')
+        .styles([ // just copy styles
+            'resources/assets/css/admin.css'
+        ], 'public/css/admin.css');
