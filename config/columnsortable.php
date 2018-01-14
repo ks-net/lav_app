@@ -23,7 +23,7 @@ return [
     /*
     whether icons should be enabled
      */
-    'enable_icons'                  => true, 
+    'enable_icons'                  => true,
 
     /*
     defines icon set to use when sorted data is none above (alpha nor amount nor numeric)
