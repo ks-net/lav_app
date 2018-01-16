@@ -20,8 +20,11 @@ mix.webpackConfig({
 });
 
 mix.js('resources/assets/js/app.js', 'public/js')
-        .js('resources/assets/js/ajax-postcreate.js', 'public/js')
-        .sass('resources/assets/sass/app.scss', 'public/css')
-        .styles([ // just copy styles
-            'resources/assets/css/admin.css'
-        ], 'public/css/admin.css');
+       .js('resources/assets/js/admin.js', 'public/js')
+       .sass('resources/assets/sass/app.scss', 'public/css')
+       .sass('resources/assets/sass/admin.scss', 'public/css/admin.css');
+
+
+
+//mix.copy('node_modules/font-awesome/fonts/', 'public/fonts/', false); // false = keep folder stracture no-flatten
+//mix.styles('node_modules/font-awesome/css/font-awesome.min.css', 'public/css/font-awesome.min.css');

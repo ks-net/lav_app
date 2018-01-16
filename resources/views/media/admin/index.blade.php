@@ -75,7 +75,7 @@
                             <div style="font-style:italic;" class="small {{ $media->active === 1 ? '' : 'gray-out' }}">{{ str_limit($media->image , '120', '...') }}</div>
                         </td>
                         <td class="text-center">
-                            <span class="small"><i class="fas {{ $media->active === 1 ? 'fa-check' : 'fa-ban gray-out' }}"></i></span>
+                            <span class="small"><i class="material-icons {{ $media->active === 1 ? '' : 'gray-out' }}">{{ $media->active === 1 ? 'check' : 'visibility_off' }}</i></span>
                         </td>
                         <td class="hidden-xs">
                             <span class="small">{{ $media->created_at }}</span>

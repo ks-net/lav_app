@@ -11,68 +11,74 @@
  */
 ?>
 
-<div class="nav-side-menu">
-    <div class="brand">Brand Logo</div>
-    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+                        <nav class="navbar navbar-default navbar-static-top  ">
+                            <div class="container">
+                                <div class="navbar-header">
 
-        <div class="menu-list">
+                                    <!-- Collapsed Hamburger -->
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
+                                        <span class="sr-only">Toggle Navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
 
-            <ul id="menu-content" class="menu-content collapse out">
-                <li>
-                  <a href="#">
-                  <i class="fa fa-dashboard fa-lg"></i> Dashboard
-                  </a>
-                </li>
+                                    <!-- Branding Image -->
+                                    <a class="navbar-brand" href="{{ url('/') }}">
+                                        {{ config('app.name', 'Laravel') }}
+                                    </a>
+                                </div>
 
-                <li  data-toggle="collapse" data-target="#products" class="collapsed active">
-                  <a href="#"><i class="fas fa-file-alt fa-lg"></i> Posts <span class="arrow"></span></a>
-                </li>
-                <ul class="sub-menu collapse @if(Route::is ('adminpost*')) in @endif" id="products">
-                    <li class=""><a href="#">CSS3 Animation</a></li>
+                                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                                    <!-- Left Side Of Navbar -->
+                                    <ul class="nav navbar-nav">
+                                        &nbsp;
+                                    </ul>
 
-                    <li class="@if(Route::current()->getName() == 'adminpostlist') active  @endif"><a href="{{route('adminpostlist')}}">post list</a></li>
+                                    <!-- Right Side Of Navbar -->
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <!-- Authentication Links -->
+                                        @guest
+                                        <li><a href="{{ route('login') }}">Login</a></li>
+                                        <li><a href="{{ route('register') }}">Register</a></li>
+                                        @else
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-file-text-o"></i> Posts <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{{ route('adminpostlist') }}"><i class="fa fa-file-text"></i> List All Posts</a></li>
+                                                <li><a href="{{ route('adminpostcreate') }}"><i class="fa fa-plus-square"></i> Add new Post</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-picture-o"></i> Media <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{{ route('adminmedialist') }}"><i class="fa fa-image"></i> List All Media</a></li>
+                                                <li><a href="{{ route('adminmediaadd') }}"><i class="fa fa-plus-square"></i> Add New Media</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                                                <i class="fa fa-user-o"></i> {{ Auth::user()->name }} <span class="caret"></span>
+                                            </a>
 
-                    <li class="@if(Route::current()->getName() == 'adminpostform') active  @endif"><a href="{{route('adminpostform')}}">post create</a></li>
-                    <li><a href="#">FontAwesome</a></li>
-                    <li><a href="#">Slider</a></li>
-                    <li><a href="#">Panels</a></li>
-                    <li><a href="#">Widgets</a></li>
-                    <li><a href="#">Bootstrap Model</a></li>
-                </ul>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="{{ route('logout') }}"
+                                                       onclick="event.preventDefault();
+                                                               document.getElementById('logout-form').submit();">
+                                                        Logout
+                                                    </a>
 
-
-                <li data-toggle="collapse" data-target="#service" class="collapsed">
-                  <a href="#"><i class="fas fa-image fa-lg"></i> Media <span class="arrow"></span></a>
-                </li>
-                <ul class="sub-menu collapse @if(Route::is ('adminmedia*')) in @endif" id="service">
-
-                    <li class="@if(Route::current()->getName() == 'adminmedialist') active  @endif"><a href="{{route('adminmedialist')}}">media list</a></li>
-                    <li class="@if(Route::current()->getName() == 'adminmediaform') active  @endif"><a href="{{route('adminmediaform')}}">media add</a></li>
-                  <li>New Service 3</li>
-                </ul>
-
-
-                <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
-                </li>
-                <ul class="sub-menu collapse" id="new">
-                  <li>New New 1</li>
-                  <li>New New 2</li>
-                  <li>New New 3</li>
-                </ul>
-
-
-                 <li>
-                  <a href="#">
-                  <i class="fa fa-user fa-lg"></i> Profile
-                  </a>
-                  </li>
-
-                 <li>
-                  <a href="#">
-                  <i class="fa fa-users fa-lg"></i> Users
-                  </a>
-                </li>
-            </ul>
-     </div>
-</div>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                        {{ csrf_field() }}
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        @endguest
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>

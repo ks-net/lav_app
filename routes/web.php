@@ -31,13 +31,10 @@ Route::get('post/{seotitle}', 'PostController@view')->name('postsingle');
 
 /* * ****************************
  * Admin Routes
- *
  * ****************************** */
 Route::group(['prefix' => 'admin'], function() {
 
-    Route::get('/', function () {
-        return view('admin.dashboard');
-    })->name('admin')->middleware('auth');
+    Route::get('/', 'AdminDashboardController@index')->name('admin')->middleware('auth');
 
     // Admin post routes
     Route::get('/post/list', 'PostController@listing')->name('adminpostlist')->middleware('auth');

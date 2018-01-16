@@ -15,6 +15,7 @@ return [
     'artlistpagin' => env('SETTINGS_ARTLISTPAGIN', 5),
     'panellistpagin' => env('SETTINGS_PANNELLISTPAGIN', 13),
     'cachetime' => env('SETTINGS_CACHETIME', 10800),
+    'disqus-site-url' => 'lavapp.disqus.com', //without http(s)://
     'admin_title_trim' => '120',
     'admin_desc_trim' => '200',
     'frontend_title_trim' => '120',

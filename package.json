@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@fancyapps/fancybox": "^3.2.5",
+        "font-awesome": "^4.7.0",
         "selectize": "^0.12.4"
     }
 }

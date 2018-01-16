@@ -88,7 +88,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tags">Tags</label>
-                            <input type="text" name="tags" id="tags" value="@foreach($tags as $tag){{$tag}},@endforeach">
+                            <input type="text" name="tags" id="tags" value="@foreach($tags as $tag){{$tag}},@endforeach {{ old('tags') }}">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>

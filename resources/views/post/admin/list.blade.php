@@ -28,11 +28,11 @@
                 <div class="panel-heading"><i class="fas fa-copy"></i> ALL POSTS LIST</div>
                 <div class="panel-body">
                     <div class="well-sm">
-                        <a href="{{route('adminpostcreate')}}" class="btn btn-success"> Create New Post <i class="fas fa-plus-circle"></i></a>
-                        <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fas fa-share"></i></a>
+                        <a href="{{route('adminpostcreate')}}" class="btn btn-success"> Create New Post <i class="fa fa-plus-circle"></i></a>
+                        <a href="{{url('post/')}}" class="btn btn-default"> Posts Index Page <i class="fa fa-share"></i></a>
                     </div>
                     @if (count($posts) === 0)
-                    <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> {{__('general.no-records-found')}}</div>
+                    <div class="alert alert-warning"><i class="fa fa-exclamation-triangle"></i> {{__('general.no-records-found')}}</div>
                     @endif
                 </div>
 
@@ -62,13 +62,13 @@
                     @foreach ($posts as $post)
                     <tr>
                         <td class="hidden-xs">
-                            <span class="small">{{ $post->id }}</span>
+                            <span class=" ">{{ $post->id }}</span>
                         </td>
                         <td style="border-left:1px dashed #ddd;max-width:640px;">
-                            <span class="small {{ $post->active === 1 ? '' : 'gray-out' }}">{{ str_limit($post->title , config('settings.admin_title_trim') , '...') }}</span>
+                            <span class="  {{ $post->active === 1 ? '' : 'gray-out' }}">{{ str_limit($post->title , config('settings.admin_title_trim') , '...') }}</span>
                         </td>
                         <td class="text-center">
-                            <span class="small"><i class="material-icons {{ $post->active === 1 ? '' : 'gray-out' }}">{{ $post->active === 1 ? 'check' : 'visibility_off' }}</i></span>
+                            <span class=" "><i class="fa  {{ $post->active === 1 ? 'fa-check' : 'fa-eye-slash gray-out' }}"></i></span>
                         </td>
                         <td class="hidden-xs">
                             <span class="small">{{ $post->created_at }}</span>
@@ -78,9 +78,9 @@
                         </td>
                         <td class="text-center">
 
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{ route('adminpostedit', $post->id) }}"><i class="material-icons">edit</i></a> &nbsp;
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('post/'.$post->seotitle)}}"><i class="material-icons">visibility</i></a> &nbsp;
-                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" onclick="return confirm('{{__('general.confirm-delete-record')}}: {{ $post->id }}?')" href="{{ route('adminpostdelete', $post->id) }}"><i class="material-icons">delete_forever</i></a>
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{ route('adminpostedit', $post->id) }}"><i class="fa fa-pencil"></i></a> &nbsp;
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="{{url('post/'.$post->seotitle)}}"><i class="fa fa-eye"></i></a> &nbsp;
+                            <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" onclick="return confirm('{{__('general.confirm-delete-record')}}: {{ $post->id }}?')" href="{{ route('adminpostdelete', $post->id) }}"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                     @endforeach

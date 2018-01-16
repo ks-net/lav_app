@@ -11,14 +11,28 @@
 ?>
 
 @extends('layouts.admin')
+@push('head-scripts')
+@endpush
+
 
 @section('content')
 
 <div class="container">
     <div class="panel">
         <h3 class="page-header">admin dashboard</h3>
+
+        <ul>
+        @foreach ($routes as $route)
+        <li>{{$route->uri}}</li>
+        @endforeach
+        </ul>
+
     </div>
 </div>
 
 
 @endsection
+
+@push('bottom-scripts')
+@endpush
+

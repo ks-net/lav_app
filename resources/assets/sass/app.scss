@@ -13,4 +13,29 @@
 @import "~@fancyapps/fancybox/src/css/share";
 @import "~@fancyapps/fancybox/src/css/fullscreen";
 @import "~@fancyapps/fancybox/src/css/slideshow";
-@import "lav_app.scss";
+
+
+
+.clear {clear:both;}
+
+div.has-error .cke_chrome {
+    border: 1px solid $state-danger-text;
+}
+
+.gray-out {opacity:0.5;}
+
+.previous-link-title {
+line-height: 18px;
+font-size: 14px;
+display: block;
+padding: 8px 0;
+font-weight: 300;
+}
+
+.next-link-title {
+line-height: 18px;
+font-size: 14px;
+display: block;
+padding: 8px 0;
+font-weight: 300;
+}

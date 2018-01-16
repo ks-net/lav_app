@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 43);
+/******/ 	return __webpack_require__(__webpack_require__.s = 49);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -51920,43 +51920,20 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(44);
-__webpack_require__(47);
-module.exports = __webpack_require__(48);
+module.exports = __webpack_require__(50);
 
 
 /***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-__webpack_require__(45);
-__webpack_require__(46);
-window.Vue = __webpack_require__(36);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example-component', __webpack_require__(39));
-
-var app = new Vue({
-  el: '#app'
-});
-
-/***/ }),
-/* 45 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -51969,16 +51946,18 @@ window._ = __webpack_require__(10);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(3);
-  __webpack_require__(12);
-  __webpack_require__(15);
-  var fancybox = __webpack_require__(16)($);
+    window.$ = window.jQuery = __webpack_require__(3);
+    __webpack_require__(12);
+    __webpack_require__(15);
+    __webpack_require__(51);
 
-  $(document).ready(function () {
-    $("[data-fancybox]").fancybox({
-      // Options will go here
+    var fancybox = __webpack_require__(16)($);
+
+    $(document).ready(function () {
+        $("[data-fancybox]").fancybox({
+            // Options will go here
+        });
     });
-  });
 } catch (e) {}
 
 /**
@@ -52000,9 +51979,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**
@@ -52020,31 +51999,39 @@ if (token) {
 //     key: 'your-pusher-key'
 // });
 
+window.Vue = __webpack_require__(36);
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+Vue.component('example-component', __webpack_require__(39));
+
+var app = new Vue({
+    el: '#app'
+});
+
 /***/ }),
-/* 46 */
+/* 51 */
 /***/ (function(module, exports) {
 
 /*
- *  File:lav_app.js part-of-project:lav_app encoding:UTF-8
- *  Last Modified at 10 Jan 2018 7:07:10 pm.
- *  NOTE: COMMERCIAL LICENSE.. !
- *  Copyright 2018 KSNET.
+ *  File:admin-extra.js.js  encoding:UTF-8
+ *  Created at 01-15-2018 (mm/dd/yyyy) 20:29:09
+ *  Belongs to project:lav_app
+ *  Copyright © 2018  @KSNET.
  *  YOU ARE NOT ALLOWED TO USE ANYWHERE .. THIS CODE OR PORTIONS OF IT..!
  *  VARIATIONS, ADAPTATIONS, ADDITIONS, OR INCLUSIONS ARE ALSO FORBIDDEN !
  *  This software uses Lavarel PHPframework!
  */
 
-/***/ }),
-/* 47 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
+$(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('hidebar');
+    });
+});
 
 /***/ })
 /******/ ]);
