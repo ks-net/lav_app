@@ -24,6 +24,8 @@ class CreatePostsTable extends Migration
             $table->string('seotitle',191)->unique();
             $table->tinyInteger('order')->default(0);
             $table->string('main_img',191)->unique()->nullable();
+            $table->string('medium_img',191)->unique()->nullable();
+            $table->string('thumb_img',191)->unique()->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

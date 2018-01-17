@@ -127,6 +127,8 @@ class PostController extends Controller {
              */
 
             $post->main_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg';
+            $post->medium_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg';
+            $post->thumb_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg';
         }
 
         // now after post got an id.. grab tags from the request for this post->id

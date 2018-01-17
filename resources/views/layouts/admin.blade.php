@@ -17,11 +17,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ config('app.name', 'Laravel') }}</title>
-
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
 
         <!-- Styles -->
         <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
@@ -31,13 +28,18 @@
     </head>
     <body>
         <div id="app" >
-
             @include('elements.admin.menu')
 
             <!-- Start Content -->
+            <div class="container">
+            @yield('breadcrumbs')
+            </div>
+            <div class="container">
             @yield('content')
+            </div>
             <!-- Content End -->
 
+            @include('elements.admin.footer')
         </div> <!-- APP END -->
 
         <!-- Scripts -->

@@ -8,15 +8,15 @@ return [
     'columns'                       => [
         'alpha'   => [
             'rows'  => ['description', 'email', 'name', 'slug', 'title'],
-            'class' => 'glyphicon glyphicon-sort-by-alphabet',
+            'class' => 'fa fa-sort-alpha',
         ],
         'amount'  => [
             'rows'  => ['amount', 'price'],
-            'class' => 'glyphicon glyphicon-sort-by-attributes',
+            'class' => 'fa fa-sort-amount',
         ],
         'numeric' => [
             'rows'  => ['created_at', 'updated_at', 'level', 'id', 'phone_number'],
-            'class' => 'glyphicon glyphicon-sort-by-order',
+            'class' => 'fa fa-sort-numeric',
         ],
     ],
 
@@ -28,12 +28,12 @@ return [
     /*
     defines icon set to use when sorted data is none above (alpha nor amount nor numeric)
      */
-    'default_icon_set'              => 'glyphicon glyphicon-sort-by-attributes',
+    'default_icon_set'              => 'fa fa-sort-amount',
 
     /*
     icon that shows when generating sortable link while column is not sorted
      */
-    'sortable_icon'                 => 'glyphicon glyphicon-sort gray-out',
+    'sortable_icon'                 => 'fa fa-unsorted gray-out',
 
     /*
     generated icon is clickable non-clickable (default)
@@ -49,12 +49,12 @@ return [
     /*
     suffix class that is appended when ascending order is applied
      */
-    'asc_suffix'                    => '',
+    'asc_suffix'                    => '-asc',
 
     /*
     suffix class that is appended when descending order is applied
      */
-    'desc_suffix'                   => '-alt',
+    'desc_suffix'                   => '-desc',
 
     /*
     default anchor class, if value is null none is added

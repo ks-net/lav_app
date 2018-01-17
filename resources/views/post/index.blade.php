@@ -52,7 +52,7 @@
                         </li>
                     </ul>
                     @if ($post->main_img)
-                    <img class="img-responsive center-block" src="{{ asset('storage/media/postimages/'.$post->id.'/post_'.$post->id.'_medium_img.jpg') }}" />
+                    <img class="img-responsive center-block" src="{{ asset($post->medium_img) }}" />
                     @endif
                     <ul>
                         <li><b>{{__('general.Sortdesc')}}</b>= {{ str_limit($post->sortdesc , config('settings.frontend_desc_trim') , '...') }}</li>
