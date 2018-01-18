@@ -45,7 +45,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-wrench"></i> Settings <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('adminpostlist') }}"><i class="fa fa-tasks"></i> Tasks</a></li>
+                        <li><a href="{{ route('adminsettings') }}"><i class="fa fa-cogs"></i> Default Settings</a></li>
                         <li><a href="{{ route('adminpostcreate') }}"><i class="fa fa-sliders"></i> Other Settings</a></li>
                     </ul>
                 </li>

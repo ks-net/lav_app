@@ -17,7 +17,7 @@
 
 @section('content')
 
-<div class="container">
+
     <div class="panel panel-default">
         <div class="panel-heading"><i class="fa fa-cogs"></i> Admin Dashboard</div>
         <div class="panel-body">
@@ -28,7 +28,7 @@
             </ul>
         </div>
     </div>
-</div>
+
 
 
 @endsection

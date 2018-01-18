@@ -65,7 +65,7 @@
                     @if (count($tags) > 0)
                     {{__('general.Tags')}}: <i class="fas fa-tags"></i>
                     @foreach ($tags as $tag)
-                    <a href="#"  class="label label-info">{{ $tag->normalized }}</a>
+                    <a href="#"  class="label label-info">{{ $tag }}</a>
                     @endforeach
                     <hr/>
                     @endif
@@ -75,7 +75,7 @@
                         <a class="btn btn-default" href="{{url('post/'.$previous->seotitle)}}"><i class="fas fa-chevron-circle-left"></i> {{__('general.Previous')}}</a>
                         <br/>
                         <span class="text-left small previous-link-title">
-                            {{ str_limit($previous->title, config('settings.frontend_next-prev_trim'), '...') }}
+                            {{ str_limit($previous->title, config('settings.frontend_next_prev_trim'), '...') }}
                         </span>
                     </span>
                     @endif
@@ -84,7 +84,7 @@
                         <a class="btn btn-default" href="{{url('post/'.$next->seotitle)}}">{{__('general.Next')}} <i class="fas fa-chevron-circle-right"></i></a>
                         <br/>
                         <span class="text-right small next-link-title">
-                            {{ str_limit($next->title, config('settings.frontend_next-prev_trim'), '...') }}
+                            {{ str_limit($next->title, config('settings.frontend_next_prev_trim'), '...') }}
                         </span>
                     </span>
                     @endif
@@ -110,13 +110,13 @@
                 };
                 (function () { // DON'T EDIT BELOW THIS LINE
                     var d = document, s = d.createElement('script');
-                    s.src = "https://{{ config('settings.disqus-site-url') }}/embed.js";
+                    s.src = "https://{{ config('settings.disqus_site_url') }}/embed.js";
                     s.setAttribute('data-timestamp', +new Date());
                     (d.head || d.body).appendChild(s);
                 })();
             </script>
             <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            <script id="dsq-count-scr" src="//{{ config('settings.disqus-site-url') }}/count.js" async></script>
+            <script id="dsq-count-scr" src="//{{ config('settings.disqus_site_url') }}/count.js" async></script>
             @endpush
 
         </div>

@@ -73,7 +73,10 @@ class PostController extends Controller {
                     return Post::where('id', '<', $postid)->where('active', '1')->select('title', 'seotitle')->orderBy('id', 'desc')->first();
                 });
 
-        $tags = $post->tags;
+        $tags = Cache::remember('posttags' . $seotitle, config('settings.cachetime'), function() use ($post) {
+               return $post->tags;
+        });
+
         return view('post.single')->with('post', $post)->with('previous', $previous)->with('next', $next)->with('tags', $tags);
     }
 

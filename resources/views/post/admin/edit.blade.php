@@ -87,7 +87,9 @@
                         </div>
                         <div class="form-group">
                             <label for="tags">Tags</label>
-                            <input type="text" name="tags" id="tags" value="@foreach($tags as $tag){{$tag}},@endforeach {{ old('tags') }}">
+                            {{-- populate with saved and new unsaved tags if present... NO GAPS OR SPACES ... COMMAS ARE IMPORTANT--}}
+                            <input type="text" name="tags" id="tags" value="@foreach($tags as $tag){{$tag}},@endforeach{{ old('tags') }}">
+
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
@@ -115,7 +117,7 @@ CKEDITOR.replace('postbody', {
     $(document).ready(function () {
         $('#tags').selectize({
             delimiter: ',',
-            persist: false,
+            persist: true,
             valueField: 'tag',
             labelField: 'tag',
             searchField: 'tag',

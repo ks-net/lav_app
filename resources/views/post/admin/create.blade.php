@@ -33,7 +33,7 @@
 
             <div class="panel-body">
                 <div class="well-sm text-right">
-                    <a href="{{route('adminpostlist')}}" class="btn btn-danger"> Posts List Page <i class="fa fa-sign-out"></i></a>
+                    <a href="{{route('adminpostlist')}}" class="btn btn-danger">{{__('general.Back-to')}} {{__('general.list-all-posts')}} <i class="fa fa-sign-out"></i></a>
                 </div>
                 <!-- START ADD FORM  -->
                 <form action="{{route('adminpostcreate')}}" method="post" enctype="multipart/form-data">

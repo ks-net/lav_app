@@ -36,6 +36,10 @@ Route::group(['prefix' => 'admin'], function() {
 
     Route::get('/', 'AdminDashboardController@index')->name('admin')->middleware('auth');
 
+    Route::get('/settings', 'SettingController@index')->name('adminsettings')->middleware('auth');
+    Route::put('/settings/update', 'SettingController@update')->name('adminsettingsupdate')->middleware('auth');
+
+
     // Admin post routes
     Route::get('/post/list', 'PostController@listing')->name('adminpostlist')->middleware('auth');
     Route::post('/post/create', 'PostController@create')->name('adminpostcreate')->middleware('auth');
