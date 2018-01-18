@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+use App\Http\Requests\UpdatedSettingRequest;
 use Illuminate\Support\Facades\Cache;
 
 class SettingController extends Controller {
@@ -32,7 +32,7 @@ class SettingController extends Controller {
     /**
      * Update Settings
      */
-    public function update(Request $request) {
+    public function update(UpdatedSettingRequest $request) {
 
         $settings = $request->except('_token', '_method');
 

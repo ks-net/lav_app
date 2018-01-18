@@ -66,12 +66,12 @@
                     {!! csrf_field() !!}
                     {{ method_field('PUT') }}
                     @foreach ($settings as $setting)
-                    <div class="form-group{{ $errors->has('$setting->name') ? ' has-error' : '' }}">
-                        <label for="{{$setting->id}}">{{$setting->name}}</label>
+                    <div class="form-group{{ $errors->has($setting->name) ? ' has-error' : '' }}">
+                        <label for="{{$setting->name}}">{{$setting->name}}</label>
 
                         <input type="text" class="form-control" id="{{$setting->name}}" name="{{$setting->name}}" placeholder="" value="{{$setting->value}}">
-                        <input type="hidden" id="{{$setting->id}}">
-                        @if($errors->has('name'))
+
+                        @if($errors->has('$setting->name'))
                         <span class="help-block">{{ $errors->first('$setting->name') }}</span>
                         @endif
                     </div>

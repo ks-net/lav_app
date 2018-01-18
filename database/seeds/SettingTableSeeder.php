@@ -19,7 +19,7 @@ class SettingTableSeeder extends Seeder {
                 'value' => '4',
             ], [
                 'name' => 'panellistpagin',
-                'value' => '6',
+                'value' => '16',
             ], [
                 'name' => 'disqus_site_url',
                 'value' => 'lavapp.disqus.com',
@@ -36,7 +36,7 @@ class SettingTableSeeder extends Seeder {
                 'name' => 'frontend_desc_trim',
                 'value' => '120',
             ], [
-                'name' => 'frontend_next-prev_trim',
+                'name' => 'frontend_next_prev_trim',
                 'value' => '120',
             ], [
                 'name' => 'post_main_img_width',
