@@ -47,7 +47,13 @@ return [
     'media_success_updated_message' => 'Image Updated Succesfully!',
     'media_delete_message' => 'Media and All Relative Image Versions Deleted !',
     'no_records_found' => 'No Records Found...',
-        /* ---------------------------------------
-         *
-         * -------------------------------------- */
+    /* ---------------------------------------
+     * SHORTABLE COLUMNS
+     * -------------------------------------- */
+    'short_actions' => 'Actions',
+    'short_created_at' => 'Created',
+    'short_updated_at' => 'Updated',
+    'short_active' => 'Active',
+    'short_title' => 'Title',
+    'short_id' => 'Id',
 ];

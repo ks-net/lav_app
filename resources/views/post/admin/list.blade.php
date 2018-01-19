@@ -15,7 +15,7 @@
 @section('breadcrumbs')
 <ol class="breadcrumb">
     <li><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">@lang_ucw('common.admin_dashboard')</a></li>
-    <li class="active">@lang_ucw('common.list_all_posts')</li>
+    <li class="active">@lang_ucw('common.post_list')</li>
 </ol>
 @endsection
 
@@ -28,7 +28,7 @@
         @endif
 
         <div class="panel panel-default">
-            <div class="panel-heading"><i class="fa fa-copy"></i> @lang_ucw('common.list_all_posts')</div>
+            <div class="panel-heading"><i class="fa fa-copy"></i> @lang_ucw('common.post_list')</div>
             <div class="panel-body">
                 <div class="well-sm">
                     <a href="{{route('adminpostcreate')}}" class="btn btn-success">
@@ -52,19 +52,19 @@
                         @sortablelink('id', 'Id')
                     </td>
                     <td>
-                        @sortablelink('title', __('common.title'))
+                        @sortablelink('title', __('common.short_title'))
                     </td>
                     <td class="text-center">
-                        @sortablelink('active', __('common.active'))
+                        @sortablelink('active', __('common.short_active'))
                     </td>
                     <td class="hidden-xs">
-                        @sortablelink('created_at', __('common.created_at'))
+                        @sortablelink('created_at', __('common.short_created_at'))
                     </td>
                     <td class="hidden-xs">
-                        @sortablelink('updated_at', __('common.updated_at'))
+                        @sortablelink('updated_at', __('common.short_updated_at'))
                     </td>
                     <td class="text-center">
-                        @lang_ucf('common.actions')
+                        @lang('common.short_actions')
                     </td>
                 </tr>
                 @foreach ($posts as $post)
