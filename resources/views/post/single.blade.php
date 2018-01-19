@@ -44,13 +44,13 @@
 
                     <ul>
                         <li><b>ID</b>= {{ $post->id }}</li>
-                        <li><b>{{__('general.Title')}} </b>= <span style="color:#3097D1;text-transform:uppercase;font-weight:700;">{{ $post->title }}</span></li>
+                        <li><b>{{__('common.Title')}} </b>= <span style="color:#3097D1;text-transform:uppercase;font-weight:700;">{{ $post->title }}</span></li>
                     </ul>
                     @if ($post->main_img)
                     <img  class="img-responsive center-block" src="{{ asset($post->main_img) }}" />
                     @endif
                     <ul>
-                        <li><b>{{__('general.Sortdesc')}}</b>= {{ $post->sortdesc }}</li>
+                        <li><b>{{__('common.Sortdesc')}}</b>= {{ $post->sortdesc }}</li>
                         <li><b>POSTBODY</b>= {!! $post->postbody !!}</li>
                         <li><b>METATITLE</b>= {{ $post->metatitle }}</li>
                         <li><b>METAKEYWORDS</b>= {{ $post->metakeywords }}</li>
@@ -63,7 +63,7 @@
 
                     <hr/>
                     @if (count($tags) > 0)
-                    {{__('general.Tags')}}: <i class="fas fa-tags"></i>
+                    {{__('common.Tags')}}: <i class="fas fa-tags"></i>
                     @foreach ($tags as $tag)
                     <a href="#"  class="label label-info">{{ $tag }}</a>
                     @endforeach
@@ -72,7 +72,7 @@
 
                     @if ($previous)
                     <span  class="pull-left text-left col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <a class="btn btn-default" href="{{url('post/'.$previous->seotitle)}}"><i class="fas fa-chevron-circle-left"></i> {{__('general.Previous')}}</a>
+                        <a class="btn btn-default" href="{{url('post/'.$previous->seotitle)}}"><i class="fas fa-chevron-circle-left"></i> {{__('common.Previous')}}</a>
                         <br/>
                         <span class="text-left small previous-link-title">
                             {{ str_limit($previous->title, config('settings.frontend_next_prev_trim'), '...') }}
@@ -81,7 +81,7 @@
                     @endif
                     @if ($next)
                     <span class="pull-right text-right col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <a class="btn btn-default" href="{{url('post/'.$next->seotitle)}}">{{__('general.Next')}} <i class="fas fa-chevron-circle-right"></i></a>
+                        <a class="btn btn-default" href="{{url('post/'.$next->seotitle)}}">{{__('common.Next')}} <i class="fas fa-chevron-circle-right"></i></a>
                         <br/>
                         <span class="text-right small next-link-title">
                             {{ str_limit($next->title, config('settings.frontend_next_prev_trim'), '...') }}
@@ -110,13 +110,13 @@
                 };
                 (function () { // DON'T EDIT BELOW THIS LINE
                     var d = document, s = d.createElement('script');
-                    s.src = "https://{{ config('settings.disqus_site_url') }}/embed.js";
+                    s.src = "{{ config('settings.disqus_site_url') }}/embed.js";
                     s.setAttribute('data-timestamp', +new Date());
                     (d.head || d.body).appendChild(s);
                 })();
             </script>
             <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            <script id="dsq-count-scr" src="//{{ config('settings.disqus_site_url') }}/count.js" async></script>
+            <script id="dsq-count-scr" src="{{ config('settings.disqus_site_url') }}/count.js" async></script>
             @endpush
 
         </div>

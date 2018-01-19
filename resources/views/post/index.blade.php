@@ -46,7 +46,7 @@
                     @foreach ($posts as $post)
                     <ul>
                         <li><b>ID</b>= {{ $post->id }}</li>
-                        <li><b>{{__('general.Title')}} </b>= <span style="color:#3097D1;text-transform:uppercase;font-weight:700;">
+                        <li><b>{{__('common.Title')}} </b>= <span style="color:#3097D1;text-transform:uppercase;font-weight:700;">
                                 <a href="{{url('post/'.$post->seotitle)}}">{{ str_limit($post->title , config('settings.frontend_title_trim') , '...') }}</a>
                             </span>
                         </li>
@@ -55,7 +55,7 @@
                     <img class="img-responsive center-block" src="{{ asset($post->medium_img) }}" />
                     @endif
                     <ul>
-                        <li><b>{{__('general.Sortdesc')}}</b>= {{ str_limit($post->sortdesc , config('settings.frontend_desc_trim') , '...') }}</li>
+                        <li><b>{{__('common.Sortdesc')}}</b>= {{ str_limit($post->sortdesc , config('settings.frontend_desc_trim') , '...') }}</li>
 
                         <li><b>METATITLE</b>= {{ $post->metatitle }}</li>
                         <li><b>METAKEYWORDS</b>= {{ $post->metakeywords }}</li>

@@ -14,8 +14,8 @@
 
 @section('breadcrumbs')
 <ol class="breadcrumb">
-    <li><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">{{__('general.admin-dashboard')}}</a></li>
-    <li class="active">{{__('general.list-all-posts')}}</li>
+    <li><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">@lang_ucw('common.admin_dashboard')</a></li>
+    <li class="active">@lang_ucw('common.list_all_posts')</li>
 </ol>
 @endsection
 
@@ -28,18 +28,18 @@
         @endif
 
         <div class="panel panel-default">
-            <div class="panel-heading"><i class="fa fa-copy"></i> {{__('general.list-all-posts')}}</div>
+            <div class="panel-heading"><i class="fa fa-copy"></i> @lang_ucw('common.list_all_posts')</div>
             <div class="panel-body">
                 <div class="well-sm">
                     <a href="{{route('adminpostcreate')}}" class="btn btn-success">
-                        {{__('general.create-new-post')}}
+                        @lang_ucw('common.create_new_post')
                         <i class="fa fa-plus-circle"></i>
                     </a>
                 </div>
                 @if (count($posts) === 0)
                 <div class="alert alert-warning">
                     <i class="fa fa-exclamation-triangle"></i> &nbsp;
-                    {{__('general.no-records-found')}}
+                    @lang_ucw('common.no_records_found')
                 </div>
                 @endif
             </div>
@@ -52,19 +52,19 @@
                         @sortablelink('id', 'Id')
                     </td>
                     <td>
-                        @sortablelink('title', __('general.Title'))
+                        @sortablelink('title', __('common.title'))
                     </td>
                     <td class="text-center">
-                        @sortablelink('active', __('general.Active'))
+                        @sortablelink('active', __('common.active'))
                     </td>
                     <td class="hidden-xs">
-                        @sortablelink('created_at', __('general.Created-at'))
+                        @sortablelink('created_at', __('common.created_at'))
                     </td>
                     <td class="hidden-xs">
-                        @sortablelink('updated_at', __('general.Updated-at'))
+                        @sortablelink('updated_at', __('common.updated_at'))
                     </td>
                     <td class="text-center">
-                        {{__('general.Actions')}}
+                        @lang_ucf('common.actions')
                     </td>
                 </tr>
                 @foreach ($posts as $post)
@@ -91,12 +91,12 @@
                     <td class="text-center">
                         <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block"
                            href="{{ route('adminpostedit', $post->id) }}"
-                           title="{{__('general.Edit')}}">
+                           title="@lang_ucw('common.edit')">
                             <i class="fa fa-pencil"></i>
                         </a> &nbsp;
                         <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block"
                            href="{{url('post/'.$post->seotitle)}}"
-                           title="{{__('general.Display')}}">
+                           title="@lang_ucw('common.display')">
                             <i class="fa fa-eye"></i>
                         </a> &nbsp;
                         <form name="deletepost{{ $post->id }}" action="{{ route('adminpostdelete', $post->id) }}" method="post" style="display:none;">
@@ -104,9 +104,9 @@
                             {{ method_field('DELETE') }}
                         </form>
                         <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block"
-                           onclick="if (confirm('{{__('general.confirm-delete-record')}}: {{ $post->id }}?')){ document.deletepost{{ $post->id }}.submit(); }"
+                           onclick="if (confirm('{{__('common.confirm_delete_record')}}: {{ $post->id }}?')){ document.deletepost{{ $post->id }}.submit(); }"
                            href="#"
-                           title="{{__('general.Delete')}}">
+                           title="@lang_ucw('common.delete')">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>

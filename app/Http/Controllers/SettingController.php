@@ -43,7 +43,7 @@ class SettingController extends Controller {
 
         Cache::forget('settings');
 
-        return redirect('admin/settings')->with('flash_message', __('general.The-Post') . ' ' . __('general.success-updated-message'));
+        return redirect('admin/settings')->with('flash_message', __('common.The_Post') . ' ' . __('common.success_updated_message'));
     }
 
 }

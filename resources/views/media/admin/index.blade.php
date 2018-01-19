@@ -37,7 +37,7 @@
                     @if (count($medias) === 0)
                     <div class="alert alert-warning">
                         <i class="fa fa-exclamation-triangle"></i>
-                        {{__('general.no-records-found')}}
+                        {{__('common.no_records_found')}}
                     </div>
                     @endif
                 </div>
@@ -53,7 +53,7 @@
                             Image
                         </td>
                         <td class="hidden-xs">
-                            @sortablelink('name', trans('general.Name'))
+                            @sortablelink('name', trans('common.Name'))
                         </td>
                         <td class="text-center">
                             @sortablelink('active')
@@ -115,9 +115,9 @@
                                 {{ method_field('DELETE') }}
                             </form>
                             <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block"
-                               onclick="if (confirm('{{__('general.confirm-delete-record')}}: {{ $media->id }}?')){ document.deletemedia{{ $media->id }}.submit(); }"
+                               onclick="if (confirm('{{__('common.confirm_delete_record')}}: {{ $media->id }}?')){ document.deletemedia{{ $media->id }}.submit(); }"
                                href="#"
-                               title="{{__('general.Delete')}}">
+                               title="{{__('common.Delete')}}">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </td>

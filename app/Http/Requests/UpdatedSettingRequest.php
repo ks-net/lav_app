@@ -24,9 +24,25 @@ class UpdatedSettingRequest extends FormRequest
     public function rules()
     {
         return [
-            //'title' => 'required|min:3|max:180|unique',
-            'cachetime' => 'required|min:1|max:10800|numeric|integer',
+            'cachetime' => 'required|min:1|max:86400|numeric|integer',
             'artlistpagin' => 'required|min:1|max:100|numeric|integer',
+            'panellistpagin' => 'required|min:1|max:100|numeric|integer',
+            'disqus_site_url' => 'nullable|max:300|url',
+            'admin_title_trim' => 'required|min:0|max:500|numeric|integer',
+            'admin_desc_trim' => 'required|min:0|max:500|numeric|integer',
+            'frontend_title_trim' => 'required|min:0|max:500|numeric|integer',
+            'frontend_desc_trim' => 'required|min:0|max:500|numeric|integer',
+            'frontend_next_prev_trim' => 'required|min:0|max:200|numeric|integer',
+            'post_main_img_width' => 'required|min:400|max:5000|numeric|integer',
+            'post_main_img_height' => 'required|min:400|max:3000|numeric|integer',
+            'post_medium_img_width' => 'required|min:300|max:1920|numeric|integer',
+            'post_medium_img_height' => 'required|min:300|max:1024|numeric|integer',
+            'post_thumb_img_width' => 'required|min:30|max:400|numeric|integer',
+            'post_thumb_img_height' => 'required|min:30|max:400|numeric|integer',
+            'media_full_img_width' => 'required|min:400|max:5000|numeric|integer',
+            'media_medium_img_width' => 'required|min:300|max:1920|numeric|integer',
+            'media_thumb_img_width' => 'required|min:30|max:400|numeric|integer',
+            'media_thumb_img_height' => 'required|min:30|max:400|numeric|integer',
         ];
     }
 }

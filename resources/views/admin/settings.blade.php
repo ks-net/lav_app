@@ -26,8 +26,8 @@
 
 @section('breadcrumbs')
 <ol class="breadcrumb">
-    <li><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">{{__('general.admin-dashboard')}}</a></li>
-    <li class="active">{{__('general.settings')}}</li>
+    <li><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">{{__('common.admin_dashboard')}}</a></li>
+    <li class="active">@lang_ucf('common.settings')</li>
 </ol>
 @endsection
 
@@ -40,13 +40,13 @@
         @endif
 
         <div class="panel panel-default">
-            <div class="panel-heading"><i class="fa fa-cogs"></i> {{__('general.settings')}}</div>
+            <div class="panel-heading"><i class="fa fa-cogs"></i> @lang_ucf('common.settings')</div>
             <div class="panel-body">
 
                 @if (count($settings) === 0)
                 <div class="alert alert-warning">
                     <i class="fa fa-exclamation-triangle"></i> &nbsp;
-                    {{__('general.no-records-found')}}
+                    {{__('common.no_records_found')}}
                 </div>
                 @endif
 
@@ -69,7 +69,7 @@
                     <div class="form-group{{ $errors->has($setting->name) ? ' has-error' : '' }}">
                         <label for="{{$setting->name}}">{{$setting->name}}</label>
 
-                        <input type="text" class="form-control" id="{{$setting->name}}" name="{{$setting->name}}" placeholder="" value="{{$setting->value}}">
+                        <input type="text" class="form-control" id="{{$setting->name}}" name="{{$setting->name}}"  value="{{old($setting->name , $setting->value)}}">
 
                         @if($errors->has('$setting->name'))
                         <span class="help-block">{{ $errors->first('$setting->name') }}</span>

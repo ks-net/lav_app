@@ -22,7 +22,7 @@ class SettingTableSeeder extends Seeder {
                 'value' => '16',
             ], [
                 'name' => 'disqus_site_url',
-                'value' => 'lavapp.disqus.com',
+                'value' => 'https://lavapp.disqus.com',
             ], [
                 'name' => 'admin_title_trim',
                 'value' => '120',

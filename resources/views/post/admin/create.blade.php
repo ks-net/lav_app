@@ -14,9 +14,9 @@
 
 @section('breadcrumbs')
 <ol class="breadcrumb">
-    <li><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">{{__('general.admin-dashboard')}}</a></li>
-    <li><a href="{{route('adminpostlist')}}">{{__('general.list-all-posts')}}</a></li>
-    <li class="active">{{__('general.create-new-post')}}</li>
+    <li><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">{{__('common.admin_dashboard')}}</a></li>
+    <li><a href="{{route('adminpostlist')}}">{{__('common.list_all_posts')}}</a></li>
+    <li class="active">{{__('common.create_new_post')}}</li>
 </ol>
 @endsection
 
@@ -29,11 +29,11 @@
         @endif
 
         <div class="panel panel-default">
-            <div class="panel-heading"><i class="fa fa-plus-square"></i> {{__('general.create-new-post')}}</div>
+            <div class="panel-heading"><i class="fa fa-plus-square"></i> {{__('common.create_new_post')}}</div>
 
             <div class="panel-body">
                 <div class="well-sm text-right">
-                    <a href="{{route('adminpostlist')}}" class="btn btn-danger">{{__('general.Back-to')}} {{__('general.list-all-posts')}} <i class="fa fa-sign-out"></i></a>
+                    <a href="{{route('adminpostlist')}}" class="btn btn-danger">{{__('common.Back_to')}} {{__('common.list_all_posts')}} <i class="fa fa-sign-out"></i></a>
                 </div>
                 <!-- START ADD FORM  -->
                 <form action="{{route('adminpostcreate')}}" method="post" enctype="multipart/form-data">

@@ -141,7 +141,7 @@ class PostController extends Controller {
 
         Cache::flush();
 
-        return redirect('admin/post/list')->with('flash_message', __('general.The-Post') . ' ' . __('general.success-saved-message'));
+        return redirect('admin/post/list')->with('flash_message',  __('common.post_success_saved_message'));
     }
 
     /**
@@ -164,7 +164,7 @@ class PostController extends Controller {
 
         Cache::flush();
 
-        return redirect('admin/post/list')->with('flash_message', __('general.The-Post') . ' ' . __('general.success-updated-message'));
+        return redirect('admin/post/list')->with('flash_message',  __('common.post_success_updated_message'));
     }
 
     /**
@@ -177,7 +177,7 @@ class PostController extends Controller {
 
         Cache::flush();
 
-        return back()->with('flash_message',  __('general.The-Post') . ' ' .__('general.delete-message'));
+        return back()->with('flash_message',  __('common.post_delete_message'));
     }
 
 }
