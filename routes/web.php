@@ -53,7 +53,7 @@ Route::group(['prefix' => 'admin'], function() {
 
     Route::put('/post/update/{id}', 'PostController@update')->name('adminpostupdate')->middleware('auth');
 
-    Route::get('/post/delete/{id}', ['as' => 'adminpostdelete', 'uses' => 'PostController@delete'])->middleware('auth');
+    Route::delete('/post/delete/{id}', ['as' => 'adminpostdelete', 'uses' => 'PostController@delete'])->middleware('auth');
 
 
     // Admin media routes
@@ -65,7 +65,7 @@ Route::group(['prefix' => 'admin'], function() {
         return view('media.admin.add', compact('tags'));
     })->name('adminmediaform')->middleware('auth');
 
-    Route::get('/media/delete/{id}', ['as' => 'adminmediadelete', 'uses' => 'MediaController@delete'])->middleware('auth');
+    Route::delete('/media/delete/{id}', ['as' => 'adminmediadelete', 'uses' => 'MediaController@delete'])->middleware('auth');
 
     Route::get('media/modal', function () {
         $medias = Media::where('active', 1)->paginate(5);

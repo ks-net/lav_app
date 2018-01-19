@@ -99,9 +99,13 @@
                            title="{{__('general.Display')}}">
                             <i class="fa fa-eye"></i>
                         </a> &nbsp;
+                        <form name="deletepost{{ $post->id }}" action="{{ route('adminpostdelete', $post->id) }}" method="post" style="display:none;">
+                            {!! csrf_field() !!}
+                            {{ method_field('DELETE') }}
+                        </form>
                         <a class="visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block"
-                           onclick="return confirm('{{__('general.confirm-delete-record')}}: {{ $post->id }}?')"
-                           href="{{ route('adminpostdelete', $post->id) }}"
+                           onclick="if (confirm('{{__('general.confirm-delete-record')}}: {{ $post->id }}?')){ document.deletepost{{ $post->id }}.submit(); }"
+                           href="#"
                            title="{{__('general.Delete')}}">
                             <i class="fa fa-trash"></i>
                         </a>
