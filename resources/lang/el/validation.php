@@ -120,11 +120,12 @@ return [
     'attributes' => [
 
         'main_img' => 'Βασική Εικόνα',
+        'name' => 'Όνομα',
         'seotitle' => 'Σύνδεσμος Url',
         'title' => 'Τίτλος',
         'sortdesc' => 'Σύντομη Περιγραφή',
         'postbody' => 'Βασικό κείμενο',
-        'tags' => 'Βασικό κείμενο',
+        'tags' => 'Ετικέτες',
         'metakeywords' => 'meta Λέξεις Κλειδιά',
         'metatitle' => 'meta Τίτλος',
         'metadesc' => 'meta Περιγραφή',

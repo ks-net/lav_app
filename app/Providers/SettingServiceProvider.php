@@ -15,8 +15,8 @@ class SettingServiceProvider extends ServiceProvider {
      */
     public function boot() {
         $settings = Cache::remember('settings', 3600, function() {
-            return Setting::pluck('value', 'name')->all();
-        });
+                    return Setting::pluck('value', 'name')->all();
+                });
 
         config()->set('settings', $settings);
     }

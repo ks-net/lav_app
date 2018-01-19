@@ -40,6 +40,7 @@ return [
     'delete_message' => 'Removed Permanently !',
     'success_saved_message' => 'Succesfully Saved!',
     'success_updated_message' => 'Updated Succesfully!',
+    'settings_success_updated_message' => 'Settings Updated Succesfully!',
     'post_success_saved_message' => 'Article Succesfully Saved!',
     'post_success_updated_message' => 'Article Updated Succesfully!',
     'post_delete_message' => 'Article Permanently Deleted!',

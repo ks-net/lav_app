@@ -40,6 +40,7 @@ return [
     'delete_message' => 'Διαγράφηκε Οριστικά !',
     'success_saved_message' => 'Αποθηκεύτηκε  Επιτυχώς!',
     'success_updated_message' => 'Ενημερώθηκε  Επιτυχώς!',
+    'settings_success_updated_message' => 'Οι Ρυθμίσεις Ενημερώθηκαν Επιτυχώς!',
     'post_success_saved_message' => 'Το Άρθρο Αποθηκεύτηκε  Επιτυχώς!',
     'post_success_updated_message' => 'Το Άρθρο Ενημερώθηκε  Επιτυχώς!',
     'post_delete_message' => 'Το Άρθρο Διαγράφηκε Οριστικά !',

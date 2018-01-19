@@ -52,7 +52,7 @@
                         {{ method_field('PUT') }}
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{ $post->title }}">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{ old('title' , $post->title) }}">
                             @if($errors->has('title'))
                             <span class="help-block">{{ $errors->first('title') }}</span>
                             @endif
@@ -73,22 +73,22 @@
                         </div>
                         <div class="form-group{{ $errors->has('sortdesc') ? ' has-error' : '' }}">
                             <label for="sortdesc">Sortdesc</label>
-                            <textarea class="form-control" id="sortdesc" name="sortdesc" placeholder="sortdesc">{{ $post->sortdesc }}</textarea>
+                            <textarea class="form-control" id="sortdesc" name="sortdesc" placeholder="sortdesc">{{ old('sortdesc' , $post->sortdesc) }}</textarea>
                             @if($errors->has('sortdesc'))
                             <span class="help-block">{{ $errors->first('sortdesc') }}</span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('postbody') ? ' has-error' : '' }}">
                             <label for="postbody">Postbody</label>
-                            <textarea class="form-control" id="postbody" name="postbody" placeholder="postbody">{{ $post->postbody }}</textarea>
+                            <textarea class="form-control" id="postbody" name="postbody" placeholder="postbody">{{ old('postbody' , $post->postbody) }}</textarea>
                             @if($errors->has('postbody'))
                             <span class="help-block">{{ $errors->first('postbody') }}</span>
                             @endif
                         </div>
                         <div class="form-group">
                             <label for="tags">Tags</label>
-                            {{-- populate with saved and new unsaved tags if present... NO GAPS OR SPACES ... COMMAS ARE IMPORTANT--}}
-                            <input type="text" name="tags" id="tags" value="@foreach($tags as $tag){{$tag}},@endforeach{{ old('tags') }}">
+                            {{-- populate with saved and new unsaved tags if present... NO GAPS OR SPACES ... COMMAS ARE IMPORTANT --}}
+                            <input type="text" name="tags" id="tags" value="@foreach($tags as $tag),{{$tag}}@endforeach @if(old('tags')){{ old('tags') }}@endif">
 
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
