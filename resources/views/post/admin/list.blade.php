@@ -60,10 +60,21 @@
                 @endif
             </div>
 
+
             @if (count($posts) > 0)
+
+            <form action="{{route('adminpostdeletemany')}}" method="post" name="deletechecked" id="deletechecked">
+                {!! csrf_field() !!}
+                {{ method_field('DELETE') }}
+                <button type="submit"><i class="fa fa-times-circle"></i> @lang_ucw('common.delete_checked')</button>
+            </form>
+
             <!-- Table -->
             <table class="table table-hover table-condensed" style="background:#fff;">
-                <tr class=" ">
+                <tr class="">
+                    <td class="hidden-xs">
+                        <input  type="checkbox" class=" ">
+                    </td>
                     <td class="hidden-xs">
                         @sortablelink('id', 'Id')
                     </td>
@@ -83,8 +94,12 @@
                         @lang('common.short_actions')
                     </td>
                 </tr>
+
                 @foreach ($posts as $post)
                 <tr>
+                    <td class="hidden-xs">
+                        <input   class="" type="checkbox" form="deletechecked" name="checked[]" value="{{ $post->id }}">
+                    </td>
                     <td class="hidden-xs">
                         <span class=" ">{{ $post->id }}</span>
                     </td>
@@ -142,3 +157,13 @@
     </div>
 </div>
 @endsection
+
+@push ('bottom-scripts')
+<script>
+    $(document).ready(function() {
+    $("#checkedsubmit").onClick(function() {
+    $("#deletechecked").submit();
+    });
+    });
+</script>
+@endpush

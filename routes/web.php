@@ -50,11 +50,9 @@ Route::group(['prefix' => 'admin'], function() {
     })->name('adminpostform')->middleware('auth');
 
     Route::get('/post/edit/{id}', 'PostController@edit')->name('adminpostedit')->middleware('auth');
-
     Route::put('/post/update/{id}', 'PostController@update')->name('adminpostupdate')->middleware('auth');
-
     Route::delete('/post/delete/{id}', ['as' => 'adminpostdelete', 'uses' => 'PostController@delete'])->middleware('auth');
-
+    Route::delete('/post/delete', ['as' => 'adminpostdeletemany', 'uses' => 'PostController@deleteMany'])->middleware('auth');
     Route::get('/post/search', ['as' => 'adminpostsearch', 'uses' => 'PostController@search'])->middleware('auth');
 
     // Admin media routes

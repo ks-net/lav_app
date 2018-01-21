@@ -31,6 +31,7 @@ return [
     'save' => 'save',
     'display' => 'display',
     'delete' => 'delete',
+    'delete_checked' => 'delete selected',
     'clear' => 'clear',
     'tags' => 'tags',
     'the_image' => 'the image',
@@ -60,6 +61,8 @@ return [
     'media_success_updated_message' => 'Image Updated Succesfully!',
     'media_delete_message' => 'Media and All Relative Image Versions Deleted !',
     'no_records_found' => 'No Records Found...',
+    'post_delete_many_message' => 'Deleted :count Posts in Total !',
+    'post_none_checked_message' => 'There is No Selection',
     /* ---------------------------------------
      * SHORTABLE COLUMNS
      * -------------------------------------- */

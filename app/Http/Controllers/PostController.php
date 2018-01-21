@@ -90,8 +90,8 @@ class PostController extends Controller {
         $post->sortdesc = $request->sortdesc;
         $post->postbody = $request->postbody;
         $data->metatitle = $request->metatitle;
-          $data->metakeywords = $request->metakeywords;
-          $data->metadesc = $request->metadesc;
+        $data->metakeywords = $request->metakeywords;
+        $data->metadesc = $request->metadesc;
 
         /*
           $data->active = $request->active;
@@ -161,7 +161,43 @@ class PostController extends Controller {
      */
     public function update(UpdatePostRequest $request) {
         $post = Post::findOrFail($request->id);
+
+        if ($request->hasfile('main_img')) {
+            $file = $request->file('main_img');
+            // Storage::makeDirectory('storage/media/postimages/' . $post->id);
+
+            $filename = 'post_' . $post->id . '_ORIGINAL.' . $file->getClientOriginalExtension();
+
+            Storage::disk('public')->put('media/postimages/' . $post->id . '/' . $filename, file_get_contents($file));
+            // $file->move('storage/media/postimages/' . $post->id . '/', $filename);
+            $img = 'storage/media/postimages/' . $post->id . '/' . $filename;
+            $costumname = 'post_' . $post->id;
+
+            Image::make($img)->fit(config('settings.post_main_img_width'), config('settings.post_main_img_height'))
+                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg', 90);
+
+            Image::make($img)->fit(config('settings.post_medium_img_width'), config('settings.post_medium_img_height'))
+                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
+
+            Image::make($img)->fit(config('settings.post_thumb_img_width'), config('settings.post_thumb_img_height'))
+                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
+            /*
+              Image::make($img)->resize(config('settings.post_medium_img_width'), null, function ($constraint) {
+              $constraint->aspectRatio();
+              })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
+
+              Image::make($img)->resize(config('settings.post_thumb_img_width'), null, function ($constraint) {
+              $constraint->aspectRatio();
+              })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
+             */
+
+            $post->main_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg';
+            $post->medium_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg';
+            $post->thumb_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg';
+        }
+
         $post->retag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
+
         $post->update($request->all());
 
         Cache::flush();
@@ -175,6 +211,9 @@ class PostController extends Controller {
     public function delete($id) {
         $post = Post::findOrFail($id);
         Storage::disk('public')->deleteDirectory('media/postimages/' . $id);
+        // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
+        //remove tags individually with untag() or entirely with detag()
+        $post->detag();
         $post->delete();
 
         Cache::flush();
@@ -183,15 +222,39 @@ class PostController extends Controller {
     }
 
     /**
-     * Search Post
+     * Delete all checked Posts
+     */
+    public function deleteMany(Request $request) {
+        if ($request->input('checked')) {
+            $checked = $request->input('checked', []); //get array [] of all checked inputs
+            $posts = Post::whereIn('id', $checked);
+
+            $postids = $request->input('checked');
+            $count = count($checked);
+            // first delete all relative files , tags etc..
+            foreach ($postids as $postid) {
+                $post = Post::where('id', $postid)->first(); // first() and not get() for detag method to work
+                $post->detag();
+                Storage::disk('public')->deleteDirectory('media/postimages/' . $postid);
+            }
+
+            $posts->delete(); // finally remove checked posts
+            return back()->with('flash_message', __('common.post_delete_many_message', ['count' => $count]));
+        } else {
+            return back()->with('flash_message', __('common.post_none_checked_message'));
+        }
+    }
+
+    /**
+     * Search Posts
      */
     public function search(Request $request) {
         //$ids = Post::search($request->search)->get()->pluck('id'); // scout search
         //$posts = Post::whereIn('id', $ids)->sortable()->paginate(config('setings.panellistpagin'));// scout search and shortable
         $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('sortdesc', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('postbody', 'LIKE', '%' . $request->search . '%')
-                ->sortable('id')->paginate(config('setings.panellistpagin'));
+                        ->orWhere('sortdesc', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('postbody', 'LIKE', '%' . $request->search . '%')
+                        ->sortable('id')->paginate(config('setings.panellistpagin'));
 
         $search = $request->search;
 

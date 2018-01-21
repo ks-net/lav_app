@@ -82,7 +82,7 @@ class Post extends Model {
 
     /**
      * Get the index name for the model.
-     *
+     * Scout Search
      * @return string
      */
     use Searchable;
@@ -96,7 +96,7 @@ class Post extends Model {
 
     /**
      * Get the index name for the model.
-     *
+     * Scout Search
      * @return string
      */
     public function searchableAs() {
