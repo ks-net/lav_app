@@ -39,14 +39,14 @@
                 <div class="well">
                     <form action="{{route('adminpostsearch')}}" method="get" name="search">
                         {!! csrf_field() !!}
-                        <div class="col-md-6 form-group{{ $errors->has('search') ? ' has-error' : '' }}">
+                        <div class="col-md-6 col-xs-12 form-group{{ $errors->has('search') ? ' has-error' : '' }}">
                             <input type="text" class="form-control" id="search" name="search" placeholder="search" value="@isset ($search) {{ $search }} @endisset">
                             @if($errors->has('search'))
                             <span class="help-block">{{ $errors->first('search') }}</span>
                             @endif
                         </div>
-                        <button type="submit" class="btn btn-info"><i class="fa fa-search"></i> @lang_ucw('common.search')</button>
-                        <a href="{{route('adminpostlist')}}"  class="btn btn-default">@lang_ucw('common.clear') <i class="fa fa-times-rectangle"></i></a>
+                        <button type="submit" class="btn btn-info visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block"><i class="fa fa-search"></i> @lang_ucw('common.search')</button>
+                        <a href="{{route('adminpostlist')}}"  class="btn btn-default visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block">@lang_ucw('common.clear') <i class="fa fa-magic"></i></a>
                     </form>
                 </div>
 
@@ -55,13 +55,15 @@
                     <i class="fa fa-exclamation-triangle"></i> &nbsp;
                     @lang_ucw('common.no_records_found')
                 </div>
+                @else
+                <span class="badge">{{$posts->total()}}</span> <span class="">@lang_ucw('common.total_posts')</span>
                 @endif
             </div>
 
             @if (count($posts) > 0)
             <!-- Table -->
             <table class="table table-hover table-condensed" style="background:#fff;">
-                <tr class="bg-info">
+                <tr class=" ">
                     <td class="hidden-xs">
                         @sortablelink('id', 'Id')
                     </td>

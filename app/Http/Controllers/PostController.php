@@ -89,11 +89,11 @@ class PostController extends Controller {
         $post->title = $request->title;
         $post->sortdesc = $request->sortdesc;
         $post->postbody = $request->postbody;
-        /*         $data->metatitle = $request->metatitle;
+        $data->metatitle = $request->metatitle;
           $data->metakeywords = $request->metakeywords;
           $data->metadesc = $request->metadesc;
-          $data->tags = $request->tags;
-          $data->seotitle = $request->seotitle;
+
+        /*
           $data->active = $request->active;
          */
 

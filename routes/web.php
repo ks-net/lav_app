@@ -55,7 +55,7 @@ Route::group(['prefix' => 'admin'], function() {
 
     Route::delete('/post/delete/{id}', ['as' => 'adminpostdelete', 'uses' => 'PostController@delete'])->middleware('auth');
 
-Route::get('/post/search',  ['as' => 'adminpostsearch', 'uses' => 'PostController@search'])->middleware('auth');
+    Route::get('/post/search', ['as' => 'adminpostsearch', 'uses' => 'PostController@search'])->middleware('auth');
 
     // Admin media routes
     Route::get('media/', 'MediaController@index')->name('adminmedialist')->middleware('auth');
