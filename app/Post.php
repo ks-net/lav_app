@@ -7,6 +7,7 @@ use Cocur\Slugify\Slugify;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Kyslik\ColumnSortable\Sortable;
 use Cviebrock\EloquentTaggable\Taggable;
+use Laravel\Scout\Searchable;
 use Illuminate\Support\Carbon;
 
 Carbon::setLocale('el');
@@ -27,10 +28,16 @@ class Post extends Model {
         'created_at',
         'updated_at',
     ];
-
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
+     *
+     */
+    public function getRouteKeyName() {
+        return 'seotitle';
+    }
+
+/**
      * Return the sluggable configuration array for this model.
      *
      * @return array
@@ -74,10 +81,26 @@ class Post extends Model {
     ];
 
     /**
+     * Get the index name for the model.
      *
+     * @return string
      */
-    public function getRouteKeyName() {
-        return 'seotitle';
+    use Searchable;
+
+    public function toSearchableArray() {
+        $array = $this->toArray();
+
+
+        return $array;
+    }
+
+    /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs() {
+        return 'posts_index';
     }
 
 }

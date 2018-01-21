@@ -10,18 +10,6 @@
  */
 ?>
 
-<?php
-/*
- *  File:post.list.blade.php part-of-project:lav_app encoding:UTF-8
- *  Last Modified at 7 Ιαν 2018 3:11:29 πμ.
- *  NOTE: COMMERCIAL LICENSE.. !
- *  Copyright 2018 KSNET.
- *  YOU ARE NOT ALLOWED TO USE ANYWHERE .. THIS CODE OR PORTIONS OF IT..!
- *  VARIATIONS, ADAPTATIONS, ADDITIONS, OR INCLUSIONS ARE ALSO FORBIDDEN !
- *  This software uses Lavarel PHPframework!
- */
-?>
-
 @extends('layouts.admin')
 
 @section('breadcrumbs')

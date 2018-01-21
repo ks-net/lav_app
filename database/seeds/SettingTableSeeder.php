@@ -12,6 +12,9 @@ class SettingTableSeeder extends Seeder {
     public function run() {
         DB::table('settings')->insert([
             [
+                'name' => 'site_url',
+                'value' => 'http://lav.loc',
+            ], [
                 'name' => 'cachetime',
                 'value' => '120',
             ], [

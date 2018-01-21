@@ -36,6 +36,20 @@
                         <i class="fa fa-plus-circle"></i>
                     </a>
                 </div>
+                <div class="well">
+                    <form action="{{route('adminpostsearch')}}" method="get" name="search">
+                        {!! csrf_field() !!}
+                        <div class="col-md-6 form-group{{ $errors->has('search') ? ' has-error' : '' }}">
+                            <input type="text" class="form-control" id="search" name="search" placeholder="search" value="@isset ($search) {{ $search }} @endisset">
+                            @if($errors->has('search'))
+                            <span class="help-block">{{ $errors->first('search') }}</span>
+                            @endif
+                        </div>
+                        <button type="submit" class="btn btn-info"><i class="fa fa-search"></i> @lang_ucw('common.search')</button>
+                        <a href="{{route('adminpostlist')}}"  class="btn btn-default">@lang_ucw('common.clear') <i class="fa fa-times-rectangle"></i></a>
+                    </form>
+                </div>
+
                 @if (count($posts) === 0)
                 <div class="alert alert-warning">
                     <i class="fa fa-exclamation-triangle"></i> &nbsp;

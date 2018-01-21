@@ -119,16 +119,16 @@ return [
 
     'attributes' => [
 
-        'main_img' => 'Βασική Εικόνα',
-        'name' => 'Όνομα',
-        'seotitle' => 'Σύνδεσμος Url',
-        'title' => 'Τίτλος',
-        'sortdesc' => 'Σύντομη Περιγραφή',
-        'postbody' => 'Βασικό κείμενο',
-        'tags' => 'Ετικέτες',
-        'metakeywords' => 'meta Λέξεις Κλειδιά',
-        'metatitle' => 'meta Τίτλος',
-        'metadesc' => 'meta Περιγραφή',
+        'main_img' => '(Βασική Εικόνα)',
+        'name' => '(Όνομα)',
+        'seotitle' => '(Tίτλος SEO)',
+        'title' => '(Τίτλος)',
+        'sortdesc' => '(Σύντομη Περιγραφή)',
+        'postbody' => '(Κυρίως Κείμενο)',
+        'tags' => '(Ετικέτες)',
+        'metakeywords' => '(Meta Λέξεις Κλειδιά)',
+        'metatitle' => '(Meta Τίτλος)',
+        'metadesc' => '(Meta Περιγραφή)',
 
     ],
 

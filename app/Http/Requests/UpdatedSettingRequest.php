@@ -24,6 +24,7 @@ class UpdatedSettingRequest extends FormRequest
     public function rules()
     {
         return [
+            'site_url' => 'required|max:300|url',
             'cachetime' => 'required|min:1|max:86400|numeric|integer',
             'artlistpagin' => 'required|min:1|max:100|numeric|integer',
             'panellistpagin' => 'required|min:1|max:100|numeric|integer',

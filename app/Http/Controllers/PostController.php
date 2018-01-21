@@ -74,8 +74,8 @@ class PostController extends Controller {
                 });
 
         $tags = Cache::remember('posttags' . $seotitle, config('settings.cachetime'), function() use ($post) {
-               return $post->tags;
-        });
+                    return $post->tags;
+                });
 
         return view('post.single')->with('post', $post)->with('previous', $previous)->with('next', $next)->with('tags', $tags);
     }
@@ -141,7 +141,7 @@ class PostController extends Controller {
 
         Cache::flush();
 
-        return redirect('admin/post/list')->with('flash_message',  __('common.post_success_saved_message'));
+        return redirect('admin/post/list')->with('flash_message', __('common.post_success_saved_message'));
     }
 
     /**
@@ -149,7 +149,9 @@ class PostController extends Controller {
      */
     public function edit($id) {
         $post = Post::findOrFail($id);
-        $modeltags = Post::allTags(); // all model tags for use in selectize
+        //$tagService = app(\Cviebrock\EloquentTaggable\Services\TagService::class);
+        //$modeltags = $tagService->getAllTags(); // all tags from all models for use in selectize
+        $modeltags = Post::allTags(); // all tags of this model(Post::) for use in selectize
         $tags = $post->tags; // already saved tags for this post id
         return view('post.admin.edit')->with('post', $post)->with('tags', $tags)->with('modeltags', $modeltags);
     }
@@ -164,7 +166,7 @@ class PostController extends Controller {
 
         Cache::flush();
 
-        return redirect('admin/post/list')->with('flash_message',  __('common.post_success_updated_message'));
+        return redirect('admin/post/list')->with('flash_message', __('common.post_success_updated_message'));
     }
 
     /**
@@ -177,7 +179,23 @@ class PostController extends Controller {
 
         Cache::flush();
 
-        return back()->with('flash_message',  __('common.post_delete_message'));
+        return back()->with('flash_message', __('common.post_delete_message'));
+    }
+
+    /**
+     * Search Post
+     */
+    public function search(Request $request) {
+        //$ids = Post::search($request->search)->get()->pluck('id'); // scout search
+        //$posts = Post::whereIn('id', $ids)->sortable()->paginate(config('setings.panellistpagin'));// scout search and shortable
+        $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('sortdesc', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('postbody', 'LIKE', '%' . $request->search . '%')
+                ->sortable('id')->paginate(config('setings.panellistpagin'));
+
+        $search = $request->search;
+
+        return view('post.admin.list')->withPosts($posts)->with('search', $search); // rendering sortable  pagination
     }
 
 }

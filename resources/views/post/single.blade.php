@@ -100,13 +100,11 @@
 
             @push('bottom-scripts')
             <script>
-                /**APP_URL
-                 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-
+                // DISQUS COMMENTS SCRIPT
                 var disqus_config = function () {
-                    this.page.url = "{{ env('APP_URL') }}/post/{{ $post->seotitle }}"; // Replace PAGE_URL with your page's canonical URL variable
-                    this.page.identifier = "{{ $post->seotitle }}_{{ $post->id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    this.page.url = "{{ config('settings.site_url') }}/post/{{ $post->seotitle }}"; // page's canonical URL variable
+                    this.page.identifier = "{{ $post->seotitle }}_{{ $post->id }}"; // Important page's unique identifier variable
+                    this.language = "el"; //@TODO add language settings parameter
                 };
                 (function () { // DON'T EDIT BELOW THIS LINE
                     var d = document, s = d.createElement('script');

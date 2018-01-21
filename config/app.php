@@ -173,6 +173,7 @@ Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 Barryvdh\Debugbar\ServiceProvider::class,
 Intervention\Image\ImageServiceProvider::class,
 Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+Laravel\Scout\ScoutServiceProvider::class,
         /*
          * Application Service Providers...
          */
