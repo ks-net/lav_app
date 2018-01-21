@@ -50,6 +50,7 @@ return [
      *  VARIOUS MESSAGGES
      * -------------------------------------- */
     'confirm_delete_record' => 'Are you sure? Delete Record',
+    'confirm_delete_checked_records' => 'Are you sure? Delete all selected Records?',
     'delete_message' => 'Removed Permanently !',
     'success_saved_message' => 'Succesfully Saved!',
     'success_updated_message' => 'Updated Succesfully!',

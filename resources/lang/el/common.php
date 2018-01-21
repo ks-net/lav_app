@@ -50,6 +50,7 @@ return [
      *  VARIOUS MESSAGGES
      * -------------------------------------- */
     'confirm_delete_record' => 'Σίγουρα Θέλετε να Διαγράψετε την Καταχώρηση',
+    'confirm_delete_checked_records' => 'Σίγουρα Θέλετε να Διαγράψετε τα Επιλεγμένα Στοιχεία?',
     'delete_message' => 'Διαγράφηκε Οριστικά !',
     'success_saved_message' => 'Αποθηκεύτηκε  Επιτυχώς!',
     'success_updated_message' => 'Ενημερώθηκε  Επιτυχώς!',

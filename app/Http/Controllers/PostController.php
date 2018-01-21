@@ -14,7 +14,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 //use Illuminate\Support\Facades\Session;
 //use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
@@ -32,7 +32,7 @@ class PostController extends Controller {
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth')->only('create', 'edit', 'update', 'listing', 'delete');
+        $this->middleware('auth')->only('create', 'edit', 'update', 'listing', 'delete', 'deleteMany');
     }
 
     /**
@@ -41,7 +41,7 @@ class PostController extends Controller {
     public function index() {
         $currentPage = Input::get('page') ? Input::get('page') : '1';
         $posts = Cache::remember('posts-index' . $currentPage, config('settings.cachetime'), function() {
-                    return DB::table('posts')->where('active', '1')->orderBy('id', 'desc')->paginate(config('settings.artlistpagin'));
+                    return Post::where('active', '1')->orderBy('id', 'desc')->paginate(config('settings.artlistpagin'));
                 });
 
         return view('post.index', ['posts' => $posts]);
@@ -225,11 +225,11 @@ class PostController extends Controller {
      * Delete all checked Posts
      */
     public function deleteMany(Request $request) {
-        if ($request->input('checked')) {
-            $checked = $request->input('checked', []); //get array [] of all checked inputs
+        if ($request->input('deletechecked')) {
+            $checked = $request->input('deletechecked', []); //get array [] of all checked inputs
             $posts = Post::whereIn('id', $checked);
 
-            $postids = $request->input('checked');
+            $postids = $request->input('deletechecked');
             $count = count($checked);
             // first delete all relative files , tags etc..
             foreach ($postids as $postid) {
