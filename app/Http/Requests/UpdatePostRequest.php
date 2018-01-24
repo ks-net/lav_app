@@ -12,7 +12,7 @@ class UpdatePostRequest extends FormRequest {
      * @return bool
      */
     public function authorize() {
-        return true;
+        return true; // true if we plan to check user access elsewhere
     }
 
     /**
@@ -32,17 +32,42 @@ class UpdatePostRequest extends FormRequest {
         ];
     }
 
+    /**
+     * Sanitize inputs before any rules apply
+     */
     public function sanitize() {
         $input = $this->all();
 
-       // if (preg_match("#https?://#", $input['url']) === 0) {
-       //     $input['url'] = 'http://' . $input['url'];
-       // }
+        // if (preg_match("#https?://#", $input['url']) === 0) {
+        //     $input['url'] = 'http://' . $input['url'];
+        // }
 
         $input['title'] = filter_var($input['title'], FILTER_SANITIZE_STRING);
-        $input['seotitle'] = filter_var($input['seotitle'], FILTER_SANITIZE_STRING);
+        $input['sortdesc'] = filter_var($input['sortdesc'], FILTER_SANITIZE_STRING);
+        $input['metatitle'] = filter_var($input['metatitle'], FILTER_SANITIZE_STRING);
+        $input['metadesc'] = filter_var($input['metadesc'], FILTER_SANITIZE_STRING);
+        $input['metakeywords'] = filter_var($input['metakeywords'], FILTER_SANITIZE_STRING);
+        $input['tags'] = filter_var($input['tags'], FILTER_SANITIZE_STRING);
 
         $this->replace($input);
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages() {
+        return [
+                // In most cases, you will probably specify your custom messages
+                // in a language file instead of passing them directly to the Validator.
+                // To do so, add your messages to custom array in the
+                // resources/lang/xx/validation.php language file.
+                /*
+                  'title.required' => 'A title is required',
+                  'title.min' => 'Title must have atleast :min chars .. ',
+                 */
+        ];
     }
 
 }

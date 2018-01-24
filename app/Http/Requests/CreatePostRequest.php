@@ -21,12 +21,35 @@ class CreatePostRequest extends FormRequest {
      * @return array
      */
     public function rules() {
+
+        $this->sanitize();
+
         return [
             'title' => 'required|min:3|max:180',
             'sortdesc' => 'required|min:30|max:300',
             //'metatitle' => 'required|min:30|max:300',
             'main_img' => 'mimes:jpeg,png|dimensions:min_width=500,min_height=300,max_width=6000,max_height=4000|max:6000'
         ];
+    }
+
+    /**
+     * Sanitize inputs before any rules apply
+     */
+    public function sanitize() {
+        $input = $this->all();
+
+        // if (preg_match("#https?://#", $input['url']) === 0) {
+        //     $input['url'] = 'http://' . $input['url'];
+        // }
+
+        $input['title'] = filter_var($input['title'], FILTER_SANITIZE_STRING);
+        $input['sortdesc'] = filter_var($input['sortdesc'], FILTER_SANITIZE_STRING);
+        $input['metatitle'] = filter_var($input['metatitle'], FILTER_SANITIZE_STRING);
+        $input['metadesc'] = filter_var($input['metadesc'], FILTER_SANITIZE_STRING);
+        $input['metakeywords'] = filter_var($input['metakeywords'], FILTER_SANITIZE_STRING);
+        $input['tags'] = filter_var($input['tags'], FILTER_SANITIZE_STRING);
+
+        $this->replace($input);
     }
 
     /**

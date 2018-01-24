@@ -26,8 +26,8 @@ class UpdatedSettingRequest extends FormRequest
         return [
             'site_url' => 'required|max:300|active_url',
             'cachetime' => 'required|min:1|max:86400|numeric|integer',
-            'artlistpagin' => 'required|min:1|max:100|numeric|integer',
-            'panellistpagin' => 'required|min:1|max:100|numeric|integer',
+            'public_pagination' => 'required|min:1|max:100|numeric|integer',
+            'admin_pagination' => 'required|min:1|max:100|numeric|integer',
             'disqus_site_url' => 'nullable|max:300|active_url',
             'admin_title_trim' => 'required|min:0|max:500|numeric|integer',
             'admin_desc_trim' => 'required|min:0|max:500|numeric|integer',

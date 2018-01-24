@@ -25,7 +25,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading" style="font-weight: 300;"><i class="fas fa-caret-right"></i> Αυτή θα είναι η λίστα με τα άρθρα -> post list layout
                     <ul>
-                        <li>PAGINATION SETTING= <b>{{ config('settings.artlistpagin') }}</b></li>
+                        <li>PAGINATION SETTING= <b>{{ config('settings.public_pagination') }}</b></li>
                         <li>CACHETIME SETTING= <b>{{ config('settings.cachetime') }}</b></li>
                     </ul>
                 </div>

@@ -14,14 +14,14 @@
 
 @section('breadcrumbs')
 <ol class="breadcrumb">
-    <li><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">{{__('common.admin_dashboard')}}</a></li>
-    <li class="active">@lang_ucf('common.settings')</li>
+    <li class="breadcrumb-item"><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">{{__('common.admin_dashboard')}}</a></li>
+    <li class="breadcrumb-item active">@lang_ucf('common.settings')</li>
 </ol>
 @endsection
 
 @section('content')
 <div class="row">
-    <div class="col-md-12 col-md-offset-0">
+    <div class="col">
 
         <!-- flash Messages Start -->
         @if (Session::has('flash_message'))
@@ -47,9 +47,9 @@
         @endif
         <!-- flash Messages End -->
 
-        <div class="panel panel-default">
-            <div class="panel-heading"><i class="fa fa-cogs"></i> @lang_ucf('common.settings')</div>
-            <div class="panel-body">
+        <div class="card">
+            <div class="card-header"><i class="fa fa-cogs"></i> @lang_ucf('common.settings')</div>
+            <div class="card-body">
 
                 @if (count($settings) === 0)
                 <div class="alert alert-warning">
@@ -63,7 +63,7 @@
 
                     @if ($errors->any())
                     <div class="alert alert-danger">
-                        <ul>
+                        <ul class="mb-0 pl-2">
                             @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                             @endforeach
@@ -74,13 +74,14 @@
                     {!! csrf_field() !!}
                     {{ method_field('PUT') }}
                     @foreach ($settings as $setting)
-                    <div class="form-group{{ $errors->has($setting->name) ? ' has-error' : '' }}">
-                        <label for="{{$setting->name}}">{{$setting->name}}</label>
-
-                        <input type="text" class="form-control" id="{{$setting->name}}" name="{{$setting->name}}"  value="{{old($setting->name , $setting->value)}}">
-
-                        @if($errors->has('$setting->name'))
-                        <span class="help-block">{{ $errors->first('$setting->name') }}</span>
+                    <div class="form-group">
+                        <label class="{{ $errors->has($setting->name) ? ' text-danger' : '' }}" for="{{$setting->name}}">{{$setting->name}}</label>
+                        <input type="text" class="form-control{{ $errors->has($setting->name) ? ' is-invalid' : '' }}" id="{{$setting->name}}" name="{{$setting->name}}"  value="{{old($setting->name , $setting->value)}}">
+                        @if(Lang::has('common.'.$setting->name.'_help'))
+                        <small class="form-text text-muted">@lang('common.'.$setting->name.'_help')</small>
+                        @endif
+                        @if($errors->has($setting->name))
+                        <small class="form-text{{ $errors->has($setting->name) ? ' text-danger' : '' }}">{{ $errors->first($setting->name) }}</small>
                         @endif
                     </div>
                     @endforeach
@@ -89,10 +90,10 @@
                 <!-- END  FORM  -->
             </div>
 
-            <div class="panel-footer">
+            <div class="card-footer">
                 ...
             </div>
-        </div> <!-- Panel End -->
+        </div> <!-- Card  End -->
 
     </div>
 </div>

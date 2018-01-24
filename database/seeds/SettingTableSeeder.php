@@ -18,10 +18,10 @@ class SettingTableSeeder extends Seeder {
                 'name' => 'cachetime',
                 'value' => '120',
             ], [
-                'name' => 'artlistpagin',
+                'name' => 'public_pagination',
                 'value' => '4',
             ], [
-                'name' => 'panellistpagin',
+                'name' => 'admin_pagination',
                 'value' => '16',
             ], [
                 'name' => 'disqus_site_url',

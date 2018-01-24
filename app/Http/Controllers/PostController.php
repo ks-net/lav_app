@@ -42,7 +42,7 @@ class PostController extends Controller {
     public function index() {
         $currentPage = Input::get('page') ? Input::get('page') : '1';
         $posts = Cache::remember('posts-index' . $currentPage, config('settings.cachetime'), function() {
-                    return Post::where('active', '1')->orderBy('id', 'desc')->paginate(config('settings.artlistpagin'));
+                    return Post::where('active', '1')->orderBy('id', 'desc')->paginate(config('settings.public_pagination'));
                 });
 
         return view('post.index', ['posts' => $posts]);
@@ -53,7 +53,7 @@ class PostController extends Controller {
      * with sortable table
      */
     public function listing(Post $post) {
-        $posts = $post->sortable('id')->paginate(config('settings.panellistpagin'));
+        $posts = $post->sortable('id')->paginate(config('settings.admin_pagination'));
         return view('post.admin.list')->withPosts($posts); // rendering sortable  pagination
     }
 
@@ -78,7 +78,7 @@ class PostController extends Controller {
                     return $post->tags;
                 });
 
-        return view('post.single')->with('post', $post)->with('previous', $previous)->with('next', $next)->with('tags', $tags);
+        return view('post.view')->with('post', $post)->with('previous', $previous)->with('next', $next)->with('tags', $tags);
     }
 
     /**
@@ -95,45 +95,12 @@ class PostController extends Controller {
         $post->metadesc = $request->metadesc;
 
         /*
-          $data->active = $request->active;
+          $post->active = $request->active;
          */
 
         $post->save(); // First save post once...  to get an id
 
-        if ($request->hasfile('main_img')) {
-            $file = $request->file('main_img');
-            // Storage::makeDirectory('storage/media/postimages/' . $post->id);
-
-
-            $filename = 'post_' . $post->id . '_ORIGINAL.' . $file->getClientOriginalExtension();
-
-            Storage::disk('public')->put('media/postimages/' . $post->id . '/' . $filename, file_get_contents($file));
-            // $file->move('storage/media/postimages/' . $post->id . '/', $filename);
-            $img = 'storage/media/postimages/' . $post->id . '/' . $filename;
-            $costumname = 'post_' . $post->id;
-
-            Image::make($img)->fit(config('settings.post_main_img_width'), config('settings.post_main_img_height'))
-                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg', 90);
-
-            Image::make($img)->fit(config('settings.post_medium_img_width'), config('settings.post_medium_img_height'))
-                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
-
-            Image::make($img)->fit(config('settings.post_thumb_img_width'), config('settings.post_thumb_img_height'))
-                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
-            /*
-              Image::make($img)->resize(config('settings.post_medium_img_width'), null, function ($constraint) {
-              $constraint->aspectRatio();
-              })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
-
-              Image::make($img)->resize(config('settings.post_thumb_img_width'), null, function ($constraint) {
-              $constraint->aspectRatio();
-              })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
-             */
-
-            $post->main_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg';
-            $post->medium_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg';
-            $post->thumb_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg';
-        }
+        $this->postImages($request, $post);
 
         // now after post got an id.. grab tags from the request for this post->id
         $post->tag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
@@ -170,50 +137,16 @@ class PostController extends Controller {
 
         if (Gate::denies('update', $post)) {
             return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
-        } else {
-
-            if ($request->hasfile('main_img')) {
-                $file = $request->file('main_img');
-                // Storage::makeDirectory('storage/media/postimages/' . $post->id);
-
-                $filename = 'post_' . $post->id . '_ORIGINAL.' . $file->getClientOriginalExtension();
-
-                Storage::disk('public')->put('media/postimages/' . $post->id . '/' . $filename, file_get_contents($file));
-                // $file->move('storage/media/postimages/' . $post->id . '/', $filename);
-                $img = 'storage/media/postimages/' . $post->id . '/' . $filename;
-                $costumname = 'post_' . $post->id;
-
-                Image::make($img)->fit(config('settings.post_main_img_width'), config('settings.post_main_img_height'))
-                        ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg', 90);
-
-                Image::make($img)->fit(config('settings.post_medium_img_width'), config('settings.post_medium_img_height'))
-                        ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
-
-                Image::make($img)->fit(config('settings.post_thumb_img_width'), config('settings.post_thumb_img_height'))
-                        ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
-                /*
-                  Image::make($img)->resize(config('settings.post_medium_img_width'), null, function ($constraint) {
-                  $constraint->aspectRatio();
-                  })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
-
-                  Image::make($img)->resize(config('settings.post_thumb_img_width'), null, function ($constraint) {
-                  $constraint->aspectRatio();
-                  })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
-                 */
-
-                $post->main_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg';
-                $post->medium_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg';
-                $post->thumb_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg';
-            }
-
-            $post->retag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
-
-            $post->update($request->all());
-
-            Cache::flush();
-
-            return redirect('admin/post/list')->with('flash_message_success', __('common.post_success_updated_message'));
         }
+
+        $this->postImages($request, $post);
+
+        $post->retag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
+        $post->update($request->all());
+
+        Cache::flush();
+
+        return redirect('admin/post/list')->with('flash_message_success', __('common.post_success_updated_message'));
     }
 
     /**
@@ -242,7 +175,7 @@ class PostController extends Controller {
 
             $postids = $request->input('deletechecked');
             $count = count($checked);
-            // first delete all relative files , tags etc..
+            // first delete all relative files , remove relations with tags etc..
             foreach ($postids as $postid) {
                 $post = Post::where('id', $postid)->first(); // first() and not get() for detag method to work
                 $post->detag();
@@ -265,11 +198,51 @@ class PostController extends Controller {
         $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')
                         ->orWhere('sortdesc', 'LIKE', '%' . $request->search . '%')
                         ->orWhere('postbody', 'LIKE', '%' . $request->search . '%')
-                        ->sortable('id')->paginate(config('setings.panellistpagin'));
+                        ->sortable('id')->paginate(config('setings.admin_pagination'));
 
         $search = $request->search;
 
         return view('post.admin.list')->withPosts($posts)->with('search', $search); // rendering sortable  pagination
+    }
+
+    /**
+     * Upload update Post Images
+     */
+    public function postImages($request, $post) {
+
+        if ($request->hasfile('main_img')) {
+            $file = $request->file('main_img');
+            // Storage::makeDirectory('storage/media/postimages/' . $post->id);
+
+            $filename = 'post_' . $post->id . '_ORIGINAL.' . $file->getClientOriginalExtension();
+
+            Storage::disk('public')->put('media/postimages/' . $post->id . '/' . $filename, file_get_contents($file));
+            // $file->move('storage/media/postimages/' . $post->id . '/', $filename);
+            $img = 'storage/media/postimages/' . $post->id . '/' . $filename;
+            $costumname = 'post_' . $post->id;
+
+            Image::make($img)->fit(config('settings.post_main_img_width'), config('settings.post_main_img_height'))
+                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg', 90);
+
+            Image::make($img)->fit(config('settings.post_medium_img_width'), config('settings.post_medium_img_height'))
+                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
+
+            Image::make($img)->fit(config('settings.post_thumb_img_width'), config('settings.post_thumb_img_height'))
+                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
+            /*
+              Image::make($img)->resize(config('settings.post_medium_img_width'), null, function ($constraint) {
+              $constraint->aspectRatio();
+              })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
+
+              Image::make($img)->resize(config('settings.post_thumb_img_width'), null, function ($constraint) {
+              $constraint->aspectRatio();
+              })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
+             */
+
+            $post->main_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg';
+            $post->medium_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg';
+            $post->thumb_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg';
+        }
     }
 
 }

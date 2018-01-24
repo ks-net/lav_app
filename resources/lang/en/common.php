@@ -81,4 +81,12 @@ return [
     'metadesc_help' => 'Meta-description for use in search engines, it is not visible in public',
     'metakeywords_help' => 'Meta keyWords, use no more than 10 words separated with commas',
     'tags_help' => 'Use the autocompete or type and separated with commas the words/phrases to import them',
+    /* ---------------------------------------
+     * SETTINGS HELP TEXT FOR FORMS
+     * @ use with _help suffix and the original unique setting-name
+     * eg. mysetting_help , suffix _help is mandatory for form help-texts
+     * they are shown under each parrent-input if they have an entry here
+     * -------------------------------------- */
+    'public_pagination_help' => 'Items per page in public fronted listing pages',
+    'admin_pagination_help' => 'Items per page in admin listing pages',
 ];

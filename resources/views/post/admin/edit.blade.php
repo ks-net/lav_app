@@ -63,7 +63,7 @@
 
                     @if ($errors->any())
                     <div class="alert alert-danger">
-                        <ul class="mb-0">
+                        <ul class="mb-0  pl-2">
                             @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                             @endforeach
@@ -73,7 +73,7 @@
 
                     {!! csrf_field() !!}
                     {{ method_field('PUT') }}
-                    <div class="form-group is-invalid">
+                    <div class="form-group">
                         <label class="{{ $errors->has('title') ? ' text-danger' : '' }}" for="title">@lang_ucw('common.title')</label>
                         <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" placeholder="@lang_ucw('common.title')" value="{{ old('title' , $post->title) }}">
                         @if($errors->has('title'))

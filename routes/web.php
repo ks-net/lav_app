@@ -24,9 +24,9 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/post', 'PostController@index')->name('posthome');
+Route::get('/post', 'PostController@index')->name('postindex');
 
-Route::get('post/{seotitle}', 'PostController@view')->name('postsingle');
+Route::get('post/{seotitle}', 'PostController@view')->name('postview');
 
 
 /* * ****************************
