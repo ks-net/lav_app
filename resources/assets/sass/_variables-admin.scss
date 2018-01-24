@@ -1,89 +1,62 @@
+// colors
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+
+$blue:    #2F5B7A !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #BE494B !default;
+$orange:  #fd7e14 !default;
+$yellow:  #E7C34E !default;
+$green:   #3FA07E !default;
+$teal:    #20c997 !default;
+$cyan:    #6593C1 !default;
+
 
 // Body
 $body-bg: #f5f8fa;
-
-// Borders
-$laravel-border-color: darken($body-bg, 10%);
-$list-group-border: $laravel-border-color;
-$navbar-default-border: $laravel-border-color;
-$panel-default-border: $laravel-border-color;
-$panel-inner-border: $laravel-border-color;
-
-// Brands
-$brand-primary: #2F5B7A;
-$brand-info: #6593C1;
-$brand-success: #3FA07E;
-$brand-warning: #CA823E;
-$brand-danger: #BE494B;
-
-
-$gray-darker:  lighten(#000, 13.5%); // #222
-$gray-dark:    lighten(#000, 20%);   // #333
-$gray:         lighten(#000, 33.5%); // #555
-$gray-light:   lighten(#000, 46.7%); // #777
-$gray-lighter: lighten(#000, 93.5%); // #eee
-
-
-
-
-// states
-$state-info-bg:#E1EDF3;
+//$body-color:     $gray-700 !default;
+$body-color:     #636b6f !default;
 
 // Typography
-$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $font-family-sans-serif: "Roboto Condensed", sans-serif;
-$font-size-base: 14px;
+$font-size-base: .92rem;
 $line-height-base: 1.5;
-$text-color: #636b6f;
+$small-font-size:             85% !default;
 
 $headings-font-family: "Roboto Condensed", sans-serif;
 
 // Buttons
-$btn-default-color: $text-color;
+
 
 // Borders
-$border-radius-base:        2px !default;
-$border-radius-large:       3px !default;
-$border-radius-small:       1px !default;
+$border-radius:        .12rem !default;
+$border-radius-lg:      .18rem !default;
+$border-radius-sm:       .1rem !default;
 
 // Inputs
-$input-border: lighten($text-color, 40%);
-$input-border-focus: lighten($brand-primary, 25%);
-$input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
-$panel-default-heading-bg: #F0F2F3;
+
 
 // Form states and alerts
-$state-danger-text: #B82834;
+$state-danger-text:             $red;
+$text-muted:                  $gray-500 !default;
+$input-placeholder-color:               $gray-400 !default;
 
 
 // Navbar
-$navbar-default-bg: #fff;
 
-//=== Inverted navbar
-// Reset inverted navbar basics
-$navbar-inverse-color:                      lighten($gray-light, 15%) !default;
-$navbar-inverse-bg:                         #2A3F54 !default;
-$navbar-inverse-border:                     darken($navbar-inverse-bg, 10%) !default;
-
-// Inverted navbar links
-$navbar-inverse-link-color:                 lighten($gray-light, 35%) !default;
-$navbar-inverse-link-hover-color:           #fff !default;
-$navbar-inverse-link-hover-bg:              transparent !default;
-$navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
-$navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 10%) !default;
-$navbar-inverse-link-disabled-color:        #444 !default;
-$navbar-inverse-link-disabled-bg:           transparent !default;
-
-// Inverted navbar brand label
-$navbar-inverse-brand-color:                $navbar-inverse-link-color !default;
-$navbar-inverse-brand-hover-color:          #fff !default;
-$navbar-inverse-brand-hover-bg:             transparent !default;
-
-// Inverted navbar toggle
-$navbar-inverse-toggle-hover-bg:            #2A3F54 !default;
-$navbar-inverse-toggle-icon-bar-bg:         #fff !default;
-$navbar-inverse-toggle-border-color: #2A3F54 !default;
 
 

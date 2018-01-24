@@ -15,8 +15,9 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\DB;
-//use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Session;
 //use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\CreatePostRequest;
@@ -89,9 +90,9 @@ class PostController extends Controller {
         $post->title = $request->title;
         $post->sortdesc = $request->sortdesc;
         $post->postbody = $request->postbody;
-        $data->metatitle = $request->metatitle;
-        $data->metakeywords = $request->metakeywords;
-        $data->metadesc = $request->metadesc;
+        $post->metatitle = $request->metatitle;
+        $post->metakeywords = $request->metakeywords;
+        $post->metadesc = $request->metadesc;
 
         /*
           $data->active = $request->active;
@@ -141,7 +142,7 @@ class PostController extends Controller {
 
         Cache::flush();
 
-        return redirect('admin/post/list')->with('flash_message', __('common.post_success_saved_message'));
+        return redirect('admin/post/list')->with('flash_message_success', __('common.post_success_saved_message'));
     }
 
     /**
@@ -149,6 +150,9 @@ class PostController extends Controller {
      */
     public function edit($id) {
         $post = Post::findOrFail($id);
+
+        $this->authorize('edit', $post);
+
         //$tagService = app(\Cviebrock\EloquentTaggable\Services\TagService::class);
         //$modeltags = $tagService->getAllTags(); // all tags from all models for use in selectize
         $modeltags = Post::allTags(); // all tags of this model(Post::) for use in selectize
@@ -162,47 +166,54 @@ class PostController extends Controller {
     public function update(UpdatePostRequest $request) {
         $post = Post::findOrFail($request->id);
 
-        if ($request->hasfile('main_img')) {
-            $file = $request->file('main_img');
-            // Storage::makeDirectory('storage/media/postimages/' . $post->id);
+//$this->authorize('update' , $post);
 
-            $filename = 'post_' . $post->id . '_ORIGINAL.' . $file->getClientOriginalExtension();
+        if (Gate::denies('update', $post)) {
+            return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+        } else {
 
-            Storage::disk('public')->put('media/postimages/' . $post->id . '/' . $filename, file_get_contents($file));
-            // $file->move('storage/media/postimages/' . $post->id . '/', $filename);
-            $img = 'storage/media/postimages/' . $post->id . '/' . $filename;
-            $costumname = 'post_' . $post->id;
+            if ($request->hasfile('main_img')) {
+                $file = $request->file('main_img');
+                // Storage::makeDirectory('storage/media/postimages/' . $post->id);
 
-            Image::make($img)->fit(config('settings.post_main_img_width'), config('settings.post_main_img_height'))
-                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg', 90);
+                $filename = 'post_' . $post->id . '_ORIGINAL.' . $file->getClientOriginalExtension();
 
-            Image::make($img)->fit(config('settings.post_medium_img_width'), config('settings.post_medium_img_height'))
-                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
+                Storage::disk('public')->put('media/postimages/' . $post->id . '/' . $filename, file_get_contents($file));
+                // $file->move('storage/media/postimages/' . $post->id . '/', $filename);
+                $img = 'storage/media/postimages/' . $post->id . '/' . $filename;
+                $costumname = 'post_' . $post->id;
 
-            Image::make($img)->fit(config('settings.post_thumb_img_width'), config('settings.post_thumb_img_height'))
-                    ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
-            /*
-              Image::make($img)->resize(config('settings.post_medium_img_width'), null, function ($constraint) {
-              $constraint->aspectRatio();
-              })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
+                Image::make($img)->fit(config('settings.post_main_img_width'), config('settings.post_main_img_height'))
+                        ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg', 90);
 
-              Image::make($img)->resize(config('settings.post_thumb_img_width'), null, function ($constraint) {
-              $constraint->aspectRatio();
-              })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
-             */
+                Image::make($img)->fit(config('settings.post_medium_img_width'), config('settings.post_medium_img_height'))
+                        ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
 
-            $post->main_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg';
-            $post->medium_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg';
-            $post->thumb_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg';
+                Image::make($img)->fit(config('settings.post_thumb_img_width'), config('settings.post_thumb_img_height'))
+                        ->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
+                /*
+                  Image::make($img)->resize(config('settings.post_medium_img_width'), null, function ($constraint) {
+                  $constraint->aspectRatio();
+                  })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg', 90);
+
+                  Image::make($img)->resize(config('settings.post_thumb_img_width'), null, function ($constraint) {
+                  $constraint->aspectRatio();
+                  })->save('storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg', 90);
+                 */
+
+                $post->main_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_main_img.jpg';
+                $post->medium_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg';
+                $post->thumb_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg';
+            }
+
+            $post->retag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
+
+            $post->update($request->all());
+
+            Cache::flush();
+
+            return redirect('admin/post/list')->with('flash_message_success', __('common.post_success_updated_message'));
         }
-
-        $post->retag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
-
-        $post->update($request->all());
-
-        Cache::flush();
-
-        return redirect('admin/post/list')->with('flash_message', __('common.post_success_updated_message'));
     }
 
     /**
@@ -218,7 +229,7 @@ class PostController extends Controller {
 
         Cache::flush();
 
-        return back()->with('flash_message', __('common.post_delete_message'));
+        return back()->with('flash_message_success', __('common.post_delete_message'));
     }
 
     /**
@@ -239,9 +250,9 @@ class PostController extends Controller {
             }
 
             $posts->delete(); // finally remove checked posts
-            return back()->with('flash_message', __('common.post_delete_many_message', ['count' => $count]));
+            return back()->with('flash_message_success', __('common.post_delete_many_message', ['count' => $count]));
         } else {
-            return back()->with('flash_message', __('common.post_none_checked_message'));
+            return back()->with('flash_message_warning', __('common.post_none_checked_message'));
         }
     }
 

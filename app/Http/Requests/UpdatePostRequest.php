@@ -25,8 +25,8 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'title' => 'required|min:3|max:180',
-            //'seotitle' => 'required|unique:posts|max:180',
-            'sortdesc' => 'required|min:50|max:500',
+            'sortdesc' => 'required|min:30|max:300',
+            //'metatitle' => 'required|min:30|max:300',
             'main_img' => 'mimes:jpeg,png|dimensions:min_width=500,min_height=300,max_width=6000,max_height=4000|max:6000'
         ];
     }

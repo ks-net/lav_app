@@ -10,88 +10,78 @@
  */
 ?>
 
-<nav class="navbar navbar-default navbar-static-top  navbar-inverse">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
-        <div class="navbar-header">
+        <a class="navbar-brand" href="{{ url('/admin') }}">
+            {{ config('app.name', 'Laravel') }}
+        </a>
 
-            <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/admin') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-        </div>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
+            <ul class="navbar-nav mr-auto">
                 &nbsp;
             </ul>
 
             <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
-                <!-- Authentication Links -->
+            <ul class="navbar-nav ml-auto">
                 @guest
-                <li><a href="{{ route('login') }}">Login</a></li>
-                <li><a href="{{ route('register') }}">Register</a></li>
+                <li class="nav-item"><a href="{{ route('login') }}">Login</a></li>
+                <li class="nav-item"><a href="{{ route('register') }}">Register</a></li>
                 @else
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-wrench"></i> Settings <span class="caret"></span>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-wrench"></i> Settings
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('adminsettings') }}"><i class="fa fa-cogs"></i> Default Settings</a></li>
-                        <li><a href="{{ route('adminpostcreate') }}"><i class="fa fa-sliders"></i> Other Settings</a></li>
-                    </ul>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('adminsettings') }}"><i class="fa fa-cogs"></i> Default Settings</a>
+                        <a  class="dropdown-item" href="#"><i class="fa fa-sliders"></i> Other Settings</a>
+                    </div>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-user-circle-o"></i> Users <span class="caret"></span>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user-circle-o"></i> Users
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('adminpostlist') }}"><i class="fa fa-users"></i> List All Users</a></li>
-                        <li><a href="{{ route('adminpostcreate') }}"><i class="fa fa-user-secret"></i> User Roles</a></li>
-                    </ul>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#"><i class="fa fa-users"></i> Action</a>
+                        <a class="dropdown-item" href="#"><i class="fa fa-user-secret"></i> Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
                 </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-file-text-o"></i> Posts <span class="caret"></span>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-file-text-o"></i> Posts
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('adminpostlist') }}"><i class="fa fa-file-text"></i> List All Posts</a></li>
-                        <li><a href="{{ route('adminpostcreate') }}"><i class="fa fa-plus-square"></i> Add new Post</a></li>
-                    </ul>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('adminpostlist') }}"><i class="fa fa-file-text"></i> List All Posts</a>
+                        <a class="dropdown-item" href="{{ route('adminpostcreate') }}"><i class="fa fa-plus-square"></i> Add new Post</a>
+                    </div>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="fa fa-picture-o"></i> Media <span class="caret"></span>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-picture-o"></i> Media
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('adminmedialist') }}"><i class="fa fa-image"></i> List All Media</a></li>
-                        <li><a href="{{ route('adminmediaadd') }}"><i class="fa fa-plus-square"></i> Add New Media</a></li>
-                    </ul>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('adminmedialist') }}"><i class="fa fa-image"></i> List All Media</a>
+                        <a class="dropdown-item" href="{{ route('adminmediaadd') }}"><i class="fa fa-plus-square"></i> Add New Media</a>
+                    </div>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                        <i class="fa fa-user-o"></i> {{ Auth::user()->name }} <span class="caret"></span>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user-o"></i> {{ Auth::user()->name }}
                     </a>
-
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                       document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout <i class="fa fa-sign-out"></i>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
                 </li>
                 @endguest
             </ul>

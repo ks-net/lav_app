@@ -23,9 +23,29 @@
 <div class="row">
     <div class="col-md-12 col-md-offset-0">
 
+        <!-- flash Messages Start -->
         @if (Session::has('flash_message'))
-        <div class="alert alert-success"><i class="fa fa-info-circle"></i> {{ Session::get('flash_message') }}</div>
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-info-circle"></i> {{ Session::get('flash_message') }}
+        </div>
         @endif
+        @if (Session::has('flash_message_success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-check-circle"></i> {{ Session::get('flash_message_success') }}
+        </div>
+        @endif
+        @if (Session::has('flash_message_warning'))
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-exclamation-triangle"></i> {{ Session::get('flash_message_warning') }}
+        </div>
+        @endif
+        @if (Session::has('flash_message_error'))
+        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ Session::get('flash_message_error') }}</div>
+        @endif
+        <!-- flash Messages End -->
 
         <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-cogs"></i> @lang_ucf('common.settings')</div>

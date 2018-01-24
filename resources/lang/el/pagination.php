@@ -13,7 +13,13 @@ return [
     |
     */
 
-    'previous' => '&laquo; Προηγούμενο',
-    'next' => 'Επόμενο &raquo;',
-
+    'previous' => 'Προηγούμενο',
+    'next' => 'Επόμενο',
+    'previous_page' => '&laquo;  Προηγ. Σελίδα',
+    'next_page' => 'Επομ. Σελίδα &raquo;',
+    'previous_simple' => '&laquo; Προηγούμενο',
+    'next_simple' => 'Επόμενο &raquo;',
+    'page' => 'Σελίδα',
+    'pages' => 'Σελίδες',
+    'page_from' => 'από',
 ];

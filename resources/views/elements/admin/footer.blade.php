@@ -10,13 +10,10 @@
  */
 ?>
 
-<div class="container" >
-
-    <div class="panel panel-primary">
+    <div class="card text-white bg-dark mt-3 mb-5">
         <!-- Default panel contents -->
-        <div class="panel-heading">Panel heading</div>
-        <div class="panel-body">
+        <div class="card-header">bootstrap_4 Card  heading</div>
+        <div class="card-body">
             <p>...</p>
         </div>
     </div>
-</div>

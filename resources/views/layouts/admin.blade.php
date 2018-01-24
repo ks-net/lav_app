@@ -31,15 +31,16 @@
             @include('elements.admin.menu')
 
             <!-- Start Content -->
-            <div class="container">
+            <div class="container mt-2">
             @yield('breadcrumbs')
             </div>
             <div class="container">
             @yield('content')
             </div>
             <!-- Content End -->
-
+            <div class="container mt-2 mb-5">
             @include('elements.admin.footer')
+            </div>
         </div> <!-- APP END -->
 
         <!-- Scripts -->

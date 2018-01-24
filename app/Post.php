@@ -96,7 +96,7 @@ class Post extends Model {
 
     /**
      * Get the index name for the model.
-     * Scout Search
+     * Scout Search usually with external algolia driver
      * @return string
      */
     public function searchableAs() {

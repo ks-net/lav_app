@@ -10,17 +10,22 @@ window._ = require('lodash');
 try {
     window.$ = window.jQuery = require('jquery');
     require('selectize');
-    require('bootstrap-sass');
+
+    window.Popper = require('popper.js');
+
+    require('bootstrap');
+
     var fancybox = require("fancybox")($);
 
-$(document).ready(function() {
-	$("[data-fancybox]").fancybox({
-		// Options will go here
-	});
-});
+    $(document).ready(function () {
+        $("[data-fancybox]").fancybox({
+            // Options will go here
+        });
+    });
 
 
-} catch (e) {}
+} catch (e) {
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

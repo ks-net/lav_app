@@ -6,7 +6,7 @@
 @import "variables-admin";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap/scss/bootstrap";
 @import "~font-awesome/css/font-awesome.min.css";
 
 @import "~selectize/dist/css/selectize.bootstrap3";
@@ -21,8 +21,14 @@
 /* COMMON STYLES                           */
 /* *****************************************/
 
-.gray-out {opacity:0.5;}
 
+.clear {clear:both;}
+
+div.has-error .cke_chrome {
+    border: 1px solid $state-danger-text;
+}
+
+.gray-out {opacity:0.5;}
 
 /********************************************/
 

@@ -10,7 +10,11 @@ window._ = require('lodash');
 try {
     window.$ = window.jQuery = require('jquery');
     require('selectize');
-    require('bootstrap-sass');
+
+    window.Popper = require('popper.js');
+
+    require('bootstrap');
+
     require('./admin-extra.js');
 
     var fancybox = require("fancybox")($);

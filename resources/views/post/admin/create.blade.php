@@ -13,34 +13,57 @@
 @extends('layouts.admin')
 
 @section('breadcrumbs')
-<ol class="breadcrumb">
-    <li><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">@lang_ucw('common.admin_dashboard')</a></li>
-    <li><a href="{{route('adminpostlist')}}">@lang_ucw('common.post_list')</a></li>
-    <li class="active">@lang_ucw('common.create_new_post')</li>
-</ol>
+<nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">@lang_ucw('common.admin_dashboard')</a></li>
+        <li class="breadcrumb-item"><a href="{{route('adminpostlist')}}">@lang_ucw('common.post_list')</a></li>
+        <li class="breadcrumb-item active">@lang_ucw('common.create_new_post')</li>
+    </ol>
+</nav>
 @endsection
 
 @section('content')
 <div class="row">
-    <div class="col-md-12 col-md-offset-0">
+    <div class="col">
 
+        <!-- flash Messages Start -->
         @if (Session::has('flash_message'))
-        <div class="alert alert-info"><i class="fas fa-info-circle"></i> {{ Session::get('flash_message') }}</div>
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-info-circle"></i> {{ Session::get('flash_message') }}
+        </div>
         @endif
+        @if (Session::has('flash_message_success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-check-circle"></i> {{ Session::get('flash_message_success') }}
+        </div>
+        @endif
+        @if (Session::has('flash_message_warning'))
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-exclamation-triangle"></i> {{ Session::get('flash_message_warning') }}
+        </div>
+        @endif
+        @if (Session::has('flash_message_error'))
+        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ Session::get('flash_message_error') }}</div>
+        @endif
+        <!-- flash Messages End -->
 
-        <div class="panel panel-default">
-            <div class="panel-heading"><i class="fa fa-plus-square"></i> @lang_ucw('common.create_new_post')</div>
+        <div class="card">
+            <div class="card-header"><i class="fa fa-plus-square"></i> @lang_ucw('common.create_new_post')</div>
+            <div class="card-body">
 
-            <div class="panel-body">
-                <div class="well-sm text-right">
+                <nav class="nav mb-3 justify-content-center justify-content-md-end">
                     <a href="{{route('adminpostlist')}}" class="btn btn-danger">@lang_ucf('common.back_to') @lang_ucw('common.post_list') <i class="fa fa-sign-out"></i></a>
-                </div>
+                </nav>
+
                 <!-- START ADD FORM  -->
                 <form action="{{route('adminpostcreate')}}" method="post" enctype="multipart/form-data">
 
                     @if ($errors->any())
                     <div class="alert alert-danger">
-                        <ul>
+                        <ul class="mb-0">
                             @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                             @endforeach
@@ -49,80 +72,83 @@
                     @endif
 
                     {!! csrf_field() !!}
-                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                        <label for="title">@lang_ucw('common.title')</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="@lang_ucw('common.title')" value="{{ old('title') }}">
+                    <div class="form-group is-invalid">
+                        <label class="{{ $errors->has('title') ? ' text-danger' : '' }}" for="title">@lang_ucw('common.title')</label>
+                        <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" placeholder="@lang_ucw('common.title')" value="{{ old('title') }}">
                         @if($errors->has('title'))
-                        <span class="help-block">{{ $errors->first('title') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('seotitle') ? ' has-error' : '' }}">
-                        <label for="seotitle">@lang_ucw('common.seotitle')</label>
-                        <input type="text" class="form-control" id="seotitle" name="seotitle" placeholder="@lang_ucw('common.seotitle')" value="{{ old('seotitle') }}">
-                        @if($errors->has('seotitle'))
-                        <span class="help-block">{{ $errors->first('seotitle') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('main_img') ? ' has-error' : '' }}">
-                        <label for="main_img">@lang_ucw('common.main_image')</label>
-                        <input type="file" name="main_img" id="main_img" value="{{ old('main_img') }}">
-                        @if($errors->has('main_img'))
-                        <span class="help-block">{{ $errors->first('main_img') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('sortdesc') ? ' has-error' : '' }}">
-                        <label for="sortdesc">@lang_ucw('common.sortdesc')</label>
-                        <textarea class="form-control" id="sortdesc" name="sortdesc" placeholder="@lang_ucw('common.sortdesc')">{{ old('sortdesc') }}</textarea>
-                        @if($errors->has('sortdesc'))
-                        <span class="help-block">{{ $errors->first('sortdesc') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('postbody') ? ' has-error' : '' }}">
-                        <label for="postbody">@lang_ucw('common.text_area')</label>
-                        <textarea class="form-control" id="postbody" name="postbody" placeholder="@lang_ucw('common.text_area')">{{ old('postbody') }}</textarea>
-                        @if($errors->has('postbody'))
-                        <span class="help-block">{{ $errors->first('postbody') }}</span>
+                        <small class="form-text{{ $errors->has('title') ? ' text-danger' : '' }}">{{ $errors->first('title') }}</small>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="tags">@lang_ucw('common.tags')</label>
-                        <input type="text" name="tags" id="tags" value="{{ old('tags') }}">
-                        <span class="help-block">@lang('common.tags_help')</span>
+                        <label class="{{ $errors->has('seotitle') ? ' text-danger' : '' }}" for="seotitle">@lang_ucw('common.seotitle')</label>
+                        <input type="text" class="form-control{{ $errors->has('seotitle') ? ' is-invalid' : '' }}" id="seotitle" name="seotitle" placeholder="@lang_ucw('common.seotitle')" value="{{ old('seotitle') }}">
+                        @if($errors->has('seotitle'))
+                        <small class="form-text{{ $errors->has('seotitle') ? ' text-danger' : '' }}">{{ $errors->first('seotitle') }}</small>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label class="{{ $errors->has('main_img') ? ' text-danger' : '' }}" for="main_img">@lang_ucw('common.main_image')</label>
+                        <input type="file" class="form-control{{ $errors->has('main_img') ? ' is-invalid' : '' }}" name="main_img" id="main_img" value="{{ old('main_img') }}">
+                        @if($errors->has('main_img'))
+                        <small class="form-text{{ $errors->has('main_img') ? ' text-danger' : '' }}">{{ $errors->first('main_img') }}</small>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label class="{{ $errors->has('sortdesc') ? ' text-danger' : '' }}" for="sortdesc">@lang_ucw('common.sortdesc')</label>
+                        <textarea class="form-control{{ $errors->has('sortdesc') ? ' is-invalid' : '' }}" id="sortdesc" name="sortdesc" placeholder="@lang_ucw('common.sortdesc')">{{ old('sortdesc') }}</textarea>
+                        @if($errors->has('sortdesc'))
+                        <small class="form-text{{ $errors->has('sortdesc') ? ' text-danger' : '' }}">{{ $errors->first('sortdesc') }}</small>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label class="{{ $errors->has('postbody') ? ' text-danger' : '' }}" for="postbody">@lang_ucw('common.text_area')</label>
+                        <textarea class="form-control{{ $errors->has('postbody') ? ' is-invalid' : '' }}" id="postbody" name="postbody" placeholder="@lang_ucw('common.text_area')">{{ old('postbody') }}</textarea>
+                        @if($errors->has('postbody'))
+                        <small class="form-text{{ $errors->has('postbody') ? ' text-danger' : '' }}">{{ $errors->first('postbody') }}</small>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label class="{{ $errors->has('tags') ? ' text-danger' : '' }}" for="tags">@lang_ucw('common.tags')</label>
+                        <input type="text" class="form-control{{ $errors->has('tags') ? ' is-invalid' : '' }}" name="tags" id="tags" value="{{ old('tags') }}">
                         @if($errors->has('tags'))
-                        <span class="help-block">{{ $errors->first('tags') }}</span>
+                        <small class="form-text{{ $errors->has('tags') ? ' text-danger' : '' }}">{{ $errors->first('tags') }}</small>
                         @endif
+                        <small class="form-text text-muted">@lang('common.tags_help')</small>
                     </div>
-                    <div class="form-group{{ $errors->has('metatitle') ? ' has-error' : '' }}">
-                        <label for="metatitle">@lang_ucw('common.metatitle')</label>
-                        <input type="text" class="form-control" id="metatitle" name="metatitle" placeholder="@lang_ucw('common.metatitle')" value="{{ old('metatitle') }}">
-                        <span class="help-block">@lang('common.metatitle_help')</span>
+                    <div class="form-group">
+                        <label class="{{ $errors->has('metatitle') ? ' text-danger' : '' }}" for="metatitle">@lang_ucw('common.metatitle')</label>
+                        <input type="text" class="form-control{{ $errors->has('metatitle') ? ' is-invalid' : '' }}" id="metatitle" name="metatitle" placeholder="@lang_ucw('common.metatitle')" value="{{ old('metatitle') }}">
                         @if($errors->has('metatitle'))
-                        <span class="help-block">{{ $errors->first('metatitle') }}</span>
+                        <small class="form-text{{ $errors->has('metatitle') ? ' text-danger' : '' }}">{{ $errors->first('metatitle') }}</small>
                         @endif
+                        <small class="form-text text-muted">@lang('common.metatitle_help')</small>
                     </div>
-                        <div class="form-group{{ $errors->has('metadesc') ? ' has-error' : '' }}">
-                        <label for="metadesc">@lang_ucw('common.metadesc')</label>
-                        <textarea class="form-control" id="metadesc" name="metadesc" placeholder="@lang_ucw('common.metadesc')">{{ old('metadesc') }}</textarea>
-                        <span class="help-block">@lang('common.metadesc_help')</span>
+                    <div class="form-group">
+                        <label class="{{ $errors->has('metadesc') ? ' text-danger' : '' }}" for="metadesc">@lang_ucw('common.metadesc')</label>
+                        <textarea class="form-control{{ $errors->has('metadesc') ? ' is-invalid' : '' }}" id="metadesc" name="metadesc" placeholder="@lang_ucw('common.metadesc')">{{ old('metadesc') }}</textarea>
                         @if($errors->has('metadesc'))
-                        <span class="help-block">{{ $errors->first('metadesc') }}</span>
+                        <small class="form-text{{ $errors->has('metadesc') ? ' text-danger' : '' }}">{{ $errors->first('metadesc') }}</small>
                         @endif
+                        <small class="form-text text-muted">@lang('common.metadesc_help')</small>
                     </div>
-                       <div class="form-group{{ $errors->has('metakeywords') ? ' has-error' : '' }}">
-                        <label for="metakeywords">@lang_ucw('common.metakeywords')</label>
-                        <input type="text" class="form-control" id="metakeywords" name="metakeywords" placeholder="@lang_ucw('common.metakeywords')" value="{{ old('metakeywords') }}">
-                        <span class="help-block">@lang('common.metakeywords_help')</span>
+                    <div class="form-group">
+                        <label class="{{ $errors->has('metakeywords') ? ' text-danger' : '' }}" for="metakeywords">@lang_ucw('common.metakeywords')</label>
+                        <input type="text" class="form-control{{ $errors->has('metakeywords') ? ' is-invalid' : '' }}" id="metakeywords" name="metakeywords" placeholder="@lang_ucw('common.metakeywords')" value="{{ old('metakeywords') }}">
                         @if($errors->has('metakeywords'))
-                        <span class="help-block">{{ $errors->first('metakeywords') }}</span>
+                        <small class="form-text{{ $errors->has('metakeywords') ? ' text-danger' : '' }}">{{ $errors->first('metakeywords') }}</small>
                         @endif
+                        <small class="form-text text-muted">@lang('common.metakeywords_help')</small>
                     </div>
 
-                    <button type="submit" class="btn btn-success">@lang_ucw('common.save')</button>
+                <nav class="nav mb-3 justify-content-center justify-content-md-start">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> @lang_ucw('common.save')</button>
+                </nav>
+
                 </form>
                 <!-- END ADD FORM  -->
 
             </div>
-        </div> <!-- panel END -->
+        </div> <!-- card END -->
 
     </div>
 </div>

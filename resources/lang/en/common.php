@@ -43,6 +43,7 @@ return [
     'settings' => 'settings',
     'search' => 'search',
     'create_new_post' => 'create a new post',
+    'edit_post' => 'edit post',
     'save_new_image' => 'save a new image',
     'admin_dashboard' => 'DashBoard',
     'list_all_posts' => 'post list',
@@ -73,4 +74,11 @@ return [
     'short_active' => 'Active',
     'short_title' => 'Title',
     'short_id' => 'Id',
+    /* ---------------------------------------
+     * FORM HELP TEXT
+     * -------------------------------------- */
+    'metatitle_help' => 'Meta-title for use in search engines, it is not visible in public',
+    'metadesc_help' => 'Meta-description for use in search engines, it is not visible in public',
+    'metakeywords_help' => 'Meta keyWords, use no more than 10 words separated with commas',
+    'tags_help' => 'Use the autocompete or type and separated with commas the words/phrases to import them',
 ];

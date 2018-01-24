@@ -41,19 +41,19 @@ Route::group(['prefix' => 'admin'], function() {
 
 
     // Admin post routes
-    Route::get('/post/list', 'PostController@listing')->name('adminpostlist')->middleware('auth');
-    Route::post('/post/create', 'PostController@create')->name('adminpostcreate')->middleware('auth');
+    Route::get('/post/list', 'PostController@listing')->name('adminpostlist');
+    Route::post('/post/create', 'PostController@create')->name('adminpostcreate');
 
     Route::get('/post/create', function () {
         $tags = Post::allTags();
         return view('post.admin.create', compact('tags'));
-    })->name('adminpostform')->middleware('auth');
+    })->name('adminpostform');
 
-    Route::get('/post/edit/{id}', 'PostController@edit')->name('adminpostedit')->middleware('auth');
-    Route::put('/post/update/{id}', 'PostController@update')->name('adminpostupdate')->middleware('auth');
-    Route::delete('/post/delete/{id}', ['as' => 'adminpostdelete', 'uses' => 'PostController@delete'])->middleware('auth');
-    Route::delete('/post/delete', ['as' => 'adminpostdeletemany', 'uses' => 'PostController@deleteMany'])->middleware('auth');
-    Route::get('/post/search', ['as' => 'adminpostsearch', 'uses' => 'PostController@search'])->middleware('auth');
+    Route::get('/post/edit/{id}', 'PostController@edit')->name('adminpostedit');
+    Route::put('/post/update/{id}', 'PostController@update')->name('adminpostupdate');
+    Route::delete('/post/delete/{id}', ['as' => 'adminpostdelete', 'uses' => 'PostController@delete']);
+    Route::delete('/post/delete', ['as' => 'adminpostdeletemany', 'uses' => 'PostController@deleteMany']);
+    Route::get('/post/search', ['as' => 'adminpostsearch', 'uses' => 'PostController@search']);
 
     // Admin media routes
     Route::get('media/', 'MediaController@index')->name('adminmedialist')->middleware('auth');
