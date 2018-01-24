@@ -4,15 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePostRequest extends FormRequest
-{
+class UpdatePostRequest extends FormRequest {
+
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -21,8 +20,10 @@ class UpdatePostRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
+
+        $this->sanitize();
+
         return [
             'title' => 'required|min:3|max:180',
             'sortdesc' => 'required|min:30|max:300',
@@ -30,4 +31,18 @@ class UpdatePostRequest extends FormRequest
             'main_img' => 'mimes:jpeg,png|dimensions:min_width=500,min_height=300,max_width=6000,max_height=4000|max:6000'
         ];
     }
+
+    public function sanitize() {
+        $input = $this->all();
+
+       // if (preg_match("#https?://#", $input['url']) === 0) {
+       //     $input['url'] = 'http://' . $input['url'];
+       // }
+
+        $input['title'] = filter_var($input['title'], FILTER_SANITIZE_STRING);
+        $input['seotitle'] = filter_var($input['seotitle'], FILTER_SANITIZE_STRING);
+
+        $this->replace($input);
+    }
+
 }
