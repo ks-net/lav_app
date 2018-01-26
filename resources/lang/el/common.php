@@ -31,6 +31,7 @@ return [
     'save' => 'αποθήκευση',
     'display' => 'προβολή',
     'delete' => 'οριστική διαγραφή',
+    'with_checked_records' => 'με τα επιλεγμένα',
     'delete_checked' => 'διαγραφή επιλεγμένων',
     'clear' => 'καθαρισμός',
     'tags' => 'ετικέτες',
@@ -43,6 +44,7 @@ return [
     'settings' => 'ρυθμίσεις',
     'search' => 'αναζήτηση',
     'create_new_post' => 'δημιουργία νέου αρθρου',
+    'create_new' => 'δημιουργία νέου',
     'edit_post' => 'επεξεργασία αρθρου',
     'save_new_image' => 'αποθήκευση νέας εικόνας',
     'admin_dashboard' => 'πίνακας ελέγχου',
@@ -50,6 +52,7 @@ return [
     /* ---------------------------------------
      *  VARIOUS MESSAGGES
      * -------------------------------------- */
+    'NOT_AUTHORIZED'=> 'Δεν Έχετε τα Απαραίτητα Δικαιώματα για Αυτή την Ενέργεια!',
     'confirm_delete_record' => 'Σίγουρα Θέλετε να Διαγράψετε την Καταχώρηση',
     'confirm_delete_checked_records' => 'Σίγουρα Θέλετε να Διαγράψετε τα Επιλεγμένα Στοιχεία?',
     'delete_message' => 'Διαγράφηκε Οριστικά !',
@@ -74,17 +77,19 @@ return [
     'short_active' => 'Ενεργό',
     'short_title' => 'Τίτλος',
     'short_id' => 'Κωδ.',
+    'short_order' => 'Κατάταξη',
     /* ---------------------------------------
      * FORM HELP TEXT
      * -------------------------------------- */
     'metatitle_help' => 'Meta τίτλος, δεν εμφανίζεται στη σελίδα, χρησιμοποιείται από μηχανές αναζήτησης',
     'metadesc_help' => 'Meta περιγραφή, δεν εμφανίζεται στη σελίδα, χρησιμοποιείται από μηχανές αναζήτησης',
     'metakeywords_help' => 'Meta λέξεις κλειδιά, χωρίστε με κόμμα το πολύ ως 10 λέξεις',
-    'tags_help' => 'Επιλέξτε απο τις αυτομάτες προτάσεις ή πληκτρολογήστε και χωρίστε με κόμμα τις λέξεις/φρασεις για να επιλεχθούν',
+    'tags_help' => 'Επιλέξτε απο τις αυτομάτες προτάσεις ή πληκτρολογήστε και χωρίστε με κόμμα τις λέξεις/φρασεις για εισαγωγή στο πεδίο',
     /* ---------------------------------------
-     * SETTINGS HELP TEXT FOR FORMS
+     * SETTINGS HELP TEXT used only in settings-edit-form
      * @ use with _help suffix and original setting-name
-     * eg. mysetting_help , suffix _help is mandatory for form help-texts
+     * eg. mysetting_help , suffix _help is mandatory for Setting-form help-texts
+     * they are selected inside a loop in settings.blade.php  if they exist here
      * -------------------------------------- */
     'public_pagination_help' => 'Αντικείμενα ανα σελίδα στην δημόσια περιοχή',
     'admin_pagination_help' => 'Αντικείμενα ανα σελίδα στις λίστες της διαχείρισης',

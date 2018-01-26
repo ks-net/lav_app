@@ -129,6 +129,7 @@ return [
         'metakeywords' => 'Meta Λέξεις Κλειδιά',
         'metatitle' => 'Meta Τίτλος',
         'metadesc' => 'Meta Περιγραφή',
+        'order' => 'Κατάταξη',
 
     ],
 

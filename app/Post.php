@@ -21,6 +21,7 @@ class Post extends Model {
         'seotitle',
         'postbody',
         'sortdesc',
+        'order',
         'metatitle',
         'metadesc',
         'metakeywords',
@@ -76,6 +77,7 @@ class Post extends Model {
         'id',
         'title',
         'active',
+        'order',
         'created_at',
         'updated_at',
     ];

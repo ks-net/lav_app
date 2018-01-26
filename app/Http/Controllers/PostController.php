@@ -13,15 +13,17 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use Validator;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+//use Illuminate\Support\Facades\Session;
 //use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Requests\ReorderPostRequest;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -33,11 +35,11 @@ class PostController extends Controller {
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth')->only('create', 'edit', 'update', 'listing', 'delete', 'deleteMany');
+        $this->middleware('auth')->only('create', 'edit', 'update', 'listing', 'delete', 'deleteMany', 'reorder');
     }
 
     /**
-     * Show the Index Page of Posts
+     * Show the Index Page of Posts .. Public
      */
     public function index() {
         $currentPage = Input::get('page') ? Input::get('page') : '1';
@@ -49,16 +51,7 @@ class PostController extends Controller {
     }
 
     /**
-     * Show  List Page of Posts
-     * with sortable table
-     */
-    public function listing(Post $post) {
-        $posts = $post->sortable('id')->paginate(config('settings.admin_pagination'));
-        return view('post.admin.list')->withPosts($posts); // rendering sortable  pagination
-    }
-
-    /**
-     * Display Single Post Page
+     * Display Single Post Page ... Public
      */
     public function view($seotitle) {
         $post = Cache::remember('post' . $seotitle, config('settings.cachetime'), function() use ($seotitle) {
@@ -82,9 +75,24 @@ class PostController extends Controller {
     }
 
     /**
+     * Show  List Page of Posts .. Admin
+     * with sortable table
+     */
+    public function listing(Post $post) {
+        //$this->authorize('listing' , $post);
+        if (Gate::denies('listing', $post)) {
+            return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+        }
+
+        $posts = $post->sortable('id')->paginate(config('settings.admin_pagination'));
+        return view('post.admin.list')->withPosts($posts); // rendering sortable  pagination
+    }
+
+    /**
      * Add New Post
      */
     public function create(CreatePostRequest $request) {
+
         // data validation done at App\Http\Requests\CreatePostRequest
         $post = new Post;
         $post->title = $request->title;
@@ -95,8 +103,14 @@ class PostController extends Controller {
         $post->metadesc = $request->metadesc;
 
         /*
+         * $post->order = $request->order;
           $post->active = $request->active;
          */
+
+        //$this->authorize('create' , $post);
+        if (Gate::denies('create', $post)) {
+            return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+        }
 
         $post->save(); // First save post once...  to get an id
 
@@ -118,7 +132,10 @@ class PostController extends Controller {
     public function edit($id) {
         $post = Post::findOrFail($id);
 
-        $this->authorize('edit', $post);
+        //$this->authorize('edit' , $post);
+        if (Gate::denies('edit', $post)) {
+            return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+        }
 
         //$tagService = app(\Cviebrock\EloquentTaggable\Services\TagService::class);
         //$modeltags = $tagService->getAllTags(); // all tags from all models for use in selectize
@@ -133,8 +150,7 @@ class PostController extends Controller {
     public function update(UpdatePostRequest $request) {
         $post = Post::findOrFail($request->id);
 
-//$this->authorize('update' , $post);
-
+        //$this->authorize('update' , $post);
         if (Gate::denies('update', $post)) {
             return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
         }
@@ -154,9 +170,16 @@ class PostController extends Controller {
      */
     public function delete($id) {
         $post = Post::findOrFail($id);
+
+        //$this->authorize('delete' , $post);
+        if (Gate::denies('delete', $post)) {
+            return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+        }
+
+
         Storage::disk('public')->deleteDirectory('media/postimages/' . $id);
         // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
-        //remove tags individually with untag() or entirely with detag()
+        //remove tags individually with untag('anytag') or entirely with detag()
         $post->detag();
         $post->delete();
 
@@ -169,40 +192,32 @@ class PostController extends Controller {
      * Delete all checked Posts
      */
     public function deleteMany(Request $request) {
-        if ($request->input('deletechecked')) {
-            $checked = $request->input('deletechecked', []); //get array [] of all checked inputs
-            $posts = Post::whereIn('id', $checked);
 
-            $postids = $request->input('deletechecked');
-            $count = count($checked);
-            // first delete all relative files , remove relations with tags etc..
-            foreach ($postids as $postid) {
-                $post = Post::where('id', $postid)->first(); // first() and not get() for detag method to work
-                $post->detag();
-                Storage::disk('public')->deleteDirectory('media/postimages/' . $postid);
-            }
-
-            $posts->delete(); // finally remove checked posts
-            return back()->with('flash_message_success', __('common.post_delete_many_message', ['count' => $count]));
-        } else {
+        if (!$request->input('deletechecked')) {
             return back()->with('flash_message_warning', __('common.post_none_checked_message'));
         }
-    }
 
-    /**
-     * Search Posts
-     */
-    public function search(Request $request) {
-        //$ids = Post::search($request->search)->get()->pluck('id'); // scout search
-        //$posts = Post::whereIn('id', $ids)->sortable()->paginate(config('setings.panellistpagin'));// scout search and shortable
-        $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')
-                        ->orWhere('sortdesc', 'LIKE', '%' . $request->search . '%')
-                        ->orWhere('postbody', 'LIKE', '%' . $request->search . '%')
-                        ->sortable('id')->paginate(config('setings.admin_pagination'));
+        $checked = $request->input('deletechecked', []); //get array [] of all checked inputs
+        $posts = Post::whereIn('id', $checked);
 
-        $search = $request->search;
 
-        return view('post.admin.list')->withPosts($posts)->with('search', $search); // rendering sortable  pagination
+        //$this->authorize('deleteMany' , $post);
+        if (Gate::denies('deleteMany', Post::class)) {
+            return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+        }
+
+
+        $postids = $request->input('deletechecked');
+        $count = count($checked);
+        // first delete all relative files , remove relations with tags etc..
+        foreach ($postids as $postid) {
+            $post = Post::where('id', $postid)->first(); // first() and not get() for detag method to work
+            $post->detag();
+            Storage::disk('public')->deleteDirectory('media/postimages/' . $postid);
+        }
+
+        $posts->delete(); // finally remove checked posts
+        return back()->with('flash_message_success', __('common.post_delete_many_message', ['count' => $count]));
     }
 
     /**
@@ -243,6 +258,46 @@ class PostController extends Controller {
             $post->medium_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_medium_img.jpg';
             $post->thumb_img = 'storage/media/postimages/' . $post->id . '/' . $costumname . '_thumb_img.jpg';
         }
+    }
+
+    /**
+     * Reorder Posts .. Ajax
+     */
+    public function reorder(Request $request) {
+
+        //$this->authorize('reorder' , $post);
+        if (Gate::denies('reorder', Post::class)) {
+            return response()->json(['error' =>  __('common.NOT_AUTHORIZED')]);
+        }
+
+        $validator = Validator::make($request->all(), [
+                    'order' => 'required|between:-999,999|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()->all()]);
+        }
+
+        $post = Post::findOrFail($request->id);
+        $post->where('id', $request->id)->update(['order' => $request->order]);
+
+        return response()->json(['success' => __('common.success_updated_message')]);
+    }
+
+    /**
+     * Search Posts
+     */
+    public function search(Request $request) {
+        //$ids = Post::search($request->search)->get()->pluck('id'); // scout search
+        //$posts = Post::whereIn('id', $ids)->sortable()->paginate(config('setings.panellistpagin'));// scout search and shortable WorkAround
+        $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('sortdesc', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('postbody', 'LIKE', '%' . $request->search . '%')
+                        ->sortable('id')->paginate(config('setings.admin_pagination'));
+
+        $search = $request->search;
+
+        return view('post.admin.list')->withPosts($posts)->with('search', $search); // rendering sortable  pagination
     }
 
 }

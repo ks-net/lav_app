@@ -31,6 +31,7 @@ return [
     'save' => 'save',
     'display' => 'display',
     'delete' => 'delete',
+    'with_checked_records' => 'with selected',
     'delete_checked' => 'delete selected',
     'clear' => 'clear',
     'tags' => 'tags',
@@ -43,6 +44,7 @@ return [
     'settings' => 'settings',
     'search' => 'search',
     'create_new_post' => 'create a new post',
+    'create_new' => 'create new',
     'edit_post' => 'edit post',
     'save_new_image' => 'save a new image',
     'admin_dashboard' => 'DashBoard',
@@ -50,6 +52,7 @@ return [
     /* ---------------------------------------
      *  VARIOUS MESSAGGES
      * -------------------------------------- */
+    'NOT_AUTHORIZED'=> 'You are Not Authorized For this Action',
     'confirm_delete_record' => 'Are you sure? Delete Record',
     'confirm_delete_checked_records' => 'Are you sure? Delete all selected Records?',
     'delete_message' => 'Removed Permanently !',
@@ -74,6 +77,7 @@ return [
     'short_active' => 'Active',
     'short_title' => 'Title',
     'short_id' => 'Id',
+    'short_order' => 'Order',
     /* ---------------------------------------
      * FORM HELP TEXT
      * -------------------------------------- */
@@ -82,10 +86,10 @@ return [
     'metakeywords_help' => 'Meta keyWords, use no more than 10 words separated with commas',
     'tags_help' => 'Use the autocompete or type and separated with commas the words/phrases to import them',
     /* ---------------------------------------
-     * SETTINGS HELP TEXT FOR FORMS
-     * @ use with _help suffix and the original unique setting-name
-     * eg. mysetting_help , suffix _help is mandatory for form help-texts
-     * they are shown under each parrent-input if they have an entry here
+     * SETTINGS HELP TEXT used only in settings-edit-form
+     * @ use with _help suffix and original setting-name
+     * eg. mysetting_help , suffix _help is mandatory for Setting-form help-texts
+     * they are selected inside a loop in settings.blade.php  if they exist here
      * -------------------------------------- */
     'public_pagination_help' => 'Items per page in public fronted listing pages',
     'admin_pagination_help' => 'Items per page in admin listing pages',

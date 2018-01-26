@@ -22,7 +22,7 @@ class CreatePostsTable extends Migration
             $table->string('metakeywords', 255)->nullable();
             $table->string('metadesc', 255)->nullable();
             $table->string('seotitle',191)->unique();
-            $table->tinyInteger('order')->default(0);
+            $table->integer('order')->default(0);
             $table->string('main_img',191)->unique()->nullable();
             $table->string('medium_img',191)->unique()->nullable();
             $table->string('thumb_img',191)->unique()->nullable();

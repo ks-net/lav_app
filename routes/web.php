@@ -26,6 +26,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/post', 'PostController@index')->name('postindex');
 
+    Route::get('/post/modal', function () {
+        $posts = Post::where('active', '1')->orderBy('id', 'desc')->paginate(config('settings.public_pagination'));
+        return view('post.modal', compact('posts'));
+    })->name('modal');
+
 Route::get('post/{seotitle}', 'PostController@view')->name('postview');
 
 
@@ -53,6 +58,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::put('/post/update/{id}', 'PostController@update')->name('adminpostupdate');
     Route::delete('/post/delete/{id}', ['as' => 'adminpostdelete', 'uses' => 'PostController@delete']);
     Route::delete('/post/delete', ['as' => 'adminpostdeletemany', 'uses' => 'PostController@deleteMany']);
+    Route::post('/post/reorder', 'PostController@reorder')->name('adminpostreorder');
     Route::get('/post/search', ['as' => 'adminpostsearch', 'uses' => 'PostController@search']);
 
     // Admin media routes
