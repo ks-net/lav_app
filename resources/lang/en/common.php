@@ -53,6 +53,7 @@ return [
      *  VARIOUS MESSAGGES
      * -------------------------------------- */
     'NOT_AUTHORIZED'=> 'You are Not Authorized For this Action',
+    'NOT_AUTHORIZED_UPLOAD'=> 'You are Not Authorized to Upload Files!',
     'confirm_delete_record' => 'Are you sure? Delete Record',
     'confirm_delete_checked_records' => 'Are you sure? Delete all selected Records?',
     'delete_message' => 'Removed Permanently !',

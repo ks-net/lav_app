@@ -10,8 +10,7 @@ class PostPolicy {
 
     use HandlesAuthorization;
 
-
-      /**
+    /**
      * Determine whether the user can view posts list.
      *
      * @param  \App\User  $user
@@ -77,6 +76,18 @@ class PostPolicy {
         return $user->id === 1;
     }
 
+        /**
+     * Determine whether the user can upload-update  the post images.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Post  $post
+     * @return mixed
+     */
+    public function postImages(User $user) {
+        return $user->id === 2;
+    }
+
+
     /**
      * Determine whether the user can reorder posts.
      *
@@ -85,6 +96,28 @@ class PostPolicy {
      * @return mixed
      */
     public function reorder(User $user) {
+        return $user->id === 1;
+    }
+
+    /**
+     * Determine whether the user can activate posts.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Post  $post
+     * @return mixed
+     */
+    public function activate(User $user) {
+        return $user->id === 1;
+    }
+
+    /**
+     * Determine whether the user can search posts in admin.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Post  $post
+     * @return mixed
+     */
+    public function adminSearchPosts(User $user) {
         return $user->id === 1;
     }
 

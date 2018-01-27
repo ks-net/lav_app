@@ -59,7 +59,8 @@ Route::group(['prefix' => 'admin'], function() {
     Route::delete('/post/delete/{id}', ['as' => 'adminpostdelete', 'uses' => 'PostController@delete']);
     Route::delete('/post/delete', ['as' => 'adminpostdeletemany', 'uses' => 'PostController@deleteMany']);
     Route::post('/post/reorder', 'PostController@reorder')->name('adminpostreorder');
-    Route::get('/post/search', ['as' => 'adminpostsearch', 'uses' => 'PostController@search']);
+    Route::post('/post/activate', 'PostController@activate')->name('adminactivatepost');
+    Route::get('/post/search', ['as' => 'adminpostsearch', 'uses' => 'PostController@adminSearchPosts']);
 
     // Admin media routes
     Route::get('media/', 'MediaController@index')->name('adminmedialist')->middleware('auth');

@@ -15,7 +15,8 @@
 @section('breadcrumbs')
 <nav>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">@lang_ucw('common.admin_dashboard')</a></li>
+        <li class="breadcrumb-item"><i class="fa fa-list-alt"></i> <a href="{{route('admin')}}">@lang_ucw('common.admin_dashboard')</a>
+        </li>
         <li class="breadcrumb-item active">@lang_ucw('common.post_list')</li>
     </ol>
 </nav>
@@ -27,24 +28,28 @@
         <!-- flash Messages Start -->
         @if (Session::has('flash_message'))
         <div class="alert alert-info alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
             <i class="fa fa-info-circle"></i> {{ Session::get('flash_message') }}
         </div>
         @endif
         @if (Session::has('flash_message_success'))
         <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
             <i class="fa fa-check-circle"></i> {{ Session::get('flash_message_success') }}
         </div>
         @endif
         @if (Session::has('flash_message_warning'))
         <div class="alert alert-warning alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
             <i class="fa fa-exclamation-triangle"></i> {{ Session::get('flash_message_warning') }}
         </div>
         @endif
         @if (Session::has('flash_message_error'))
-        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ Session::get('flash_message_error') }}</div>
+        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ Session::get('flash_message_error') }}
+        </div>
         @endif
         <!-- flash Messages End -->
 
@@ -59,24 +64,27 @@
                     <!-- Top Button Group -->
                     <div class="btn-group" role="group">
                         @can('create', App\Post::class)
-                        <button type="button" onclick="window.location.href ='{{route('adminpostcreate')}}'" class="btn btn-success">
+                        <button type="button" onclick="window.location.href ='{{route('adminpostcreate')}}'"
+                                class="btn btn-success">
                             @lang_ucw('common.create_new')
                             <i class="fa fa-plus-circle"></i>
                         </button>
                         @endcan
                         @can('deleteMany', App\Post::class)
                         <div class="btn-group d-none d-md-inline" role="group">
-                            <button  type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
                                 @lang_ucw('common.with_checked_records')
                             </button>
                             <div class="dropdown-menu">
                                 <div class="d-none">
-                                    <form action="{{route('adminpostdeletemany')}}" method="post" name="deletechecked" id="deletechecked">
+                                    <form action="{{route('adminpostdeletemany')}}" method="post" name="deletechecked"
+                                          id="deletechecked">
                                         {!! csrf_field() !!}
                                         {{ method_field('DELETE') }}
                                     </form>
                                 </div>
-                                <a href="#" class="dropdown-item"  onclick="if (confirm('{{__('common.confirm_delete_checked_records')}}')){ document.deletechecked.submit(); }">
+                                <a href="#" class="dropdown-item"
+                                   onclick="if (confirm('{{__('common.confirm_delete_checked_records')}}')){ document.deletechecked.submit(); }">
                                     <i class="fa fa-trash"></i> @lang_ucw('common.delete')
                                 </a>
                             </div>
@@ -91,7 +99,8 @@
                     <div class="form-row">
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group{{ $errors->has('search') ? ' has-error' : '' }}">
-                                <input type="text" class="form-control" id="search" name="search" placeholder="search" value="@isset ($search) {{ $search }} @endisset">
+                                <input type="text" class="form-control" id="search" name="search" placeholder="search"
+                                       value="@isset ($search) {{ $search }} @endisset">
                                 @if($errors->has('search'))
                                 <span class="help-block">{{ $errors->first('search') }}</span>
                                 @endif
@@ -101,7 +110,7 @@
                             <button type="submit" class="btn btn-info">
                                 <i class="fa fa-search"></i> @lang_ucw('common.search')
                             </button>
-                            <a href="{{route('adminpostlist')}}"  class="btn btn-light ">
+                            <a href="{{route('adminpostlist')}}" class="btn btn-light ">
                                 @lang_ucw('common.clear') <i class="fa fa-magic"></i>
                             </a>
                         </div>
@@ -121,10 +130,13 @@
                     <div class="col-md-6 col-sm-12 p-2 text-right">
                         <div class="d-none d-md-block">
                             <div class="d-inline">
-                                {{ $posts->appends(\Request::except('page'))->render('resources.vendor.pagination.table-top-bootstrap-4') }}
+                                {{
+                        $posts->appends(\Request::except('page'))->render('resources.vendor.pagination.table-top-bootstrap-4')
+                                }}
                             </div>
                             <div class="small d-none d-lg-inline">
-                                ({{__('pagination.page')}} {{ $posts->currentPage() }} {{__('pagination.page_from')}} {{ $posts->lastPage() }} {{__('pagination.pages')}})
+                                ({{__('pagination.page')}} {{ $posts->currentPage() }} {{__('pagination.page_from')}} {{
+                        $posts->lastPage() }} {{__('pagination.pages')}})
                             </div>
                         </div>
                     </div>
@@ -139,7 +151,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th scope="col" class="d-none d-md-table-cell">
-                            <input  type="checkbox" class="" id="checkall">
+                            <input type="checkbox" class="" id="checkall">
                         </th>
                         <th scope="col" class="d-none d-sm-table-cell">
                             @sortablelink('id', 'Id')
@@ -167,39 +179,40 @@
 
                 <tbody>
                     @foreach ($posts as $post)
-                    <tr>
+                    <tr class="{{ $post->active === 1 ? '' : 'gray-out' }}">
                         <td class="d-none d-md-table-cell">
-                            <input class="deletechecked" type="checkbox" form="deletechecked" name="deletechecked[]" value="{{ $post->id }}">
+                            <input class="deletechecked" type="checkbox" form="deletechecked" name="deletechecked[]"
+                                   value="{{ $post->id }}">
                         </td>
                         <th scope="row" class="d-none d-sm-table-cell">
                             <span class="">{{ $post->id }}</span>
                         </th>
                         <td style="border-left:1px dashed #ddd;max-width:440px;">
-                            <span class="{{ $post->active === 1 ? '' : 'gray-out' }}">
+                            <span class="">
                                 {{ str_limit($post->title , config('settings.admin_title_trim') , '...') }}
                             </span>
                         </td>
                         <td class="text-center">
-                            <span class="">
-                                <i class="fa {{ $post->active === 1 ? 'fa-check' : 'fa-eye-slash gray-out' }}"></i>
-                            </span>
+                            <i class="activatepost cursor-pointer fa {{ $post->active === 1 ? 'fa-check active' : 'fa-eye-slash inactive' }}"></i>
+                            <input type="hidden" name="activateid" value="{{ $post->id }}">
                         </td>
                         <td class="d-none d-md-table-cell" style="max-width:64px;">
                             <form>
                                 <div class="form-row">
                                     <div class="ml-auto mr-auto" style="max-width:64px;">
-                                        <input type="text" class=" order d-inline"  name="order" maxlength="4" style="max-width:34px;" value="{{ $post->order }}" >
-                                        <input type="hidden"  name="orderid"  value="{{ $post->id }}" >
+                                        <input type="text" class=" order d-inline" name="order" maxlength="4"
+                                               style="max-width:34px;" value="{{ $post->order }}">
+                                        <input type="hidden" name="orderid" value="{{ $post->id }}">
                                         <i class="order-submit fa fa-save cursor-pointer d-inline"></i>
                                     </div>
                                 </div>
                             </form>
                         </td>
                         <td class="d-none d-md-table-cell">
-                            <span class="small {{ $post->active === 1 ? '' : 'gray-out' }}">{{ $post->created_at }}</span>
+                            <span class="small">{{ $post->created_at }}</span>
                         </td>
                         <td class="d-none d-md-table-cell">
-                            <span class="small {{ $post->active === 1 ? '' : 'gray-out' }}">{{ $post->updated_at }}</span>
+                            <span class="small">{{ $post->updated_at }}</span>
                         </td>
                         <td class="text-center">
                             <a class="d-block d-sm-inline"
@@ -213,7 +226,8 @@
                                 <i class="fa fa-eye"></i>
                             </a> &nbsp;
                             <div class="d-none">
-                                <form name="deletepost{{ $post->id }}" id="deletepost{{ $post->id }}" action="{{ route('adminpostdelete', $post->id) }}" method="post">
+                                <form name="deletepost{{ $post->id }}" id="deletepost{{ $post->id }}"
+                                      action="{{ route('adminpostdelete', $post->id) }}" method="post">
                                     {!! csrf_field() !!}
                                     {{ method_field('DELETE') }}
                                 </form>
@@ -237,7 +251,8 @@
             </div>
             @endif
 
-        </div> <!-- Panel End -->
+        </div>
+        <!-- Panel End -->
 
     </div>
 </div>
@@ -245,9 +260,9 @@
 
 @push ('bottom-scripts')
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
-    $('input#checkall').change(function(){
+    $('input#checkall').change(function () {
     if ($(this).is(':checked')) {
     $('input.deletechecked').prop('checked', true);
     $('input.deletechecked').parent().parent().addClass('table-warning');
@@ -256,7 +271,7 @@
     $('input.deletechecked').parent().parent().removeClass('table-warning');
     }
     });
-    $('input.deletechecked').change(function(){
+    $('input.deletechecked').change(function () {
     if ($(this).is(':checked')) {
     $(this).parent().parent().addClass('table-warning');
     } else {
@@ -265,22 +280,28 @@
     });
     });</script>
 
-<script type="text/javascript">
-// disable form submit with Enter Key
-    $('input.order').on('keyup keypress', function(e) {
+<script>
+
+    $('input.order').change(function () {
+    $(this).next().next().addClass('text-warning');
+    $(this).addClass('text-warning');
+    });
+    // disable form submit with Enter Key
+    $('input.order').on('keyup keypress', function (e) {
     var keyCode = e.keyCode || e.which;
     if (keyCode === 13) {
     e.preventDefault();
     return false;
     }
     });
-// ajax reorder posts
+    // start ajax
     $.ajaxSetup({
     headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
     });
-    $(".order-submit").click(function(e){
+    // ajax reorder posts
+    $(".order-submit").click(function (e) {
 
     e.preventDefault();
     var order = $(this).closest('form').find("input[name=order]").val();
@@ -289,32 +310,63 @@
     var selectedinput = $(this).closest('form').find("input[name=order]");
     $.ajax({
 
-    type:'POST',
-            url:'{{ route('adminpostreorder') }}',
-            data:{order:order, id:id},
-            success: function(response, success, error) {
+    type: 'POST',
+            url: '{{ route('adminpostreorder') }}',
+            data: {order: order, id: id},
+            success: function (response) {
 
             if (response.success) {
-            $(selectedinput).addClass('text-success');
-            $(selectedbutton).addClass('text-success');
+            $(selectedinput).removeClass("text-danger").removeClass("text-warning").addClass('text-success');
+            $(selectedbutton).removeClass("text-danger").removeClass("text-warning").addClass('text-success');
             setTimeout(function () {
-            $(selectedinput).removeClass("text-success");
-            $(selectedbutton).removeClass("text-success");
-            }, 2200);
-            //alert(response.success);
+            $(selectedinput).removeClass("text-success").fadeOut('fast');
+            $(selectedbutton).removeClass("text-success").fadeOut('fast');
+            }, 1200);
             }
             else if (response.error) {
-            $(selectedinput).addClass('text-danger');
-            $(selectedbutton).addClass('text-danger');
-            setTimeout(function () {
-            $(selectedinput).removeClass("text-danger");
-            $(selectedbutton).removeClass("text-danger");
-            }, 4200);
+            $(selectedinput).addClass('text-danger').fadeIn('slow');
+            $(selectedbutton).addClass('text-danger').fadeIn('slow');
             alert(response.error);
             }
 
             }
+    });
+    });
+    // ajax activate posts
+    $(".activatepost").click(function (e) {
 
+    e.preventDefault();
+    var id = $(this).next("input[name=activateid]").val();
+    var currentelement = $(this);
+    if ($(this).hasClass('active')) {
+    var activestatus = 1;
+    var switchToactive = 0;
+    } else if ($(this).hasClass('inactive')) {
+    var activestatus = 0;
+    var switchToactive = 1;
+    }
+
+    $.ajax({
+
+    type: 'POST',
+            url: '{{ route('adminactivatepost') }}',
+            data: {active: switchToactive, id: id},
+            success: function (response) {
+
+            if (response.success) {
+            if (response.state == 0) {
+            $(currentelement).addClass('fa-eye-slash inactive').removeClass('fa-check active');
+            $(currentelement).closest('tr').addClass('gray-out');
+            } else if (response.state == 1) {
+            $(currentelement).addClass('fa-check active').removeClass('fa-eye-slash inactive');
+            $(currentelement).closest('tr').removeClass('gray-out');
+            }
+            }
+            else if (response.error) {
+            alert(response.error);
+            }
+
+            }
     });
     });
 

@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Http\Requests\ReorderPostRequest;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -35,7 +34,7 @@ class PostController extends Controller {
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth')->only('create', 'edit', 'update', 'listing', 'delete', 'deleteMany', 'reorder');
+        $this->middleware('auth')->except('index', 'view', 'publicSearchPosts');
     }
 
     /**
@@ -73,6 +72,11 @@ class PostController extends Controller {
 
         return view('post.view')->with('post', $post)->with('previous', $previous)->with('next', $next)->with('tags', $tags);
     }
+
+    /* ---------------------------------------------
+     * Administrator Functions
+     * Require Authentication and(or) Authorization
+      --------------------------------------- */
 
     /**
      * Show  List Page of Posts .. Admin
@@ -225,6 +229,13 @@ class PostController extends Controller {
      */
     public function postImages($request, $post) {
 
+
+        //$this->authorize('postImages' , $post);
+        if (Gate::denies('postImages', Post::class)) {
+            return back()->with('flash_message_error', __('common.NOT_AUTHORIZED_UPLOAD'));
+        }
+
+
         if ($request->hasfile('main_img')) {
             $file = $request->file('main_img');
             // Storage::makeDirectory('storage/media/postimages/' . $post->id);
@@ -267,7 +278,7 @@ class PostController extends Controller {
 
         //$this->authorize('reorder' , $post);
         if (Gate::denies('reorder', Post::class)) {
-            return response()->json(['error' =>  __('common.NOT_AUTHORIZED')]);
+            return response()->json(['error' => __('common.NOT_AUTHORIZED')]);
         }
 
         $validator = Validator::make($request->all(), [
@@ -285,9 +296,30 @@ class PostController extends Controller {
     }
 
     /**
+     * Enable - Disable Posts .. Ajax
+     */
+    public function activate(Request $request) {
+
+        //$this->authorize('activate' , $post);
+        if (Gate::denies('activate', Post::class)) {
+            return response()->json(['error' => __('common.NOT_AUTHORIZED')]);
+        }
+
+        $post = Post::findOrFail($request->id);
+        $post->where('id', $request->id)->update(['active' => $request->active]);
+
+        return response()->json(['success' => __('common.success_updated_message'),'state' => $request->active]);
+    }
+
+    /**
      * Search Posts
      */
-    public function search(Request $request) {
+    public function adminSearchPosts(Request $request) {
+        //$this->authorize('adminSearchPosts' , $post);
+        if (Gate::denies('adminSearchPosts', Post::class)) {
+            return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+        }
+
         //$ids = Post::search($request->search)->get()->pluck('id'); // scout search
         //$posts = Post::whereIn('id', $ids)->sortable()->paginate(config('setings.panellistpagin'));// scout search and shortable WorkAround
         $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')
