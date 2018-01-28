@@ -200,7 +200,7 @@
                             <form>
                                 <div class="form-row">
                                     <div class="ml-auto mr-auto" style="max-width:64px;">
-                                        <input type="text" class=" order d-inline" name="order" maxlength="4"
+                                        <input type="text" class="form-control p-1 order d-inline" name="order" maxlength="4"
                                                style="max-width:34px;" value="{{ $post->order }}">
                                         <input type="hidden" name="orderid" value="{{ $post->id }}">
                                         <i class="order-submit fa fa-save cursor-pointer d-inline"></i>
@@ -259,23 +259,24 @@
 @endsection
 
 @push ('bottom-scripts')
+
 <script>
     $(document).ready(function () {
 
     $('input#checkall').change(function () {
     if ($(this).is(':checked')) {
     $('input.deletechecked').prop('checked', true);
-    $('input.deletechecked').parent().parent().addClass('table-warning');
+    $('input.deletechecked').closest('tr').addClass('table-warning');
     } else {
     $('input.deletechecked').prop('checked', false);
-    $('input.deletechecked').parent().parent().removeClass('table-warning');
+    $('input.deletechecked').closest('tr').removeClass('table-warning');
     }
     });
     $('input.deletechecked').change(function () {
     if ($(this).is(':checked')) {
-    $(this).parent().parent().addClass('table-warning');
+    $(this).closest('tr').addClass('table-warning');
     } else {
-    $(this).parent().parent().removeClass('table-warning');
+    $(this).closest('tr').removeClass('table-warning');
     }
     });
     });</script>
@@ -301,13 +302,13 @@
     }
     });
     // ajax reorder posts
-    $(".order-submit").click(function (e) {
+    $('.order-submit').click(function (e) {
 
     e.preventDefault();
-    var order = $(this).closest('form').find("input[name=order]").val();
-    var id = $(this).closest('form').find("input[name=orderid]").val();
+    var order = $(this).closest('form').find('input[name=order]').val();
+    var id = $(this).closest('form').find('input[name=orderid]').val();
     var selectedbutton = $(this);
-    var selectedinput = $(this).closest('form').find("input[name=order]");
+    var selectedinput = $(this).closest('form').find('input[name=order]');
     $.ajax({
 
     type: 'POST',
@@ -316,15 +317,15 @@
             success: function (response) {
 
             if (response.success) {
-            $(selectedinput).removeClass("text-danger").removeClass("text-warning").addClass('text-success');
-            $(selectedbutton).removeClass("text-danger").removeClass("text-warning").addClass('text-success');
+            $(selectedinput).removeClass('text-warning text-danger is-invalid').addClass('text-success is-valid');
+            $(selectedbutton).removeClass('text-warning text-danger').addClass('text-success');
             setTimeout(function () {
-            $(selectedinput).removeClass("text-success").fadeOut('fast');
-            $(selectedbutton).removeClass("text-success").fadeOut('fast');
+            $(selectedinput).removeClass('text-success is-valid').fadeOut('fast');
+            $(selectedbutton).removeClass('text-success').fadeOut('fast');
             }, 1200);
             }
             else if (response.error) {
-            $(selectedinput).addClass('text-danger').fadeIn('slow');
+            $(selectedinput).addClass('text-danger is-invalid').fadeIn('slow');
             $(selectedbutton).addClass('text-danger').fadeIn('slow');
             alert(response.error);
             }
@@ -333,24 +334,24 @@
     });
     });
     // ajax activate posts
-    $(".activatepost").click(function (e) {
+    $('.activatepost').click(function (e) {
 
     e.preventDefault();
-    var id = $(this).next("input[name=activateid]").val();
+    var id = $(this).next('input[name=activateid]').val();
     var currentelement = $(this);
     if ($(this).hasClass('active')) {
     var activestatus = 1;
-    var switchToactive = 0;
+    var setactive = 0;
     } else if ($(this).hasClass('inactive')) {
     var activestatus = 0;
-    var switchToactive = 1;
+    var setactive = 1;
     }
 
     $.ajax({
 
     type: 'POST',
             url: '{{ route('adminactivatepost') }}',
-            data: {active: switchToactive, id: id},
+            data: {active: setactive, id: id},
             success: function (response) {
 
             if (response.success) {

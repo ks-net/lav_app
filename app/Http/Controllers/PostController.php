@@ -105,10 +105,10 @@ class PostController extends Controller {
         $post->metatitle = $request->metatitle;
         $post->metakeywords = $request->metakeywords;
         $post->metadesc = $request->metadesc;
-
+$post->active = $request->active;
         /*
          * $post->order = $request->order;
-          $post->active = $request->active;
+
          */
 
         //$this->authorize('create' , $post);
@@ -173,23 +173,26 @@ class PostController extends Controller {
      * Delete Post
      */
     public function delete($id) {
-        $post = Post::findOrFail($id);
+        $post = Post::find($id);
 
-        //$this->authorize('delete' , $post);
-        if (Gate::denies('delete', $post)) {
-            return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+        if ($post) {
+            //$this->authorize('delete' , $post);
+            if (Gate::denies('delete', $post)) {
+                return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+            }
+
+            Storage::disk('public')->deleteDirectory('media/postimages/' . $id);
+            // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
+            //remove tags individually with untag('anytag') or entirely with detag()
+            $post->detag();
+            $post->delete();
+
+            Cache::flush();
+
+            return back()->with('flash_message_success', __('common.post_delete_message'));
+        } else {
+            return back()->with('flash_message_success', __('common.ENTRY_NOT_FOUND'));
         }
-
-
-        Storage::disk('public')->deleteDirectory('media/postimages/' . $id);
-        // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
-        //remove tags individually with untag('anytag') or entirely with detag()
-        $post->detag();
-        $post->delete();
-
-        Cache::flush();
-
-        return back()->with('flash_message_success', __('common.post_delete_message'));
     }
 
     /**
@@ -204,24 +207,32 @@ class PostController extends Controller {
         $checked = $request->input('deletechecked', []); //get array [] of all checked inputs
         $posts = Post::whereIn('id', $checked);
 
-
         //$this->authorize('deleteMany' , $post);
         if (Gate::denies('deleteMany', Post::class)) {
             return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
         }
 
+        $postsfound = $posts->count();
+        $count = count($checked);
+        $diffcount = ($count - $postsfound);
 
         $postids = $request->input('deletechecked');
-        $count = count($checked);
         // first delete all relative files , remove relations with tags etc..
         foreach ($postids as $postid) {
             $post = Post::where('id', $postid)->first(); // first() and not get() for detag method to work
-            $post->detag();
-            Storage::disk('public')->deleteDirectory('media/postimages/' . $postid);
+            if ($post) {
+                $post->detag();
+                Storage::disk('public')->deleteDirectory('media/postimages/' . $postid);
+            }
         }
 
         $posts->delete(); // finally remove checked posts
-        return back()->with('flash_message_success', __('common.post_delete_many_message', ['count' => $count]));
+
+        if ($diffcount === 0 ) {
+            return back()->with('flash_message_success', __('common.post_delete_many_message', ['count' => $count, 'postsfound' => $postsfound]));
+        } else {
+            return back()->with('flash_message_success', __('common.post_delete_many_notfound_message', ['count' => $count, 'postsfound' => $postsfound, 'diffcount' => $diffcount]));
+        }
     }
 
     /**
@@ -289,10 +300,13 @@ class PostController extends Controller {
             return response()->json(['error' => $validator->errors()->all()]);
         }
 
-        $post = Post::findOrFail($request->id);
-        $post->where('id', $request->id)->update(['order' => $request->order]);
-
-        return response()->json(['success' => __('common.success_updated_message')]);
+        $post = Post::find($request->id);
+        if ($post) {
+            $post->where('id', $request->id)->update(['order' => $request->order]);
+            return response()->json(['success' => __('common.success_updated_message')]);
+        } else {
+            return response()->json(['error' => __('common.ENTRY_NOT_FOUND')]);
+        }
     }
 
     /**
@@ -305,10 +319,13 @@ class PostController extends Controller {
             return response()->json(['error' => __('common.NOT_AUTHORIZED')]);
         }
 
-        $post = Post::findOrFail($request->id);
-        $post->where('id', $request->id)->update(['active' => $request->active]);
-
-        return response()->json(['success' => __('common.success_updated_message'),'state' => $request->active]);
+        $post = Post::find($request->id);
+        if ($post) {
+            $post->where('id', $request->id)->update(['active' => $request->active]);
+            return response()->json(['success' => __('common.success_updated_message'), 'state' => $request->active]);
+        } else {
+            return response()->json(['error' => __('common.ENTRY_NOT_FOUND')]);
+        }
     }
 
     /**

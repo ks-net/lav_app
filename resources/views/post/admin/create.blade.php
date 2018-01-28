@@ -73,6 +73,15 @@
 
                     {!! csrf_field() !!}
                     <div class="form-group">
+                        <select class="form-control{{ $errors->has('active') ? ' is-invalid' : '' }}" id="active" name="active">
+                            <option value="0" @if (old('active') == '0') selected="selected" @endif>@lang_ucw('common.unpublished')</option>
+                            <option value="1" @if (old('active') == '1') selected="selected" @endif>@lang_ucw('common.published')</option>
+                        </select>
+                        @if($errors->has('active'))
+                        <small class="form-text{{ $errors->has('active') ? ' text-danger' : '' }}">{{ $errors->first('active') }}</small>
+                        @endif
+                    </div>
+                    <div class="form-group">
                         <label class="text-primary{{ $errors->has('title') ? ' text-danger' : '' }}" for="title">@lang_ucw('common.title')</label>
                         <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" placeholder="@lang_ucw('common.title')" value="{{ old('title') }}">
                         @if($errors->has('title'))
@@ -140,9 +149,9 @@
                         <small class="form-text text-muted">@lang('common.metakeywords_help')</small>
                     </div>
 
-                <nav class="nav mb-3 justify-content-center justify-content-md-start">
-                    <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> @lang_ucw('common.save')</button>
-                </nav>
+                    <nav class="nav mb-3 justify-content-center justify-content-md-start">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> @lang_ucw('common.save')</button>
+                    </nav>
 
                 </form>
                 <!-- END ADD FORM  -->

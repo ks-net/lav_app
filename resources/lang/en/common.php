@@ -26,6 +26,9 @@ return [
     'created_at' => 'created_at',
     'updated_at' => 'updated_at',
     'active' => 'active',
+    'inactive' => 'inactive',
+    'published' => 'published',
+    'unpublished' => 'unpublished',
     'text_area' => 'main text',
     'edit' => 'edit',
     'save' => 'save',
@@ -52,6 +55,7 @@ return [
     /* ---------------------------------------
      *  VARIOUS MESSAGGES
      * -------------------------------------- */
+    'ENTRY_NOT_FOUND' => 'Entry Not Found',
     'NOT_AUTHORIZED'=> 'You are Not Authorized For this Action',
     'NOT_AUTHORIZED_UPLOAD'=> 'You are Not Authorized to Upload Files!',
     'confirm_delete_record' => 'Are you sure? Delete Record',
@@ -67,7 +71,8 @@ return [
     'media_success_updated_message' => 'Image Updated Succesfully!',
     'media_delete_message' => 'Media and All Relative Image Versions Deleted !',
     'no_records_found' => 'No Records Found...',
-    'post_delete_many_message' => 'Deleted :count Posts in Total !',
+    'post_delete_many_message' => 'Deleted :postsfound Posts in Total of :count Selected !',
+        'post_delete_many_notfound_message' => 'Deleted :postsfound Posts in Total of :count Selected...  :diffcount not Found or you are not Authorized to Delete',
     'post_none_checked_message' => 'There is No Selection',
     /* ---------------------------------------
      * SHORTABLE COLUMNS

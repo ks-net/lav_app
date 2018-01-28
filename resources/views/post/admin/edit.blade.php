@@ -102,6 +102,15 @@
                     {!! csrf_field() !!}
                     {{ method_field('PUT') }}
                     <div class="form-group">
+                        <select class="form-control{{ $errors->has('active') ? ' is-invalid' : '' }}" id="active" name="active">
+                            <option value="0" @if (old('active' , $post->active) == '0') selected="selected" @endif>@lang_ucw('common.unpublished')</option>
+                            <option value="1" @if (old('active' , $post->active) == '1') selected="selected" @endif>@lang_ucw('common.published')</option>
+                        </select>
+                        @if($errors->has('active'))
+                        <small class="form-text{{ $errors->has('active') ? ' text-danger' : '' }}">{{ $errors->first('active') }}</small>
+                        @endif
+                    </div>
+                    <div class="form-group">
                         <label class="text-primary{{ $errors->has('title') ? ' text-danger' : '' }}" for="title">@lang_ucw('common.title')</label>
                         <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" placeholder="@lang_ucw('common.title')" value="{{ old('title' , $post->title) }}">
                         @if($errors->has('title'))
@@ -260,12 +269,12 @@ CKEDITOR.replace('postbody', {
 </script>
 
 <script>
-$('body').on('click', '[data-toggle="modal"]', function(){
-        $($(this).data("target")+' .modal-body').load($(this).data("remote"));
+    $('body').on('click', '[data-toggle="modal"]', function () {
+        $($(this).data("target") + ' .modal-body').load($(this).data("remote"));
 
 
 
-});
+    });
 
 
 </script>

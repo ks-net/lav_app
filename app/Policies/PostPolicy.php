@@ -84,7 +84,7 @@ class PostPolicy {
      * @return mixed
      */
     public function postImages(User $user) {
-        return $user->id === 2;
+        return $user->id === 1;
     }
 
 
