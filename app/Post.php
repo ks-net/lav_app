@@ -105,4 +105,12 @@ class Post extends Model {
         return 'posts_index';
     }
 
+
+    public function shouldBeSearchable()
+{
+    if($this->active) return true;
+    return false;
+
+}
+
 }

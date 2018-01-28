@@ -105,7 +105,7 @@ class PostController extends Controller {
         $post->metatitle = $request->metatitle;
         $post->metakeywords = $request->metakeywords;
         $post->metadesc = $request->metadesc;
-$post->active = $request->active;
+        $post->active = $request->active;
         /*
          * $post->order = $request->order;
 
@@ -125,6 +125,10 @@ $post->active = $request->active;
 
         $post->save(); // finally save all other data.. tags images etc..
 
+        if ($request->active == 0) { // scout unsearchable
+            $post->unsearchable();
+        }
+
         Cache::flush();
 
         return redirect('admin/post/list')->with('flash_message_success', __('common.post_success_saved_message'));
@@ -134,39 +138,55 @@ $post->active = $request->active;
      * Edit Post
      */
     public function edit($id) {
-        $post = Post::findOrFail($id);
+        $post = Post::find($id);
 
-        //$this->authorize('edit' , $post);
-        if (Gate::denies('edit', $post)) {
-            return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+        if ($post) {
+
+            //$this->authorize('edit' , $post);
+            if (Gate::denies('edit', $post)) {
+                return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+            }
+
+            //$tagService = app(\Cviebrock\EloquentTaggable\Services\TagService::class);
+            //$modeltags = $tagService->getAllTags(); // all tags from all models for use in selectize
+            $modeltags = Post::allTags(); // all tags of this model(Post::) for use in selectize
+            $tags = $post->tags; // already saved tags for this post id
+
+            return view('post.admin.edit')->with('post', $post)->with('tags', $tags)->with('modeltags', $modeltags);
+        } else {
+            return back()->with('flash_message_error', __('common.ENTRY_NOT_FOUND'));
         }
-
-        //$tagService = app(\Cviebrock\EloquentTaggable\Services\TagService::class);
-        //$modeltags = $tagService->getAllTags(); // all tags from all models for use in selectize
-        $modeltags = Post::allTags(); // all tags of this model(Post::) for use in selectize
-        $tags = $post->tags; // already saved tags for this post id
-        return view('post.admin.edit')->with('post', $post)->with('tags', $tags)->with('modeltags', $modeltags);
     }
 
     /**
      * updatePost
      */
     public function update(UpdatePostRequest $request) {
-        $post = Post::findOrFail($request->id);
+        $post = Post::find($request->id);
 
-        //$this->authorize('update' , $post);
-        if (Gate::denies('update', $post)) {
-            return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+        if ($post) {
+
+            //$this->authorize('update' , $post);
+            if (Gate::denies('update', $post)) {
+                return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
+            }
+
+            $this->postImages($request, $post);
+
+            $post->retag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
+
+            $post->update($request->all());
+
+            if ($request->active == 0) { // scout unsearchable
+                $post->unsearchable();
+            }
+
+            Cache::flush();
+
+            return redirect('admin/post/list')->with('flash_message_success', __('common.post_success_updated_message'));
+        } else {
+            return redirect('admin/post/list')->with('flash_message_error', __('common.ENTRY_NOT_FOUND'));
         }
-
-        $this->postImages($request, $post);
-
-        $post->retag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
-        $post->update($request->all());
-
-        Cache::flush();
-
-        return redirect('admin/post/list')->with('flash_message_success', __('common.post_success_updated_message'));
     }
 
     /**
@@ -218,20 +238,26 @@ $post->active = $request->active;
 
         $postids = $request->input('deletechecked');
         // first delete all relative files , remove relations with tags etc..
-        foreach ($postids as $postid) {
+        foreach ($postids as $postid) { // @TODO taggable and scout won't remove-posts in single query... (double queries... sad... @fixme)
             $post = Post::where('id', $postid)->first(); // first() and not get() for detag method to work
             if ($post) {
                 $post->detag();
                 Storage::disk('public')->deleteDirectory('media/postimages/' . $postid);
+                $post->delete(); // finally remove checked posts
             }
         }
 
-        $posts->delete(); // finally remove checked posts
+        /* @TODO scout won't remove mass-deleted records from its index!
+         * so we delete one-by-one  [in the above loop] the posts (double queries... sad... @fixme)
+         */
+        //$posts->delete(); // delete with single query all posts... not working with scout
 
-        if ($diffcount === 0 ) {
+        Cache::flush();
+
+        if ($diffcount == 0) {
             return back()->with('flash_message_success', __('common.post_delete_many_message', ['count' => $count, 'postsfound' => $postsfound]));
         } else {
-            return back()->with('flash_message_success', __('common.post_delete_many_notfound_message', ['count' => $count, 'postsfound' => $postsfound, 'diffcount' => $diffcount]));
+            return back()->with('flash_message_warning', __('common.post_delete_many_notfound_message', ['count' => $count, 'postsfound' => $postsfound, 'diffcount' => $diffcount]));
         }
     }
 
@@ -321,9 +347,18 @@ $post->active = $request->active;
 
         $post = Post::find($request->id);
         if ($post) {
+
             $post->where('id', $request->id)->update(['active' => $request->active]);
+
+            if ($request->active == 0) { // scout unsearchable
+                $post->unsearchable();
+            } else {
+                $post->searchable(); // scout searchable also must be specified with this kind of query
+            }
+
             return response()->json(['success' => __('common.success_updated_message'), 'state' => $request->active]);
         } else {
+
             return response()->json(['error' => __('common.ENTRY_NOT_FOUND')]);
         }
     }

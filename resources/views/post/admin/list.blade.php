@@ -83,7 +83,7 @@
                                         {{ method_field('DELETE') }}
                                     </form>
                                 </div>
-                                <a href="#" class="dropdown-item"
+                                <a href="javascript:void(0);" class="dropdown-item"
                                    onclick="if (confirm('{{__('common.confirm_delete_checked_records')}}')){ document.deletechecked.submit(); }">
                                     <i class="fa fa-trash"></i> @lang_ucw('common.delete')
                                 </a>
@@ -234,7 +234,7 @@
                             </div>
                             <a class="d-block d-sm-inline"
                                onclick="if (confirm('{{__('common.confirm_delete_record')}}: {{ $post->id }}?')){ document.deletepost{{ $post->id }}.submit(); }"
-                               href="#"
+                               href="javascript:void(0);"
                                title="@lang_ucw('common.delete')">
                                 <i class="fa fa-trash"></i>
                             </a>
