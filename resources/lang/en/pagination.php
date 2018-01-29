@@ -19,6 +19,8 @@ return [
     'next_page' => 'Next Page &raquo;',
     'previous_simple' => '&laquo; Previous',
     'next_simple' => 'Next &raquo;',
+    'first_page' => 'Start',
+    'last_page' => 'End',
     'page' => 'Page',
     'pages' => 'Pages',
     'page_from' => 'from',

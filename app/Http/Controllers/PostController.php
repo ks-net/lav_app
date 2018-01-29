@@ -118,8 +118,7 @@ class PostController extends Controller {
 
         $post->save(); // First save post once...  to get an id
 
-        $this->postImages($request, $post);
-
+        $this->postImages($request, $post); // proccess any images
         // now after post got an id.. grab tags from the request for this post->id
         $post->tag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
 
@@ -171,7 +170,7 @@ class PostController extends Controller {
                 return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
             }
 
-            $this->postImages($request, $post);
+            $this->postImages($request, $post);  // proccess any images
 
             $post->retag(explode(',', $request->tags)); // tag untag retag detag from Cviebrock\EloquentTaggable\Taggable
 
@@ -372,8 +371,11 @@ class PostController extends Controller {
             return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
         }
 
-        //$ids = Post::search($request->search)->get()->pluck('id'); // scout search
-        //$posts = Post::whereIn('id', $ids)->sortable()->paginate(config('setings.panellistpagin'));// scout search and shortable WorkAround
+        /*
+         * $ids = Post::search($request->search)->get()->pluck('id'); // scout search
+         *  $posts = Post::whereIn('id', $ids)->sortable()->paginate(config('setings.admin_pagination'));// scout search and shortable WorkAround
+         */
+
         $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')
                         ->orWhere('sortdesc', 'LIKE', '%' . $request->search . '%')
                         ->orWhere('postbody', 'LIKE', '%' . $request->search . '%')

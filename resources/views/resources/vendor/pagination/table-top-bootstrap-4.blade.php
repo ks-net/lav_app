@@ -15,16 +15,22 @@
 
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
-            <span class="btn btn-sm btn-light disabled">@lang('pagination.previous')</span>
+            <span class="btn btn-sm btn-light disabled cursor-disabled">@lang('pagination.previous_page')</span>
         @else
+        <a class="btn btn-sm btn-light" href="{{ $paginator->url(1)}}" rel="first"  title="@lang('pagination.first_page')">
+            <i class="fa fa-backward text-muted"></i> <span class="d-none d-md-inline">@lang('pagination.first_page')</span>
+        </a>
             <a class="btn btn-sm btn-light" href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous_page')</a>
         @endif
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
             <a class="btn btn-sm btn-light" href="{{ $paginator->nextPageUrl() }}" rel="next">@lang('pagination.next_page')</a>
+            <a class="btn btn-sm btn-light" href="{{ $paginator->url($paginator->lastPage())}}" rel="last" title="@lang('pagination.last_page')">
+                <span class="d-none d-md-inline">@lang('pagination.last_page')</span> <i class="fa fa-forward text-muted"></i>
+            </a>
         @else
-            <span class="btn btn-sm btn-light disabled">@lang('pagination.next')</span>
+            <span class="btn btn-sm btn-light disabled cursor-disabled">@lang('pagination.next_page')</span>
         @endif
 
 @endif

@@ -124,10 +124,10 @@
                 </div>
                 @else
                 <div class="row">
-                    <div class="col-md-6 col-sm-12 p-2 text-center text-md-left">
+                    <div class="col-md-4 col-sm-12 p-2 text-center text-md-left">
                         <span class="badge badge-secondary">{{$posts->total()}}</span> <span class="">@lang_ucw('common.total_posts')</span>
                     </div>
-                    <div class="col-md-6 col-sm-12 p-2 text-right">
+                    <div class="col-md-8 col-sm-12 p-2 text-right">
                         <div class="d-none d-md-block">
                             <div class="d-inline">
                                 {{
@@ -337,6 +337,9 @@
     $('.activatepost').click(function (e) {
 
     e.preventDefault();
+    //
+    $(this).addClass('text-warning');
+    //
     var id = $(this).next('input[name=activateid]').val();
     var currentelement = $(this);
     if ($(this).hasClass('active')) {
@@ -356,10 +359,10 @@
 
             if (response.success) {
             if (response.state == 0) {
-            $(currentelement).addClass('fa-eye-slash inactive').removeClass('fa-check active');
+            $(currentelement).addClass('fa-eye-slash inactive').removeClass('fa-check active text-warning');
             $(currentelement).closest('tr').addClass('gray-out');
             } else if (response.state == 1) {
-            $(currentelement).addClass('fa-check active').removeClass('fa-eye-slash inactive');
+            $(currentelement).addClass('fa-check active').removeClass('fa-eye-slash inactive text-warning');
             $(currentelement).closest('tr').removeClass('gray-out');
             }
             }

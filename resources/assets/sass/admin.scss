@@ -26,6 +26,9 @@
 
 .cursor-pointer {cursor:pointer;}
 
+.cursor-disabled {cursor: not-allowed;}
+
+
 div.has-error .cke_chrome {
     border: 1px solid $state-danger-text;
 }
