@@ -123,7 +123,7 @@ class PostController extends Controller {
         $users = User::all();
 
         $posts = $post->sortable('id')->paginate(config('settings.admin_pagination'));
-        
+
         return view('post.admin.list', $this->checkAuth())->withPosts($posts)->withUsers($users); // rendering sortable  pagination
     }
 
@@ -407,15 +407,26 @@ class PostController extends Controller {
             return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
         }
 
-        /*
+        /* we will not use scout for admin search
          * $ids = Post::search($request->search)->get()->pluck('id'); // scout search
          *  $posts = Post::whereIn('id', $ids)->sortable()->paginate(config('setings.admin_pagination'));// scout search and shortable WorkAround
          */
-        $user = User::find($request->user);
-        $posts = $user->posts()->where('title', 'LIKE', '%' . $request->search . '%')
-                        ->Where('sortdesc', 'LIKE', '%' . $request->search . '%')
-                        ->orWhere('postbody', 'LIKE', '%' . $request->search . '%')
-                        ->sortable('id')->paginate(config('setings.admin_pagination'));
+
+
+        if ($request->user) {
+            $posts = Post::where('user_id', $request->user)
+                            ->where('title', 'LIKE', '%' . $request->search . '%')
+                            ->orWhere('user_id', $request->user)->Where('sortdesc', 'LIKE', '%' . $request->search . '%')
+                            ->orWhere('user_id', $request->user)->Where('postbody', 'LIKE', '%' . $request->search . '%')
+                            ->sortable('id')->paginate(config('setings.admin_pagination'));
+        } else {
+            $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')
+                            ->orWhere('sortdesc', 'LIKE', '%' . $request->search . '%')
+                            ->orWhere('postbody', 'LIKE', '%' . $request->search . '%')
+                            ->sortable('id')->paginate(config('setings.admin_pagination'));
+        }
+
+
 
         $search = $request->search;
 

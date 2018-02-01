@@ -46,6 +46,7 @@ return [
     'total_posts' => 'posts total',
     'settings' => 'settings',
     'search' => 'search',
+    'filter_by_user' => 'filter by user',
     'create_new_post' => 'create a new post',
     'create_new' => 'create new',
     'edit_post' => 'edit post',

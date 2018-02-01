@@ -89,30 +89,38 @@
                 <form action="{{route('adminpostsearch')}}" method="get" name="search">
                     {!! csrf_field() !!}
                     <div class="form-row">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-5 col-sm-12 mt-2">
                             <div class="form-group{{ $errors->has('search') ? ' has-error' : '' }}">
-                                <input type="text" class="form-control" id="search" name="search" placeholder="search" value="@isset ($search){{$search}}@endisset">
+                                <input type="text" class="form-control p-2" id="search" name="search" placeholder="search" value="@isset ($search){{$search}}@endisset">
                                 @if($errors->has('search'))
                                 <span class="help-block">{{ $errors->first('search') }}</span>
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12 text-center text-md-left">
+                        <div class="col-lg-7 col-sm-12 text-center text-lg-left ">
                             <button type="submit" class="btn btn-info">
                                 <i class="fa fa-search"></i> @lang_ucw('common.search')
                             </button>
                             <a href="{{route('adminpostlist')}}" class="btn btn-light ">
                                 @lang_ucw('common.clear') <i class="fa fa-magic"></i>
                             </a>
-                            <select class="form-control col-3 d-inline" id="user" name="user">
-                                @foreach ($users as $user)
-                                @isset ($selecteduser)
-                                <option value="{{$user->id}}" @if ($selecteduser == $user->id) selected @endif>{{$user->name}}</option>
-                                @else
-                                <option value="{{$user->id}}">{{$user->name}}</option>
-                                @endisset
-                                @endforeach
-                            </select>
+                            <div class="d-inline-block col-lg-6 col-md-4 col-sm-9 mt-2">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    <select class="form-control" id="user" name="user">
+                                        <option value="">@lang_ucw('common.filter_by_user')</option>
+                                        @foreach ($users as $user)
+                                        @isset ($selecteduser)
+                                        <option value="{{$user->id}}" @if ($selecteduser == $user->id) selected @endif>{{$user->name}}</option>
+                                        @else
+                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                        @endisset
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -125,7 +133,7 @@
                 </div>
                 @else
                 <div class="row">
-                    <div class="col-md-4 col-sm-12 p-2 text-center text-md-left">
+                    <div class="col-md-4 col-sm-12 mt-2 pt-1  text-center text-md-left">
                         <span class="badge badge-secondary">{{$posts->total()}}</span> <span class="">@lang_ucw('common.total_posts')</span>
                     </div>
                     <div class="col-md-8 col-sm-12 p-2 text-right">

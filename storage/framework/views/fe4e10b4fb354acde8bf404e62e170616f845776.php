@@ -95,30 +95,38 @@
                     <?php echo csrf_field(); ?>
 
                     <div class="form-row">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-lg-5 col-sm-12 mt-2">
                             <div class="form-group<?php echo e($errors->has('search') ? ' has-error' : ''); ?>">
-                                <input type="text" class="form-control" id="search" name="search" placeholder="search" value="<?php if(isset($search)): ?><?php echo e($search); ?><?php endif; ?>">
+                                <input type="text" class="form-control p-2" id="search" name="search" placeholder="search" value="<?php if(isset($search)): ?><?php echo e($search); ?><?php endif; ?>">
                                 <?php if($errors->has('search')): ?>
                                 <span class="help-block"><?php echo e($errors->first('search')); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12 text-center text-md-left">
+                        <div class="col-lg-7 col-sm-12 text-center text-lg-left ">
                             <button type="submit" class="btn btn-info">
                                 <i class="fa fa-search"></i> <?php echo mb_convert_case(trans('common.search'), MB_CASE_TITLE, 'UTF-8'); ?>
                             </button>
                             <a href="<?php echo e(route('adminpostlist')); ?>" class="btn btn-light ">
                                 <?php echo mb_convert_case(trans('common.clear'), MB_CASE_TITLE, 'UTF-8'); ?> <i class="fa fa-magic"></i>
                             </a>
-                            <select class="form-control col-3 d-inline" id="user" name="user">
-                                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php if(isset($selecteduser)): ?>
-                                <option value="<?php echo e($user->id); ?>" <?php if($selecteduser == $user->id): ?> selected <?php endif; ?>><?php echo e($user->name); ?></option>
-                                <?php else: ?>
-                                <option value="<?php echo e($user->id); ?>"><?php echo e($user->name); ?></option>
-                                <?php endif; ?>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </select>
+                            <div class="d-inline-block col-lg-6 col-md-4 col-sm-9 mt-2">
+                                <div class="input-group ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    <select class="form-control" id="user" name="user">
+                                        <option value=""><?php echo mb_convert_case(trans('common.filter_by_user'), MB_CASE_TITLE, 'UTF-8'); ?></option>
+                                        <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php if(isset($selecteduser)): ?>
+                                        <option value="<?php echo e($user->id); ?>" <?php if($selecteduser == $user->id): ?> selected <?php endif; ?>><?php echo e($user->name); ?></option>
+                                        <?php else: ?>
+                                        <option value="<?php echo e($user->id); ?>"><?php echo e($user->name); ?></option>
+                                        <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -131,7 +139,7 @@
                 </div>
                 <?php else: ?>
                 <div class="row">
-                    <div class="col-md-4 col-sm-12 p-2 text-center text-md-left">
+                    <div class="col-md-4 col-sm-12 mt-2 pt-1  text-center text-md-left">
                         <span class="badge badge-secondary"><?php echo e($posts->total()); ?></span> <span class=""><?php echo mb_convert_case(trans('common.total_posts'), MB_CASE_TITLE, 'UTF-8'); ?></span>
                     </div>
                     <div class="col-md-8 col-sm-12 p-2 text-right">
