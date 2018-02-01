@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\Post;
+//use Illuminate\Support\Facades\Cache;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostPolicy {
@@ -18,7 +18,9 @@ class PostPolicy {
      * @return mixed
      */
     public function listing(User $user) {
-        return $user->id === 1;
+
+        $roles = ['admin', 'manager', 'editor'];
+        return $user->roles()->whereIn('name', $roles)->first();
     }
 
     /**
@@ -29,7 +31,9 @@ class PostPolicy {
      * @return mixed
      */
     public function create(User $user) {
-        return $user->id === 1;
+
+        $roles = ['admin', 'manager', 'editor'];
+        return $user->roles()->whereIn('name', $roles)->first();
     }
 
     /**
@@ -40,7 +44,9 @@ class PostPolicy {
      * @return mixed
      */
     public function edit(User $user) {
-        return $user->id === 1;
+
+        $roles = ['admin', 'manager', 'editor'];
+        return $user->roles()->whereIn('name', $roles)->first();
     }
 
     /**
@@ -51,7 +57,9 @@ class PostPolicy {
      * @return mixed
      */
     public function update(User $user) {
-        return $user->id === 1;
+
+        $roles = ['admin', 'manager', 'editor'];
+        return $user->roles()->whereIn('name', $roles)->first();
     }
 
     /**
@@ -62,7 +70,9 @@ class PostPolicy {
      * @return mixed
      */
     public function delete(User $user) {
-        return $user->id === 1;
+
+        $roles = ['admin', 'manager', 'editor'];
+        return $user->roles()->whereIn('name', $roles)->first();
     }
 
     /**
@@ -73,10 +83,12 @@ class PostPolicy {
      * @return mixed
      */
     public function deleteMany(User $user) {
-        return $user->id === 1;
+
+        $roles = ['admin', 'manager'];
+        return $user->roles()->whereIn('name', $roles)->first();
     }
 
-        /**
+    /**
      * Determine whether the user can upload-update  the post images.
      *
      * @param  \App\User  $user
@@ -84,9 +96,10 @@ class PostPolicy {
      * @return mixed
      */
     public function postImages(User $user) {
-        return $user->id === 1;
-    }
 
+        $roles = ['admin', 'manager', 'editor'];
+        return $user->roles()->whereIn('name', $roles)->first();
+    }
 
     /**
      * Determine whether the user can reorder posts.
@@ -96,7 +109,9 @@ class PostPolicy {
      * @return mixed
      */
     public function reorder(User $user) {
-        return $user->id === 1;
+
+        $roles = ['admin', 'manager', 'editor'];
+        return $user->roles()->whereIn('name', $roles)->first();
     }
 
     /**
@@ -107,7 +122,9 @@ class PostPolicy {
      * @return mixed
      */
     public function activate(User $user) {
-        return $user->id === 1;
+
+        $roles = ['admin', 'manager', 'editor'];
+        return $user->roles()->whereIn('name', $roles)->first();
     }
 
     /**
@@ -118,7 +135,9 @@ class PostPolicy {
      * @return mixed
      */
     public function adminSearchPosts(User $user) {
-        return $user->id === 1;
+
+        $roles = ['admin', 'manager', 'editor'];
+        return $user->roles()->whereIn('name', $roles)->first();
     }
 
 }

@@ -16,9 +16,9 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'seotitle' => $faker->slug,
         'sortdesc' => $faker->sentence(3),
         'active' => $faker->boolean(true),
+        'user_id' => $faker->randomElement(['1','2','3']),
         'created_at' => $faker->dateTime($max = 'now'),
         'updated_at' => $faker->dateTimeThisMonth($max = 'now')
-
 
     ];
 });

@@ -110,6 +110,11 @@
                         <small class="form-text{{ $errors->has('active') ? ' text-danger' : '' }}">{{ $errors->first('active') }}</small>
                         @endif
                     </div>
+
+                    <div class="form-group">
+{{ $post->user_id }}
+                    </div>
+
                     <div class="form-group">
                         <label class="text-primary{{ $errors->has('title') ? ' text-danger' : '' }}" for="title">@lang_ucw('common.title')</label>
                         <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" placeholder="@lang_ucw('common.title')" value="{{ old('title' , $post->title) }}">

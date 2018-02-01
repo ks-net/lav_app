@@ -39,10 +39,10 @@ Route::get('post/{seotitle}', 'PostController@view')->name('postview');
  * ****************************** */
 Route::group(['prefix' => 'admin'], function() {
 
-    Route::get('/', 'AdminDashboardController@index')->name('admin')->middleware('auth');
+    Route::get('/', 'AdminDashboardController@index')->name('admin');
 
-    Route::get('/settings', 'SettingController@index')->name('adminsettings')->middleware('auth');
-    Route::put('/settings/update', 'SettingController@update')->name('adminsettingsupdate')->middleware('auth');
+    Route::get('/settings', 'SettingController@index')->name('adminsettings');
+    Route::put('/settings/update', 'SettingController@update')->name('adminsettingsupdate');
 
 
     // Admin post routes
@@ -52,7 +52,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('/post/create', function () {
         $tags = Post::allTags();
         return view('post.admin.create', compact('tags'));
-    })->name('adminpostform');
+    })->name('adminpostform')->middleware('can:create,App\Post');
 
     Route::get('/post/edit/{id}', 'PostController@edit')->name('adminpostedit');
     Route::put('/post/update/{id}', 'PostController@update')->name('adminpostupdate');

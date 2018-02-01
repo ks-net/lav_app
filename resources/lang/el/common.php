@@ -70,7 +70,7 @@ return [
     'media_success_saved_message' => 'Η Εικόνα Αποθηκεύτηκε  Επιτυχώς!',
     'media_success_updated_message' => 'Η Εικόνα Ενημερώθηκε  Επιτυχώς!',
     'media_delete_message' => 'Η Καταχώρηση και Όλες οι Σχετικές Εκδόσεις Διαστάσεων της Εικόνας Διαγράφηκαν !',
-    'no_records_found' => 'Δεν Υπάρχει Καμία Καταχώρηση Ακόμα ...',
+    'no_records_found' => 'Δεν βρέθηκαν Αποτελέσματα ...',
     'post_delete_many_message' => 'Διαγράφηκαν Συνολικά :postsfound Άρθρα από τα :count Επιλεγμένα!',
     'post_delete_many_notfound_message' => 'Διαγράφηκαν Συνολικά :postsfound Άρθρα από τα :count Επιλεγμένα...  :diffcount Δεν βρέθηκαν ή Δεν Έχετε τα Απαραίτητα Δικαιώματα για να τα Διαγράψετε',
     'post_none_checked_message' => 'Δεν Έχετε Επιλέξει Κανένα Στοιχείο',

@@ -27,6 +27,7 @@ class CreatePostsTable extends Migration
             $table->string('medium_img',191)->unique()->nullable();
             $table->string('thumb_img',191)->unique()->nullable();
             $table->boolean('active')->default(true);
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }

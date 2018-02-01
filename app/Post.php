@@ -21,6 +21,7 @@ class Post extends Model {
         'seotitle',
         'postbody',
         'sortdesc',
+        'user_id',
         'order',
         'metatitle',
         'metadesc',
@@ -37,6 +38,17 @@ class Post extends Model {
     public function getRouteKeyName() {
         return 'seotitle';
     }
+
+
+
+    /**
+     *
+     */
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+
 
 /**
      * Return the sluggable configuration array for this model.
@@ -91,7 +103,6 @@ class Post extends Model {
 
     public function toSearchableArray() {
         $array = $this->toArray();
-
 
         return $array;
     }

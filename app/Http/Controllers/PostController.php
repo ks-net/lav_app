@@ -13,7 +13,9 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\DB;
 //use Illuminate\Support\Facades\Session;
@@ -38,7 +40,36 @@ class PostController extends Controller {
     }
 
     /**
-     * Show the Index Page of Posts .. Public
+     * Perform some checks on user abilities
+     * compact in views to hide/show various action buttons
+     */
+    public function checkAuth() {
+
+        $user = Auth::user();
+        $cancreate = false;
+        $canedit = false;
+        $candelete = false;
+        $candeletemany = false;
+        if ($user->can('create', Post::class)) {
+            $cancreate = true;
+        }
+        if ($user->can('edit', Post::class)) {
+            $canedit = true;
+        }
+        if ($user->can('delete', Post::class)) {
+            $candelete = true;
+        }
+        if ($user->can('deleteMany', Post::class)) {
+            $candeletemany = true;
+        }
+
+        $authcheck = compact(['cancreate', 'canedit', 'candelete', 'candeletemany']);
+
+        return $authcheck;
+    }
+
+    /**
+     * User Collection
      */
     public function index() {
         $currentPage = Input::get('page') ? Input::get('page') : '1';
@@ -83,13 +114,17 @@ class PostController extends Controller {
      * with sortable table
      */
     public function listing(Post $post) {
+
         //$this->authorize('listing' , $post);
         if (Gate::denies('listing', $post)) {
             return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
         }
 
+        $users = User::all();
+
         $posts = $post->sortable('id')->paginate(config('settings.admin_pagination'));
-        return view('post.admin.list')->withPosts($posts); // rendering sortable  pagination
+        
+        return view('post.admin.list', $this->checkAuth())->withPosts($posts)->withUsers($users); // rendering sortable  pagination
     }
 
     /**
@@ -100,6 +135,7 @@ class PostController extends Controller {
         // data validation done at App\Http\Requests\CreatePostRequest
         $post = new Post;
         $post->title = $request->title;
+        $post->user_id = $request->user();
         $post->sortdesc = $request->sortdesc;
         $post->postbody = $request->postbody;
         $post->metatitle = $request->metatitle;
@@ -112,7 +148,7 @@ class PostController extends Controller {
          */
 
         //$this->authorize('create' , $post);
-        if (Gate::denies('create', $post)) {
+        if (Gate::denies('create', Post::class)) {
             return back()->with('flash_message_error', __('common.NOT_AUTHORIZED'));
         }
 
@@ -247,9 +283,9 @@ class PostController extends Controller {
         }
 
         /* @TODO scout won't remove mass-deleted records from its index!
-         * so we delete one-by-one  [in the above loop] the posts (double queries... sad... @fixme)
+         * so we delete one-by-one  posts [in the above loop](double queries... sad... @fixme)
          */
-        //$posts->delete(); // delete with single query all posts... not working with scout
+        //$posts->delete(); // delete with single query all posts... not coperate with scout taggable and Storage
 
         Cache::flush();
 
@@ -375,15 +411,19 @@ class PostController extends Controller {
          * $ids = Post::search($request->search)->get()->pluck('id'); // scout search
          *  $posts = Post::whereIn('id', $ids)->sortable()->paginate(config('setings.admin_pagination'));// scout search and shortable WorkAround
          */
-
-        $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')
-                        ->orWhere('sortdesc', 'LIKE', '%' . $request->search . '%')
+        $user = User::find($request->user);
+        $posts = $user->posts()->where('title', 'LIKE', '%' . $request->search . '%')
+                        ->Where('sortdesc', 'LIKE', '%' . $request->search . '%')
                         ->orWhere('postbody', 'LIKE', '%' . $request->search . '%')
                         ->sortable('id')->paginate(config('setings.admin_pagination'));
 
         $search = $request->search;
 
-        return view('post.admin.list')->withPosts($posts)->with('search', $search); // rendering sortable  pagination
+        $users = User::all();
+
+        $selecteduser = $request->user;
+
+        return view('post.admin.list', $this->checkAuth())->withPosts($posts)->with('search', $search)->withUsers($users)->withSelecteduser($selecteduser); // rendering sortable  pagination
     }
 
 }
