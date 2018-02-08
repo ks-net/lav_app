@@ -231,11 +231,11 @@
                             <span class="small"><?php echo e($post->updated_at); ?></span>
                         </td>
                         <td class="text-center">
-<?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit', $post)): ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit', $post)): ?>
                             <a class="d-block d-sm-inline" href="<?php echo e(route('adminpostedit', $post->id)); ?>" title="<?php echo mb_convert_case(trans('common.edit'), MB_CASE_TITLE, 'UTF-8'); ?>">
                                 <i class="fa fa-pencil"></i>
                             </a> &nbsp;
-<?php endif; ?>
+                            <?php endif; ?>
                             <a class="d-block d-sm-inline" href="<?php echo e(url('post/'.$post->seotitle)); ?>" title="<?php echo mb_convert_case(trans('common.display'), MB_CASE_TITLE, 'UTF-8'); ?>">
                                 <i class="fa fa-eye"></i>
                             </a> &nbsp;
@@ -264,8 +264,8 @@
         </div>
         <!-- Card End -->
 
-<!-- Pagination -->
-<?php echo e($posts->appends(\Request::except('page'))->render('resources.vendor.pagination.bootstrap-4')); ?>
+        <!-- Pagination -->
+        <?php echo e($posts->appends(\Request::except('page'))->render('resources.vendor.pagination.bootstrap-4')); ?>
 
 
     </div>

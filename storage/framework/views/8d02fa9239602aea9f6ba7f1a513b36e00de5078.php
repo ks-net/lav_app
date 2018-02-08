@@ -10,5 +10,5 @@
  */
 ?>
 
-    <span><a href="http://coreui.io">CoreUI</a> © 2018 creativeLabs.</span>
-    <span class="ml-auto">Powered by <a href="http://coreui.io">CoreUI</a></span>
+<span><a href="http://coreui.io">CoreUI</a> © 2018 creativeLabs.</span>
+<span class="ml-auto">Powered by <a href="http://coreui.io">CoreUI</a></span>

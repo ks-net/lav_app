@@ -83,4 +83,5 @@ const app = new Vue({
 
 
 // load extra javascript
+require('../core-ui_tpl/js/app.js');
 require('./admin-extra.js');
