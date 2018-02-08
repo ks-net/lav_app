@@ -43,7 +43,7 @@ class PostController extends Controller {
      * Perform some checks on user abilities
      * compact in views to hide/show various action buttons
      */
-    public function checkAuth() {
+    public function checkAuth($post) {
 
         $user = Auth::user();
         $cancreate = false;
@@ -53,10 +53,10 @@ class PostController extends Controller {
         if ($user->can('create', Post::class)) {
             $cancreate = true;
         }
-        if ($user->can('edit', Post::class)) {
+        if ($user->can('edit', $post)) {
             $canedit = true;
         }
-        if ($user->can('delete', Post::class)) {
+        if ($user->can('delete', $post)) {
             $candelete = true;
         }
         if ($user->can('deleteMany', Post::class)) {
@@ -69,7 +69,7 @@ class PostController extends Controller {
     }
 
     /**
-     * User Collection
+     * Display Post Index Page ... Public
      */
     public function index() {
         $currentPage = Input::get('page') ? Input::get('page') : '1';
@@ -124,7 +124,7 @@ class PostController extends Controller {
 
         $posts = $post->sortable('id')->paginate(config('settings.admin_pagination'));
 
-        return view('post.admin.list', $this->checkAuth())->withPosts($posts)->withUsers($users); // rendering sortable  pagination
+        return view('post.admin.list', $this->checkAuth($posts))->withPosts($posts)->withUsers($users); // rendering sortable  pagination
     }
 
     /**
@@ -434,7 +434,10 @@ class PostController extends Controller {
 
         $selecteduser = $request->user;
 
-        return view('post.admin.list', $this->checkAuth())->withPosts($posts)->with('search', $search)->withUsers($users)->withSelecteduser($selecteduser); // rendering sortable  pagination
+        $user = Auth::user();
+        $postx = $user->posts()->get();
+
+        return view('post.admin.list', $this->checkAuth($postx))->withPosts($posts)->with('search', $search)->withUsers($users)->withSelecteduser($selecteduser); // rendering sortable  pagination
     }
 
 }

@@ -84,10 +84,10 @@
                         <label class="text-primary<?php echo e($errors->has($setting->name) ? ' text-danger' : ''); ?>" for="<?php echo e($setting->name); ?>"><?php echo e($setting->name); ?></label>
                         <input type="text" class="form-control<?php echo e($errors->has($setting->name) ? ' is-invalid' : ''); ?>" id="<?php echo e($setting->name); ?>" name="<?php echo e($setting->name); ?>"  value="<?php echo e(old($setting->name , $setting->value)); ?>">
                         <?php if(Lang::has('common.'.$setting->name.'_help')): ?>
-                        <small class="form-text text-muted"><?php echo app('translator')->getFromJson('common.'.$setting->name.'_help'); ?></small>
+                        <span class="form-text text-muted"><?php echo app('translator')->getFromJson('common.'.$setting->name.'_help'); ?></span>
                         <?php endif; ?>
                         <?php if($errors->has($setting->name)): ?>
-                        <small class="form-text<?php echo e($errors->has($setting->name) ? ' text-danger' : ''); ?>"><?php echo e($errors->first($setting->name)); ?></small>
+                        <span class="form-text<?php echo e($errors->has($setting->name) ? ' text-danger' : ''); ?>"><?php echo e($errors->first($setting->name)); ?></span>
                         <?php endif; ?>
                     </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

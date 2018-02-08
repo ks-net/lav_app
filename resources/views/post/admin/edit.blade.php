@@ -107,7 +107,7 @@
                             <option value="1" @if (old('active' , $post->active) == '1') selected="selected" @endif>@lang_ucw('common.published')</option>
                         </select>
                         @if($errors->has('active'))
-                        <small class="form-text{{ $errors->has('active') ? ' text-danger' : '' }}">{{ $errors->first('active') }}</small>
+                        <span class="form-text{{ $errors->has('active') ? ' text-danger' : '' }}">{{ $errors->first('active') }}</span>
                         @endif
                     </div>
 
@@ -119,35 +119,35 @@
                         <label class="text-primary{{ $errors->has('title') ? ' text-danger' : '' }}" for="title">@lang_ucw('common.title')</label>
                         <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" name="title" placeholder="@lang_ucw('common.title')" value="{{ old('title' , $post->title) }}">
                         @if($errors->has('title'))
-                        <small class="form-text{{ $errors->has('title') ? ' text-danger' : '' }}">{{ $errors->first('title') }}</small>
+                        <span class="form-text{{ $errors->has('title') ? ' text-danger' : '' }}">{{ $errors->first('title') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
                         <label class="text-primary{{ $errors->has('seotitle') ? ' text-danger' : '' }}" for="seotitle">@lang_ucw('common.seotitle')</label>
                         <input type="text" class="form-control{{ $errors->has('seotitle') ? ' is-invalid' : '' }}" id="seotitle" name="seotitle" placeholder="@lang_ucw('common.seotitle')" value="{{ old('seotitle' , $post->seotitle)  }}">
                         @if($errors->has('seotitle'))
-                        <small class="form-text{{ $errors->has('seotitle') ? ' text-danger' : '' }}">{{ $errors->first('seotitle') }}</small>
+                        <span class="form-text{{ $errors->has('seotitle') ? ' text-danger' : '' }}">{{ $errors->first('seotitle') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
                         <label class="text-primary{{ $errors->has('main_img') ? ' text-danger' : '' }}" for="main_img">@lang_ucw('common.main_image')</label>
                         <input type="file" class="form-control{{ $errors->has('main_img') ? ' is-invalid' : '' }}" name="main_img" id="main_img" value="{{ old('main_img' , $post->main_img)  }}">
                         @if($errors->has('main_img'))
-                        <small class="form-text{{ $errors->has('main_img') ? ' text-danger' : '' }}">{{ $errors->first('main_img') }}</small>
+                        <span class="form-text{{ $errors->has('main_img') ? ' text-danger' : '' }}">{{ $errors->first('main_img') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
                         <label class="text-primary{{ $errors->has('sortdesc') ? ' text-danger' : '' }}" for="sortdesc">@lang_ucw('common.sortdesc')</label>
                         <textarea class="form-control{{ $errors->has('sortdesc') ? ' is-invalid' : '' }}" id="sortdesc" name="sortdesc" placeholder="@lang_ucw('common.sortdesc')">{{ old('sortdesc' , $post->sortdesc)  }}</textarea>
                         @if($errors->has('sortdesc'))
-                        <small class="form-text{{ $errors->has('sortdesc') ? ' text-danger' : '' }}">{{ $errors->first('sortdesc') }}</small>
+                        <span class="form-text{{ $errors->has('sortdesc') ? ' text-danger' : '' }}">{{ $errors->first('sortdesc') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
                         <label class="text-primary{{ $errors->has('postbody') ? ' text-danger' : '' }}" for="postbody">@lang_ucw('common.text_area')</label>
                         <textarea class="form-control{{ $errors->has('postbody') ? ' is-invalid' : '' }}" id="postbody" name="postbody" placeholder="@lang_ucw('common.text_area')">{{ old('postbody' , $post->postbody)  }}</textarea>
                         @if($errors->has('postbody'))
-                        <small class="form-text{{ $errors->has('postbody') ? ' text-danger' : '' }}">{{ $errors->first('postbody') }}</small>
+                        <span class="form-text{{ $errors->has('postbody') ? ' text-danger' : '' }}">{{ $errors->first('postbody') }}</span>
                         @endif
                     </div>
 
@@ -188,34 +188,34 @@
                         {{-- ---- ---- ---- -----   --}}
 
                         @if($errors->has('tags'))
-                        <small class="form-text{{ $errors->has('tags') ? ' text-danger' : '' }}">{{ $errors->first('tags') }}</small>
+                        <span class="form-text{{ $errors->has('tags') ? ' text-danger' : '' }}">{{ $errors->first('tags') }}</span>
                         @endif
-                        <small class="form-text text-muted">@lang('common.tags_help')</small>
+                        <span class="form-text text-muted">@lang('common.tags_help')</span>
                     </div>
 
                     <div class="form-group">
                         <label class="text-primary{{ $errors->has('metatitle') ? ' text-danger' : '' }}" for="metatitle">@lang_ucw('common.metatitle')</label>
                         <input type="text" class="form-control{{ $errors->has('metatitle') ? ' is-invalid' : '' }}" id="metatitle" name="metatitle" placeholder="@lang_ucw('common.metatitle')" value="{{ old('metatitle' , $post->metatitle)  }}">
                         @if($errors->has('metatitle'))
-                        <small class="form-text{{ $errors->has('metatitle') ? ' text-danger' : '' }}">{{ $errors->first('metatitle') }}</small>
+                        <span class="form-text{{ $errors->has('metatitle') ? ' text-danger' : '' }}">{{ $errors->first('metatitle') }}</span>
                         @endif
-                        <small class="form-text text-muted">@lang('common.metatitle_help')</small>
+                        <span class="form-text text-muted">@lang('common.metatitle_help')</span>
                     </div>
                     <div class="form-group">
                         <label class="text-primary{{ $errors->has('metadesc') ? ' text-danger' : '' }}" for="metadesc">@lang_ucw('common.metadesc')</label>
                         <textarea class="form-control{{ $errors->has('metadesc') ? ' is-invalid' : '' }}" id="metadesc" name="metadesc" placeholder="@lang_ucw('common.metadesc')">{{ old('metadesc' , $post->metadesc)  }}</textarea>
                         @if($errors->has('metadesc'))
-                        <small class="form-text{{ $errors->has('metadesc') ? ' text-danger' : '' }}">{{ $errors->first('metadesc') }}</small>
+                        <span class="form-text{{ $errors->has('metadesc') ? ' text-danger' : '' }}">{{ $errors->first('metadesc') }}</span>
                         @endif
-                        <small class="form-text text-muted">@lang('common.metadesc_help')</small>
+                        <span class="form-text text-muted">@lang('common.metadesc_help')</span>
                     </div>
                     <div class="form-group">
                         <label class="text-primary{{ $errors->has('metakeywords') ? ' text-danger' : '' }}" for="metakeywords">@lang_ucw('common.metakeywords')</label>
                         <input type="text" class="form-control{{ $errors->has('metakeywords') ? ' is-invalid' : '' }}" id="metakeywords" name="metakeywords" placeholder="@lang_ucw('common.metakeywords')" value="{{ old('metakeywords' , $post->metakeywords)  }}">
                         @if($errors->has('metakeywords'))
-                        <small class="form-text{{ $errors->has('metakeywords') ? ' text-danger' : '' }}">{{ $errors->first('metakeywords') }}</small>
+                        <span class="form-text{{ $errors->has('metakeywords') ? ' text-danger' : '' }}">{{ $errors->first('metakeywords') }}</span>
                         @endif
-                        <small class="form-text text-muted">@lang('common.metakeywords_help')</small>
+                        <span class="form-text text-muted">@lang('common.metakeywords_help')</span>
                     </div>
 
                     <nav class="nav mb-3 justify-content-center justify-content-md-start">

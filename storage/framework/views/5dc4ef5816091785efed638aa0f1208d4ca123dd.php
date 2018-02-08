@@ -82,75 +82,75 @@
                             <option value="1" <?php if(old('active') == '1'): ?> selected="selected" <?php endif; ?>><?php echo mb_convert_case(trans('common.published'), MB_CASE_TITLE, 'UTF-8'); ?></option>
                         </select>
                         <?php if($errors->has('active')): ?>
-                        <small class="form-text<?php echo e($errors->has('active') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('active')); ?></small>
+                        <span class="form-text<?php echo e($errors->has('active') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('active')); ?></span>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label class="text-primary<?php echo e($errors->has('title') ? ' text-danger' : ''); ?>" for="title"><?php echo mb_convert_case(trans('common.title'), MB_CASE_TITLE, 'UTF-8'); ?></label>
                         <input type="text" class="form-control<?php echo e($errors->has('title') ? ' is-invalid' : ''); ?>" id="title" name="title" placeholder="<?php echo mb_convert_case(trans('common.title'), MB_CASE_TITLE, 'UTF-8'); ?>" value="<?php echo e(old('title')); ?>">
                         <?php if($errors->has('title')): ?>
-                        <small class="form-text<?php echo e($errors->has('title') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('title')); ?></small>
+                        <span class="form-text<?php echo e($errors->has('title') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('title')); ?></span>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label class="text-primary<?php echo e($errors->has('seotitle') ? ' text-danger' : ''); ?>" for="seotitle"><?php echo mb_convert_case(trans('common.seotitle'), MB_CASE_TITLE, 'UTF-8'); ?></label>
                         <input type="text" class="form-control<?php echo e($errors->has('seotitle') ? ' is-invalid' : ''); ?>" id="seotitle" name="seotitle" placeholder="<?php echo mb_convert_case(trans('common.seotitle'), MB_CASE_TITLE, 'UTF-8'); ?>" value="<?php echo e(old('seotitle')); ?>">
                         <?php if($errors->has('seotitle')): ?>
-                        <small class="form-text<?php echo e($errors->has('seotitle') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('seotitle')); ?></small>
+                        <span class="form-text<?php echo e($errors->has('seotitle') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('seotitle')); ?></span>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label class="text-primary<?php echo e($errors->has('main_img') ? ' text-danger' : ''); ?>" for="main_img"><?php echo mb_convert_case(trans('common.main_image'), MB_CASE_TITLE, 'UTF-8'); ?></label>
                         <input type="file" class="form-control<?php echo e($errors->has('main_img') ? ' is-invalid' : ''); ?>" name="main_img" id="main_img" value="<?php echo e(old('main_img')); ?>">
                         <?php if($errors->has('main_img')): ?>
-                        <small class="form-text<?php echo e($errors->has('main_img') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('main_img')); ?></small>
+                        <span class="form-text<?php echo e($errors->has('main_img') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('main_img')); ?></span>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label class="text-primary<?php echo e($errors->has('sortdesc') ? ' text-danger' : ''); ?>" for="sortdesc"><?php echo mb_convert_case(trans('common.sortdesc'), MB_CASE_TITLE, 'UTF-8'); ?></label>
                         <textarea class="form-control<?php echo e($errors->has('sortdesc') ? ' is-invalid' : ''); ?>" id="sortdesc" name="sortdesc" placeholder="<?php echo mb_convert_case(trans('common.sortdesc'), MB_CASE_TITLE, 'UTF-8'); ?>"><?php echo e(old('sortdesc')); ?></textarea>
                         <?php if($errors->has('sortdesc')): ?>
-                        <small class="form-text<?php echo e($errors->has('sortdesc') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('sortdesc')); ?></small>
+                        <span class="form-text<?php echo e($errors->has('sortdesc') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('sortdesc')); ?></span>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label class="text-primary<?php echo e($errors->has('postbody') ? ' text-danger' : ''); ?>" for="postbody"><?php echo mb_convert_case(trans('common.text_area'), MB_CASE_TITLE, 'UTF-8'); ?></label>
                         <textarea class="form-control<?php echo e($errors->has('postbody') ? ' is-invalid' : ''); ?>" id="postbody" name="postbody" placeholder="<?php echo mb_convert_case(trans('common.text_area'), MB_CASE_TITLE, 'UTF-8'); ?>"><?php echo e(old('postbody')); ?></textarea>
                         <?php if($errors->has('postbody')): ?>
-                        <small class="form-text<?php echo e($errors->has('postbody') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('postbody')); ?></small>
+                        <span class="form-text<?php echo e($errors->has('postbody') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('postbody')); ?></span>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label class="text-primary<?php echo e($errors->has('tags') ? ' text-danger' : ''); ?>" for="tags"><?php echo mb_convert_case(trans('common.tags'), MB_CASE_TITLE, 'UTF-8'); ?></label>
                         <input type="text" class="form-control<?php echo e($errors->has('tags') ? ' is-invalid' : ''); ?>" name="tags" id="tags" value="<?php echo e(old('tags')); ?>">
                         <?php if($errors->has('tags')): ?>
-                        <small class="form-text<?php echo e($errors->has('tags') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('tags')); ?></small>
+                        <span class="form-text<?php echo e($errors->has('tags') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('tags')); ?></span>
                         <?php endif; ?>
-                        <small class="form-text text-muted"><?php echo app('translator')->getFromJson('common.tags_help'); ?></small>
+                        <span class="form-text text-muted"><?php echo app('translator')->getFromJson('common.tags_help'); ?></span>
                     </div>
                     <div class="form-group">
                         <label class="text-primary<?php echo e($errors->has('metatitle') ? ' text-danger' : ''); ?>" for="metatitle"><?php echo mb_convert_case(trans('common.metatitle'), MB_CASE_TITLE, 'UTF-8'); ?></label>
                         <input type="text" class="form-control<?php echo e($errors->has('metatitle') ? ' is-invalid' : ''); ?>" id="metatitle" name="metatitle" placeholder="<?php echo mb_convert_case(trans('common.metatitle'), MB_CASE_TITLE, 'UTF-8'); ?>" value="<?php echo e(old('metatitle')); ?>">
                         <?php if($errors->has('metatitle')): ?>
-                        <small class="form-text<?php echo e($errors->has('metatitle') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('metatitle')); ?></small>
+                        <span class="form-text<?php echo e($errors->has('metatitle') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('metatitle')); ?></span>
                         <?php endif; ?>
-                        <small class="form-text text-muted"><?php echo app('translator')->getFromJson('common.metatitle_help'); ?></small>
+                        <span class="form-text text-muted"><?php echo app('translator')->getFromJson('common.metatitle_help'); ?></span>
                     </div>
                     <div class="form-group">
                         <label class="text-primary<?php echo e($errors->has('metadesc') ? ' text-danger' : ''); ?>" for="metadesc"><?php echo mb_convert_case(trans('common.metadesc'), MB_CASE_TITLE, 'UTF-8'); ?></label>
                         <textarea class="form-control<?php echo e($errors->has('metadesc') ? ' is-invalid' : ''); ?>" id="metadesc" name="metadesc" placeholder="<?php echo mb_convert_case(trans('common.metadesc'), MB_CASE_TITLE, 'UTF-8'); ?>"><?php echo e(old('metadesc')); ?></textarea>
                         <?php if($errors->has('metadesc')): ?>
-                        <small class="form-text<?php echo e($errors->has('metadesc') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('metadesc')); ?></small>
+                        <span class="form-text<?php echo e($errors->has('metadesc') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('metadesc')); ?></span>
                         <?php endif; ?>
-                        <small class="form-text text-muted"><?php echo app('translator')->getFromJson('common.metadesc_help'); ?></small>
+                        <span class="form-text text-muted"><?php echo app('translator')->getFromJson('common.metadesc_help'); ?></span>
                     </div>
                     <div class="form-group">
                         <label class="text-primary<?php echo e($errors->has('metakeywords') ? ' text-danger' : ''); ?>" for="metakeywords"><?php echo mb_convert_case(trans('common.metakeywords'), MB_CASE_TITLE, 'UTF-8'); ?></label>
                         <input type="text" class="form-control<?php echo e($errors->has('metakeywords') ? ' is-invalid' : ''); ?>" id="metakeywords" name="metakeywords" placeholder="<?php echo mb_convert_case(trans('common.metakeywords'), MB_CASE_TITLE, 'UTF-8'); ?>" value="<?php echo e(old('metakeywords')); ?>">
                         <?php if($errors->has('metakeywords')): ?>
-                        <small class="form-text<?php echo e($errors->has('metakeywords') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('metakeywords')); ?></small>
+                        <span class="form-text<?php echo e($errors->has('metakeywords') ? ' text-danger' : ''); ?>"><?php echo e($errors->first('metakeywords')); ?></span>
                         <?php endif; ?>
-                        <small class="form-text text-muted"><?php echo app('translator')->getFromJson('common.metakeywords_help'); ?></small>
+                        <span class="form-text text-muted"><?php echo app('translator')->getFromJson('common.metakeywords_help'); ?></span>
                     </div>
 
                     <nav class="nav mb-3 justify-content-center justify-content-md-start">

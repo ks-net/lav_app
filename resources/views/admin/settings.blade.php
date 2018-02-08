@@ -78,10 +78,10 @@
                         <label class="text-primary{{ $errors->has($setting->name) ? ' text-danger' : '' }}" for="{{$setting->name}}">{{$setting->name}}</label>
                         <input type="text" class="form-control{{ $errors->has($setting->name) ? ' is-invalid' : '' }}" id="{{$setting->name}}" name="{{$setting->name}}"  value="{{old($setting->name , $setting->value)}}">
                         @if(Lang::has('common.'.$setting->name.'_help'))
-                        <small class="form-text text-muted">@lang('common.'.$setting->name.'_help')</small>
+                        <span class="form-text text-muted">@lang('common.'.$setting->name.'_help')</span>
                         @endif
                         @if($errors->has($setting->name))
-                        <small class="form-text{{ $errors->has($setting->name) ? ' text-danger' : '' }}">{{ $errors->first($setting->name) }}</small>
+                        <span class="form-text{{ $errors->has($setting->name) ? ' text-danger' : '' }}">{{ $errors->first($setting->name) }}</span>
                         @endif
                     </div>
                     @endforeach

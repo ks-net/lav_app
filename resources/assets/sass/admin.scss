@@ -1,12 +1,13 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&subset=greek");
+//@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700&subset=greek");
 
-// Variables
+// admin scss variables overide any other variable
 @import "variables-admin";
 
-// Bootstrap
-@import "~bootstrap/scss/bootstrap";
+// Bootstrap  + CoreUi template load
+@import "../core-ui_tpl/scss/core-ui";
+
 @import "~font-awesome/css/font-awesome.min.css";
 
 @import "~selectize/dist/css/selectize.bootstrap3";
@@ -18,7 +19,7 @@
 
 
 /*******************************************/
-/* COMMON STYLES                           */
+/* EXTRA ADMIN STYLES                      */
 /* *****************************************/
 
 
@@ -30,19 +31,10 @@
 
 
 div.has-error .cke_chrome {
-    border: 1px solid $state-danger-text;
+    border: 1px solid $red;
 }
 
 .gray-out {opacity:0.5;}
 
 /********************************************/
 
-#sidebar-wrapper {
-    width:200px;
-    background:#333;
-    float:left;
-}
-
-#page-content-wrapper {
-
-}

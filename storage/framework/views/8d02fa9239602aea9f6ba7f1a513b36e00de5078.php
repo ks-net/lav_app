@@ -10,10 +10,5 @@
  */
 ?>
 
-    <div class="card text-white bg-dark mt-3 mb-5">
-        <!-- Default panel contents -->
-        <div class="card-header">bootstrap_4 Card  heading</div>
-        <div class="card-body">
-            <p>...</p>
-        </div>
-    </div>
+    <span><a href="http://coreui.io">CoreUI</a> © 2018 creativeLabs.</span>
+    <span class="ml-auto">Powered by <a href="http://coreui.io">CoreUI</a></span>

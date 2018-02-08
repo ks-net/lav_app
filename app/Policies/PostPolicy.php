@@ -3,12 +3,22 @@
 namespace App\Policies;
 
 use App\User;
-//use Illuminate\Support\Facades\Cache;
+use App\Post;
+
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostPolicy {
 
     use HandlesAuthorization;
+
+    /*
+     * Before Filter to allow admins model-wide actions
+     */
+    public function before($user) {
+        if ($user->roles()->where('name', 'admin')->first()) {
+            return true;
+        }
+    }
 
     /**
      * Determine whether the user can view posts list.
@@ -43,10 +53,10 @@ class PostPolicy {
      * @param  \App\Post  $post
      * @return mixed
      */
-    public function edit(User $user) {
+    public function edit(User $user, Post $post) {
 
-        $roles = ['admin', 'manager', 'editor'];
-        return $user->roles()->whereIn('name', $roles)->first();
+
+        return $user->id === $post->user_id;
     }
 
     /**
@@ -69,10 +79,9 @@ class PostPolicy {
      * @param  \App\Post  $post
      * @return mixed
      */
-    public function delete(User $user) {
+    public function delete(User $user, Post $post) {
 
-        $roles = ['admin', 'manager', 'editor'];
-        return $user->roles()->whereIn('name', $roles)->first();
+        return $user->id === $post->user_id;
     }
 
     /**

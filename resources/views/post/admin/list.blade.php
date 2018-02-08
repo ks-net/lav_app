@@ -223,17 +223,17 @@
                             <span class="small">{{ $post->updated_at }}</span>
                         </td>
                         <td class="text-center">
-                            @if ($canedit)
+                            @can ('edit', $post)
                             <a class="d-block d-sm-inline" href="{{ route('adminpostedit', $post->id) }}" title="@lang_ucw('common.edit')">
                                 <i class="fa fa-pencil"></i>
                             </a> &nbsp;
-                            @endif
+                            @endcan
                             <a class="d-block d-sm-inline" href="{{url('post/'.$post->seotitle)}}" title="@lang_ucw('common.display')">
                                 <i class="fa fa-eye"></i>
                             </a> &nbsp;
-                            @if ($candelete)
+                            @can ('delete', $post)
                             <div class="d-none">
-                                <form name="deletepost{{ $post->id }}" id="deletepost{{ $post->id }}"action="{{ route('adminpostdelete', $post->id) }}" method="post">
+                                <form name="deletepost{{ $post->id }}" id="deletepost{{ $post->id }}" action="{{ route('adminpostdelete', $post->id) }}" method="post">
                                     {!! csrf_field() !!}
                                     {{ method_field('DELETE') }}
                                 </form>
@@ -244,22 +244,18 @@
                                title="@lang_ucw('common.delete')">
                                 <i class="fa fa-trash"></i>
                             </a>
-                            @endif
+                            @endcan
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
             @endif
-
-            @if ($posts->total() > $posts->perPage())
-            <div class="card-footer">
-                {{ $posts->appends(\Request::except('page'))->render('resources.vendor.pagination.bootstrap-4') }}
-            </div>
-            @endif
-
         </div>
         <!-- Card End -->
+
+        <!-- Pagination -->
+        {{ $posts->appends(\Request::except('page'))->render('resources.vendor.pagination.bootstrap-4') }}
 
     </div>
 </div>

@@ -15,8 +15,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><?php echo e(config('app.name', 'Laravel')); ?></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+              <title><?php echo e(config('app.name', 'Laravel')); ?></title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
@@ -26,22 +26,41 @@
         <?php echo $__env->yieldPushContent('head-scripts'); ?>
 
     </head>
-    <body>
-        <div id="app" >
-            <?php echo $__env->make('elements.admin.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <body class="app header-fixed sidebar-fixed">
+        <header class="app-header navbar">
+            <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <!-- Start Content -->
-            <div class="container mt-2">
-            <?php echo $__env->yieldContent('breadcrumbs'); ?>
+        </header>
+
+        <div class="app-body" id="app">
+            <div class="sidebar">
+                <?php echo $__env->make('elements.admin.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                <button class="sidebar-minimizer brand-minimizer" type="button"></button>
             </div>
-            <div class="container">
-            <?php echo $__env->yieldContent('content'); ?>
-            </div>
-            <!-- Content End -->
-            <div class="container mt-2 mb-5">
+
+            <!-- Main content -->
+            <main class="main">
+
+                    <?php echo $__env->yieldContent('breadcrumbs'); ?>
+
+
+                <div class="container-fluid">
+                    <?php echo $__env->yieldContent('content'); ?>
+                </div>
+
+            </main>
+
+        </div> <!-- app-body end -->
+
+        <footer class="app-footer">
             <?php echo $__env->make('elements.admin.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-            </div>
-        </div> <!-- APP END -->
+        </footer>
 
         <!-- Scripts -->
         <script src="<?php echo e(asset('js/admin.js')); ?>"></script>

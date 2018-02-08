@@ -15,7 +15,6 @@ try {
 
     require('bootstrap');
 
-    require('./admin-extra.js');
 
     var fancybox = require("fancybox")($);
 
@@ -81,3 +80,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 const app = new Vue({
     el: '#app'
 });
+
+
+// load extra javascript
+require('./admin-extra.js');

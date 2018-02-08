@@ -231,17 +231,17 @@
                             <span class="small"><?php echo e($post->updated_at); ?></span>
                         </td>
                         <td class="text-center">
-                            <?php if($canedit): ?>
+<?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit', $post)): ?>
                             <a class="d-block d-sm-inline" href="<?php echo e(route('adminpostedit', $post->id)); ?>" title="<?php echo mb_convert_case(trans('common.edit'), MB_CASE_TITLE, 'UTF-8'); ?>">
                                 <i class="fa fa-pencil"></i>
                             </a> &nbsp;
-                            <?php endif; ?>
+<?php endif; ?>
                             <a class="d-block d-sm-inline" href="<?php echo e(url('post/'.$post->seotitle)); ?>" title="<?php echo mb_convert_case(trans('common.display'), MB_CASE_TITLE, 'UTF-8'); ?>">
                                 <i class="fa fa-eye"></i>
                             </a> &nbsp;
-                            <?php if($candelete): ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete', $post)): ?>
                             <div class="d-none">
-                                <form name="deletepost<?php echo e($post->id); ?>" id="deletepost<?php echo e($post->id); ?>"action="<?php echo e(route('adminpostdelete', $post->id)); ?>" method="post">
+                                <form name="deletepost<?php echo e($post->id); ?>" id="deletepost<?php echo e($post->id); ?>" action="<?php echo e(route('adminpostdelete', $post->id)); ?>" method="post">
                                     <?php echo csrf_field(); ?>
 
                                     <?php echo e(method_field('DELETE')); ?>
@@ -261,16 +261,12 @@
                 </tbody>
             </table>
             <?php endif; ?>
-
-            <?php if($posts->total() > $posts->perPage()): ?>
-            <div class="card-footer">
-                <?php echo e($posts->appends(\Request::except('page'))->render('resources.vendor.pagination.bootstrap-4')); ?>
-
-            </div>
-            <?php endif; ?>
-
         </div>
         <!-- Card End -->
+
+<!-- Pagination -->
+<?php echo e($posts->appends(\Request::except('page'))->render('resources.vendor.pagination.bootstrap-4')); ?>
+
 
     </div>
 </div>
